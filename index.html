@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <script>/* 云备份：OneDrive 静默续期回跳 */(function(){try{if(window.parent!==window&&/[?&]state=csb\.[a-z]+\.s\./.test(location.search)){window.parent.postMessage({csbOAuth:location.href},location.origin);document.write('<plaintext style="display:none">');}}catch(e){}})();</script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-16LMNCXZQ1"></script>
     <script>
@@ -2752,6 +2753,37 @@
             .csb-head > :nth-child(3), .csb-mt { display: none; }
             .csb-select { max-width: 60vw; }
         }
+        /* 备份位置选择 */
+        .csb-provs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+        @container (max-width: 640px) { .csb-provs { grid-template-columns: 1fr; } }
+        .csb-prov { position: relative; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 12px; align-items: start; text-align: left; padding: 14px 14px 14px 14px;
+            border-radius: var(--card-radius); border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer;
+            transition: border-color .18s, box-shadow .18s, background .18s, transform .18s; }
+        .csb-prov:hover { border-color: var(--l26, rgba(255,255,255,.2)); transform: translateY(-1px); }
+        .csb-prov:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(var(--al-0078d4, 0,120,212), .35); }
+        .csb-prov.on { border-color: rgb(var(--a-0078d4, 0,120,212)); background: linear-gradient(160deg, rgba(var(--al-0078d4, 0,120,212), .14), transparent 70%), var(--card);
+            box-shadow: 0 0 0 1px rgb(var(--a-0078d4, 0,120,212)) inset; }
+        .csb-prov-tx { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding-right: 18px; }
+        .csb-prov-tx b { font-size: 13.5px; font-weight: 650; }
+        .csb-prov-tx small { font-size: 12px; color: var(--muted); line-height: 1.5; }
+        .csb-prov-tx em { font-style: normal; font-size: 11.5px; color: var(--muted); opacity: .8; }
+        .csb-prov-ck { position: absolute; top: 10px; right: 10px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; color: #fff;
+            background: rgb(var(--a-0078d4, 0,120,212)); opacity: 0; transform: scale(.6); transition: opacity .18s, transform .18s; }
+        .csb-prov-ck .icon-svg { width: 12px; height: 12px; }
+        .csb-prov.on .csb-prov-ck { opacity: 1; transform: none; }
+        .csb-logo { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex: none; background: var(--l10, rgba(255,255,255,.06));
+            box-shadow: 0 0 0 1px var(--line) inset; }
+        .csb-logo svg { width: 22px; height: 22px; display: block; }
+        .csb-logo.github { color: var(--ink); }
+        .csb-logo.sm { width: 20px; height: 20px; border-radius: 6px; display: inline-grid; vertical-align: -5px; margin-right: 7px; box-shadow: none; background: transparent; }
+        .csb-logo.sm svg { width: 16px; height: 16px; }
+        .csb-app-tip { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 8px; align-items: start; margin: 0; font-size: 12.5px; line-height: 1.65; color: var(--muted); }
+        .csb-app-tip .icon-svg { width: 15px; height: 15px; margin-top: 2px; color: rgb(var(--al-00d4ff, 0,212,255)); }
+        .csb-app-tip b { color: var(--ink); font-weight: 600; }
+        .csb-form .csb-inline { width: 100%; }
+        .csb-form-foot a { color: rgb(var(--al-4cc2ff, 76,194,255)); text-decoration: none; }
+        .csb-form-foot a:hover { text-decoration: underline; }
+        .csb-warn-t { color: var(--warn); }
 </style>
     <script>
     /* ===== 外观引擎：深色/浅色主题 · 强调色 · 毛玻璃（v10.8）=====
@@ -17995,7 +18027,7 @@
             { k: 'personal', n: '个性化', d: '颜色、透明效果、窗口与桌面交互方式', ic: 'stxPalette' },
             { k: 'wallpaper', n: '壁纸', d: '桌面壁纸、Windows 聚焦、预设与最近使用的壁纸', ic: 'stxWallpaper' },
             { k: 'storage', n: '存储', d: '空间占用、存储位置与工作区复制', ic: 'stxHardDrive' },
-            { k: 'backup', n: '云备份', d: '自动备份到 GitHub 私有仓库，多设备浏览、恢复与共享文件夹', ic: 'csbCloud' },
+            { k: 'backup', n: '云备份', d: '自动备份到 GitHub、Google 云端硬盘或 OneDrive，多设备浏览、恢复与共享文件夹', ic: 'csbCloud' },
             { k: 'files', n: '文件管理', d: '隐藏文件与已挂载的本地文件夹', ic: 'stxFolderOpen' },
             { k: 'clean', n: '清理与维护', d: '清理临时文件、备份设置、重置数据', ic: 'stxBrushCleaning' },
             { k: 'apps', n: '应用', d: '默认打开方式与系统应用快捷方式', ic: 'stxLayoutGrid' },
@@ -18301,7 +18333,7 @@
                 ['files', 'names', '存储位置名称', 'IndexedDB OPFS 浏览器存储 高速存储 中文名 名字 改名'],
                 ['files', 'mounts', '已挂载的本地文件夹', '挂载 本地 文件夹 卸载 重新连接 授权 mount'],
                 ['clean', 'scan', '缓存与临时文件清理', '清理 缓存 临时 垃圾 扫描 释放空间'],
-                ['backup', 'cloud-docs', '云备份', '云备份 自动备份 github 私有仓库 同步 恢复 崩溃 丢失 数据 备份 云端 多设备 换手机'],
+                ['backup', 'cloud-docs', '云备份', '云备份 自动备份 github 私有仓库 google drive 谷歌 云端硬盘 onedrive 微软 网盘 同步 恢复 崩溃 丢失 数据 备份 云端 多设备 换手机'],
                 ['backup', 'cloud-opfs', '云备份：OPFS', 'OPFS 高速存储 云备份 不备份'],
                 ['backup', 'cloud-max', '云备份：单个文件大小上限', '大文件 上限 限制 50MB 跳过 云备份'],
                 ['backup', 'cloud-exclude', '云备份：不备份的文件类型', '排除 类型 扩展名 iso 视频 云备份'],
@@ -19012,7 +19044,477 @@
             state.open[group] = !state.open[group];
             renderOneOffCache(winId);
         }
-        // ======================== 云备份：GitHub 私有仓库自动备份与多设备同步 ========================
+        // ======================== 云备份 · 网盘后端（Google 云端硬盘 / OneDrive） ========================
+        // 网盘没有 Git。这里用“提交日志 + zip 压缩包”实现与 GitHub 后端完全相同的语义（头 / 树 / 内容 / 提交 / 历史），
+        // 同步引擎（防误删、共享文件夹、时光机、恢复、浏览）因此一行不改就能用在网盘上。
+        //
+        //   commits/c-<10位序号>-<设备标记>-<D|S|B>-<随机>.json.gz
+        //        每次备份一个小文件：父提交、时间、说明、相对上一次的改动；每 20 次存一份完整文件表（检查点）
+        //   packs/p-<时间>-<随机>.zip
+        //        这次备份新增/修改的文件打成一个标准 zip（在网盘网页上可以直接下载解压）；
+        //        文件表里记着每个文件在哪个包、从第几个字节开始，恢复单个文件时只下载那一段
+        //
+        // 并发：两台设备同时写了同一个序号时，以网盘记录的创建时间先者为准；后者删除自己的提交、基于新的头重做（同 Git 的非快进）。
+        function csbDriveStore(ctx, T) {
+            const { S, apiError, gitSha, sleep, enc } = ctx;
+            const CHAIN = 20, PACK_MAX = 24 * 1024 * 1024, COMPRESS_MAX = 32 * 1024 * 1024;
+            const st = { items: new Map(), objs: new Map(), trees: new Map(), locs: new Map(), pack: null, head: null, hist: new Map() };
+            const pad = n => String(n).padStart(10, '0');
+            const rand = () => Math.random().toString(36).slice(2, 8);
+            function tagOf(id) { let h = 2166136261; for (const ch of String(id)) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36).padStart(7, '0').slice(0, 7); }
+            function parseName(n) {
+                const m = /^c-(\d{10})-([a-z0-9]+)-([DSB])-[a-z0-9]+\.json(\.gz)?$/.exec(n || '');
+                return m ? { seq: +m[1], tag: m[2], kind: m[3] } : null;
+            }
+
+            // ---------- 压缩 ----------
+            const canZ = typeof CompressionStream === 'function' && typeof DecompressionStream === 'function';
+            async function pipe(bytes, stream) { return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(stream)).arrayBuffer()); }
+            const gzip = b => canZ ? pipe(b, new CompressionStream('gzip')) : Promise.resolve(b);
+            const gunzip = b => (b[0] === 0x1f && b[1] === 0x8b) ? pipe(b, new DecompressionStream('gzip')) : Promise.resolve(b);
+            const deflate = b => pipe(b, new CompressionStream('deflate-raw'));
+            const inflate = b => pipe(b, new DecompressionStream('deflate-raw'));
+            // 已经压缩过的格式（图片 / 音视频 / 压缩包）直接存储，不浪费手机的电
+            function packed(b) {
+                if (b.length < 12) return false;
+                const h = (i, ...v) => v.every((x, k) => b[i + k] === x);
+                return h(0, 0x50, 0x4b, 3, 4) || h(0, 0x89, 0x50, 0x4e, 0x47) || h(0, 0xff, 0xd8, 0xff) || h(0, 0x47, 0x49, 0x46, 0x38) || h(0, 0x1f, 0x8b)
+                    || (h(0, 0x52, 0x49, 0x46, 0x46) && (h(8, 0x57, 0x45, 0x42, 0x50) || h(8, 0x41, 0x56, 0x49))) || h(4, 0x66, 0x74, 0x79, 0x70) || h(0, 0x49, 0x44, 0x33)
+                    || h(0, 0x37, 0x7a, 0xbc, 0xaf) || h(0, 0x52, 0x61, 0x72, 0x21) || h(0, 0x4f, 0x67, 0x67, 0x53) || h(0, 0x66, 0x4c, 0x61, 0x43) || h(0, 0x1a, 0x45, 0xdf, 0xa3)
+                    || h(0, 0x28, 0xb5, 0x2f, 0xfd) || h(0, 0xfd, 0x37, 0x7a, 0x58);
+            }
+            let crcT = null;
+            function crc32(b) {
+                if (!crcT) { crcT = new Int32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; crcT[n] = c; } }
+                let c = -1; for (let i = 0; i < b.length; i++) c = crcT[(c ^ b[i]) & 255] ^ (c >>> 8);
+                return (c ^ -1) >>> 0;
+            }
+
+            // ---------- zip 压缩包（标准格式，UTF-8 文件名） ----------
+            function zipName(rp) {
+                let m;
+                if ((m = /^devices\/[^/]+\/files\/(.+)$/.exec(rp))) return m[1];
+                if ((m = /^devices\/[^/]+\/(.+)$/.exec(rp))) return '.jisheng/' + m[1];
+                if ((m = /^shared\/(.+)$/.exec(rp))) return '共享文件夹/' + m[1];
+                return rp || 'file';
+            }
+            function newPack() {
+                const d = new Date();
+                const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+                const date = ((Math.max(1980, d.getFullYear()) - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+                return { parts: [], entries: [], size: 0, bytes: new Map(), time, date, names: new Set() };
+            }
+            async function packAdd(P, sha, bytes, name) {
+                let data = bytes, method = 0;
+                if (canZ && bytes.length >= 128 && bytes.length <= COMPRESS_MAX && !packed(bytes)) {
+                    const c = await deflate(bytes);
+                    if (c.length < bytes.length * 0.94) { data = c; method = 8; }
+                }
+                let nm = name, k = 1;
+                while (P.names.has(nm)) { const i = name.lastIndexOf('.'); nm = i > 0 ? `${name.slice(0, i)} (${++k})${name.slice(i)}` : `${name} (${++k})`; }
+                P.names.add(nm);
+                const nb = enc.encode(nm), crc = crc32(bytes);
+                const h = new DataView(new ArrayBuffer(30));
+                h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, method, true);
+                h.setUint16(10, P.time, true); h.setUint16(12, P.date, true); h.setUint32(14, crc, true);
+                h.setUint32(18, data.length, true); h.setUint32(22, bytes.length, true); h.setUint16(26, nb.length, true); h.setUint16(28, 0, true);
+                const off = P.size;
+                P.parts.push(new Uint8Array(h.buffer), nb, data);
+                P.size += 30 + nb.length + data.length;
+                P.entries.push({ sha, nb, crc, csize: data.length, usize: bytes.length, method, off, dataOff: off + 30 + nb.length });
+                P.bytes.set(sha, bytes);
+            }
+            function packBlob(P) {
+                const cd = [];
+                let cdSize = 0;
+                for (const e of P.entries) {
+                    const h = new DataView(new ArrayBuffer(46));
+                    h.setUint32(0, 0x02014b50, true); h.setUint16(4, 20, true); h.setUint16(6, 20, true); h.setUint16(8, 0x0800, true); h.setUint16(10, e.method, true);
+                    h.setUint16(12, P.time, true); h.setUint16(14, P.date, true); h.setUint32(16, e.crc, true); h.setUint32(20, e.csize, true); h.setUint32(24, e.usize, true);
+                    h.setUint16(28, e.nb.length, true); h.setUint32(42, e.off, true);
+                    cd.push(new Uint8Array(h.buffer), e.nb); cdSize += 46 + e.nb.length;
+                }
+                const end = new DataView(new ArrayBuffer(22));
+                end.setUint32(0, 0x06054b50, true); end.setUint16(8, P.entries.length, true); end.setUint16(10, P.entries.length, true);
+                end.setUint32(12, cdSize, true); end.setUint32(16, P.size, true);
+                return new Blob([...P.parts, ...cd, new Uint8Array(end.buffer)], { type: 'application/zip' });
+            }
+            async function flushPack() {
+                const P = st.pack;
+                if (!P || !P.entries.length) { st.pack = null; return; }
+                const d = new Date(), p2 = n => String(n).padStart(2, '0');
+                const name = `p-${d.getFullYear()}${p2(d.getMonth() + 1)}${p2(d.getDate())}-${p2(d.getHours())}${p2(d.getMinutes())}${p2(d.getSeconds())}-${rand()}.zip`;
+                const item = await T.put('packs', name, packBlob(P), 'application/zip');
+                const ref = T.refOf(item);
+                P.entries.forEach(e => st.locs.set(e.sha, { size: e.usize, loc: [ref, e.dataOff, e.csize, e.method] }));
+                st.pack = null;
+            }
+
+            // ---------- 提交 / 文件表 ----------
+            const ent = a => ({ sha: a[0], size: a[1] || 0, loc: [a[2], a[3], a[4], a[5]] });
+            function index(map) { map.forEach(v => { if (v.loc && !st.locs.has(v.sha)) st.locs.set(v.sha, { size: v.size, loc: v.loc }); }); }
+            function remember(item) { const p = parseName(item.name); if (p) { item.seq = p.seq; item.tag = p.tag; item.kind = p.kind; st.items.set(item.name, item); } return item; }
+            // 同一序号有多个提交时，网盘创建时间最早的为准（时间相同按 id）
+            const better = (a, b) => !b || a.seq > b.seq || (a.seq === b.seq && (a.created < b.created || (a.created === b.created && String(a.id) < String(b.id))));
+            async function itemOf(name) {
+                if (st.items.has(name)) return st.items.get(name);
+                const it = await T.find(name);
+                if (!it) throw apiError(404, '备份里缺少提交记录 ' + name);
+                return remember(it);
+            }
+            async function readObj(name) {
+                if (st.objs.has(name)) return st.objs.get(name);
+                const it = await itemOf(name);
+                const raw = await T.read(T.refOf(it));
+                let o;
+                try { o = JSON.parse(new TextDecoder().decode(await gunzip(raw))); } catch (e) { throw apiError(0, '备份的提交记录已损坏：' + name); }
+                if (st.objs.size > 400) st.objs.delete(st.objs.keys().next().value);
+                st.objs.set(name, o);
+                return o;
+            }
+            async function latest() {
+                const r = await T.list({ top: 8 });
+                let best = null;
+                r.items.forEach(it => { remember(it); if (it.seq != null && better(it, best)) best = it; });
+                return best;
+            }
+            async function putCommit(obj, kind) {
+                const name = `c-${pad(obj.seq)}-${tagOf(S.cfg.deviceId || 'init')}-${kind}-${rand()}.json${canZ ? '.gz' : ''}`;
+                const body = await gzip(enc.encode(JSON.stringify(obj)));
+                const item = remember(await T.put('commits', name, new Blob([body], { type: canZ ? 'application/gzip' : 'application/json' }), canZ ? 'application/gzip' : 'application/json'));
+                st.objs.set(name, obj);
+                // 冲突检测：稍等片刻让网盘的列表一致，再看同一序号是否有更早的提交
+                await sleep(T.settle);
+                const r = await T.list({ top: 8 });
+                let best = null;
+                r.items.forEach(it => { remember(it); if (it.seq === obj.seq && better(it, best)) best = it; });
+                if (best && best.id !== item.id) { await T.del(item).catch(() => {}); st.items.delete(name); st.objs.delete(name); return null; }
+                return item;
+            }
+            async function initRepo() {
+                const obj = { v: 1, seq: 0, parent: null, date: Date.now(), msg: '初始化 JISHENG OS 云备份', dev: '', base: 0, full: true, tree: {} };
+                await putCommit(obj, 'D');
+            }
+            async function getHead(useEtag) {
+                await T.ensure();
+                let h = await latest();
+                if (!h) { await initRepo(); h = await latest(); if (!h) throw apiError(0, '无法在网盘里创建备份'); }
+                const unchanged = !!(useEtag && st.head && st.head.name === h.name);
+                st.head = h;
+                S.headCache = { commit: h.name, tree: h.name, date: h.created };
+                return { commit: h.name, tree: h.name, date: h.created, unchanged };
+            }
+            async function getTree(name) {
+                if (st.trees.has(name)) return st.trees.get(name);
+                const top = await readObj(name);
+                // 沿父提交回溯到最近的检查点（或已缓存的文件表），先并行预取这一段
+                if (!top.full && !st.trees.has(top.parent) && top.seq - top.base > 1) {
+                    const want = new Set(); for (let q = top.base; q < top.seq; q++) want.add(q);
+                    const cands = [...st.items.values()].filter(it => want.has(it.seq));
+                    if (cands.length < want.size) { const r = await T.list({ top: Math.min(1000, top.seq - top.base + 12) }); r.items.forEach(remember); }
+                    const pre = [...st.items.values()].filter(it => want.has(it.seq) && !st.objs.has(it.name));
+                    await Promise.all(pre.slice(0, 60).map(it => readObj(it.name).catch(() => null)));
+                }
+                const chain = [top];
+                let cur = top;
+                while (!cur.full && !st.trees.has(cur.parent)) {
+                    if (!cur.parent || chain.length > 400) throw apiError(0, '备份的提交记录不完整');
+                    cur = await readObj(cur.parent); chain.push(cur);
+                }
+                let map;
+                if (cur.full) { map = new Map(Object.entries(cur.tree || {}).map(([p, a]) => [p, ent(a)])); chain.pop(); }
+                else map = new Map(st.trees.get(cur.parent));
+                for (let i = chain.length - 1; i >= 0; i--) {
+                    Object.entries(chain[i].delta || {}).forEach(([p, a]) => { if (a) map.set(p, ent(a)); else map.delete(p); });
+                }
+                index(map);
+                if (st.trees.size > 6) st.trees.delete(st.trees.keys().next().value);
+                st.trees.set(name, map);
+                return map;
+            }
+            async function treeOfCommit(name) {
+                const o = await readObj(name);
+                return { tree: await getTree(name), date: o.date || 0, message: o.msg || '' };
+            }
+            async function getBlob(sha) {
+                if (st.pack && st.pack.bytes.has(sha)) return st.pack.bytes.get(sha);
+                const L = st.locs.get(sha);
+                if (!L) throw apiError(404, '在备份里找不到这个文件的内容');
+                let bytes = await T.read(L.loc[0], [L.loc[1], L.loc[2]]);
+                if (L.loc[3] === 8) bytes = await inflate(bytes);
+                if (await gitSha(bytes) !== sha) throw apiError(0, '备份内容校验失败（文件已损坏）');
+                return bytes;
+            }
+            async function uploadBlob(bytes, sha, rp) {
+                if (st.locs.has(sha) || (st.pack && st.pack.bytes.has(sha))) { S.uploaded.add(sha); return; }
+                if (!st.pack) st.pack = newPack();
+                await packAdd(st.pack, sha, bytes, zipName(rp));
+                if (st.pack.size >= PACK_MAX) await flushPack();
+                S.uploaded.add(sha);
+            }
+            async function commitEntries(base, entries, message, rebasable) {
+                entries = entries.slice();
+                for (const e of entries) {
+                    if (e.content != null) { const b = enc.encode(e.content); e.sha = await gitSha(b); delete e.content; await uploadBlob(b, e.sha, e.path); }
+                    else if (e.sha && !st.locs.has(e.sha) && !(st.pack && st.pack.bytes.has(e.sha))) throw apiError(0, '内部错误：文件内容还没有上传');
+                }
+                await flushPack();
+                const touchShared = entries.some(e => e.path.startsWith('shared/') || e.path.startsWith('.jisheng/'));
+                const touchDev = entries.some(e => e.path.startsWith('devices/'));
+                const kind = touchShared ? (touchDev ? 'B' : 'S') : 'D';
+                let cur = base;
+                for (let attempt = 0; attempt < 6; attempt++) {
+                    const tree = await getTree(cur.tree), parent = await readObj(cur.commit);
+                    const delta = {};
+                    entries.forEach(e => {
+                        if (e.sha === null) { if (tree.has(e.path)) delta[e.path] = 0; }
+                        else { const L = st.locs.get(e.sha); delta[e.path] = [e.sha, L.size, ...L.loc]; }
+                    });
+                    const map = new Map(tree);
+                    Object.entries(delta).forEach(([p, a]) => { if (a) map.set(p, ent(a)); else map.delete(p); });
+                    const seq = parent.seq + 1;
+                    const full = seq - parent.base >= CHAIN || Object.keys(delta).length > 1500;
+                    const obj = { v: 1, seq, parent: cur.commit, date: Date.now(), msg: message, dev: S.cfg.deviceId, base: full ? seq : parent.base, full };
+                    if (full) { obj.tree = {}; map.forEach((v, p) => { obj.tree[p] = [v.sha, v.size, ...v.loc]; }); }
+                    else obj.delta = delta;
+                    const item = await putCommit(obj, kind);
+                    if (item) {
+                        st.trees.set(item.name, map); st.head = item;
+                        const head = { commit: item.name, tree: item.name };
+                        S.headCache = head;
+                        return head;
+                    }
+                    if (!rebasable) throw apiError(422, 'nonff', { code: 'nonff' });
+                    await sleep(300 + Math.random() * 900);
+                    cur = await getHead(false);
+                    const t = await getTree(cur.tree);
+                    entries = entries.filter(x => x.sha !== null || t.has(x.path));
+                }
+                throw apiError(422, '多次提交冲突，稍后重试', { code: 'nonff' });
+            }
+            // 历史：按文件名里的设备标记 / 共享标记筛选，再读出这些提交的时间和说明
+            async function history(path, page = 1) {
+                const key = path;
+                let h = st.hist.get(key);
+                if (!h || page === 1) { h = { pages: [], token: null, done: false, buf: [] }; st.hist.set(key, h); }
+                const dev = /^devices\/([^/]+)/.exec(path), tag = dev ? tagOf(dev[1]) : null;
+                const match = it => it.seq != null && (tag ? it.tag === tag && it.kind !== 'S' : it.kind !== 'D');
+                while (h.pages.length < page) {
+                    while (h.buf.length < 40 && !h.done) {
+                        const r = await T.list({ top: 200, token: h.token });
+                        r.items.forEach(it => { remember(it); if (match(it)) h.buf.push(it); });
+                        h.token = r.next; if (!r.next) h.done = true;
+                    }
+                    if (!h.buf.length) break;
+                    h.pages.push(h.buf.splice(0, 40));
+                }
+                const list = h.pages[page - 1] || [];
+                const out = [];
+                await Promise.all(list.map(async (it, i) => {
+                    const o = await readObj(it.name).catch(() => null);
+                    out[i] = { sha: it.name, date: (o && o.date) || it.created || 0, message: (o && o.msg) || '' };
+                }));
+                return out.filter(Boolean);
+            }
+            function reset() { st.items.clear(); st.objs.clear(); st.trees.clear(); st.locs.clear(); st.pack = null; st.head = null; st.hist.clear(); }
+            return { T, getHead, getTree, treeOfCommit, getBlob, uploadBlob, commitEntries, history, reset, _st: st, _zip: { newPack, packAdd, packBlob, crc32 } };
+        }
+
+        // ---------- 传输层：Google 云端硬盘（drive.file 权限：只能看到本应用创建的文件） ----------
+        function csbGoogleTransport(ctx) {
+            const { S, apiError, sleep, ep, saveConfig } = ctx;
+            const API = () => ep('https://www.googleapis.com');
+            const FOLDER = 'application/vnd.google-apps.folder';
+            const ROOT_NAME = 'JISHENG OS 云备份';
+            async function req(method, url, o = {}) {
+                for (let attempt = 0; ; attempt++) {
+                    const headers = { Authorization: 'Bearer ' + await ctx.accessToken(attempt > 0 && o._401), ...(o.headers || {}) };
+                    let res;
+                    try { res = await fetch(url, { method, headers, body: o.body, cache: 'no-store' }); }
+                    catch (_) { if (attempt < 2) { await sleep(800 * (attempt + 1)); continue; } throw apiError(0, '网络连接失败', { code: 'network' }); }
+                    if (res.status === 401 && !o._401) { o._401 = true; continue; }
+                    if ((res.status >= 500 || res.status === 429 || (res.status === 403 && /rateLimit/i.test(res.headers.get('x-reason') || ''))) && attempt < 3) { await sleep(1500 * (attempt + 1)); continue; }
+                    if (!res.ok) {
+                        let msg = '', reason = '';
+                        try { const j = await res.json(); msg = (j.error && j.error.message) || ''; reason = (j.error && j.error.errors && j.error.errors[0] && j.error.errors[0].reason) || ''; } catch (_) {}
+                        if (res.status === 403 && /rate/i.test(reason) && attempt < 3) { await sleep(2000 * (attempt + 1)); continue; }
+                        throw apiError(res.status, `Google ${res.status}: ${msg}`, { ghMessage: msg, reason });
+                    }
+                    return res;
+                }
+            }
+            const json = async (m, u, o) => { const r = await req(m, u, o); return r.status === 204 ? null : r.json(); };
+            const q = s => encodeURIComponent(s);
+            async function findFolder(name, parent) {
+                const r = await json('GET', `${API()}/drive/v3/files?q=${q(`name='${name}' and mimeType='${FOLDER}' and '${parent}' in parents and trashed=false`)}&fields=files(id,name,createdTime)&orderBy=createdTime&pageSize=10`);
+                return r.files && r.files[0] ? r.files[0].id : null;
+            }
+            async function mkFolder(name, parent) {
+                const r = await json('POST', `${API()}/drive/v3/files?fields=id`, { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, mimeType: FOLDER, parents: [parent] }) });
+                return r.id;
+            }
+            let ensured = null;
+            async function ensure(force) {
+                const g = S.cfg.gd || {};
+                if (!force && g.root && g.commits && g.packs) return g;
+                if (ensured && !force) return ensured;
+                ensured = (async () => {
+                    // 新建后再查一次（按创建时间取最早的）：两台设备同时第一次连接时也会用同一个文件夹
+                    const need = async (name, parent) => (await findFolder(name, parent)) || (await mkFolder(name, parent), await sleep(400), await findFolder(name, parent));
+                    const root = await need(ROOT_NAME, 'root');
+                    const commits = await need('commits', root);
+                    const packs = await need('packs', root);
+                    if (!root || !commits || !packs) throw apiError(0, '无法在 Google 云端硬盘里创建备份文件夹');
+                    S.cfg.gd = { root, commits, packs };
+                    await saveConfig();
+                    return S.cfg.gd;
+                })().finally(() => { ensured = null; });
+                return ensured;
+            }
+            const item = f => ({ id: f.id, name: f.name, created: Date.parse(f.createdTime) || 0, size: +f.size || 0 });
+            async function list({ top = 8, token = null } = {}) {
+                const g = await ensure();
+                let r;
+                try { r = await json('GET', `${API()}/drive/v3/files?q=${q(`'${g.commits}' in parents and trashed=false`)}&orderBy=name desc&pageSize=${top}&fields=nextPageToken,files(id,name,createdTime)${token ? '&pageToken=' + q(token) : ''}`); }
+                catch (e) { if (e.status === 404) { S.cfg.gd = null; await ensure(true); return list({ top, token }); } throw e; }
+                return { items: (r.files || []).map(item), next: r.nextPageToken || null };
+            }
+            async function find(name) {
+                const g = await ensure();
+                const r = await json('GET', `${API()}/drive/v3/files?q=${q(`name='${name}' and '${g.commits}' in parents and trashed=false`)}&fields=files(id,name,createdTime)&pageSize=5`);
+                return r.files && r.files[0] ? item(r.files[0]) : null;
+            }
+            async function put(kind, name, blob, mime) {
+                const g = await ensure();
+                const meta = JSON.stringify({ name, parents: [kind === 'packs' ? g.packs : g.commits], mimeType: mime });
+                const fields = 'fields=id,name,createdTime,size';
+                if (blob.size > 4 * 1024 * 1024) {
+                    // 大文件：可续传上传（拿不到上传地址时退回一次性上传）
+                    const r = await req('POST', `${API()}/upload/drive/v3/files?uploadType=resumable&${fields}`, { headers: { 'Content-Type': 'application/json; charset=UTF-8', 'X-Upload-Content-Type': mime, 'X-Upload-Content-Length': String(blob.size) }, body: meta });
+                    const loc = r.headers.get('Location') || r.headers.get('location');
+                    if (loc) { const up = await req('PUT', loc, { headers: { 'Content-Type': mime }, body: blob }); return item(await up.json()); }
+                }
+                const b = 'csb' + Math.random().toString(36).slice(2);
+                const body = new Blob([`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${meta}\r\n--${b}\r\nContent-Type: ${mime}\r\n\r\n`, blob, `\r\n--${b}--`]);
+                return item(await json('POST', `${API()}/upload/drive/v3/files?uploadType=multipart&${fields}`, { headers: { 'Content-Type': `multipart/related; boundary=${b}` }, body }));
+            }
+            async function read(ref, range) {
+                const headers = range ? { Range: `bytes=${range[0]}-${range[0] + range[1] - 1}` } : {};
+                const r = await req('GET', `${API()}/drive/v3/files/${encodeURIComponent(ref)}?alt=media`, { headers });
+                let b = new Uint8Array(await r.arrayBuffer());
+                if (range && r.status === 200 && b.length > range[1]) b = b.slice(range[0], range[0] + range[1]);
+                return b;
+            }
+            const del = it => req('DELETE', `${API()}/drive/v3/files/${encodeURIComponent(it.id)}`);
+            async function account() {
+                const r = await json('GET', `${API()}/drive/v3/about?fields=user(emailAddress,displayName),storageQuota`);
+                const u = r.user || {}, s = r.storageQuota || {};
+                return { email: u.emailAddress || '', name: u.displayName || '', used: +s.usage || 0, total: +s.limit || 0 };
+            }
+            return { name: 'Google 云端硬盘', short: 'Google', settle: 900, ensure, list, find, put, read, del, account, refOf: it => it.id, webUrl: () => S.cfg.gd && S.cfg.gd.root ? 'https://drive.google.com/drive/folders/' + S.cfg.gd.root : 'https://drive.google.com/' };
+        }
+
+        // ---------- 传输层：OneDrive（Files.ReadWrite.AppFolder：只能访问“应用/<应用名>”文件夹） ----------
+        function csbGraphTransport(ctx) {
+            const { S, apiError, sleep, ep } = ctx;
+            const API = () => ep('https://graph.microsoft.com') + '/v1.0';
+            const ROOT = '/me/drive/special/approot';
+            async function req(method, url, o = {}) {
+                for (let attempt = 0; ; attempt++) {
+                    const headers = { ...(o.noAuth ? {} : { Authorization: 'Bearer ' + await ctx.accessToken(attempt > 0 && o._401) }), ...(o.headers || {}) };
+                    let res;
+                    try { res = await fetch(url, { method, headers, body: o.body, cache: 'no-store' }); }
+                    catch (_) { if (attempt < 2) { await sleep(800 * (attempt + 1)); continue; } throw apiError(0, '网络连接失败', { code: 'network' }); }
+                    if (res.status === 401 && !o._401 && !o.noAuth) { o._401 = true; continue; }
+                    if ((res.status >= 500 || res.status === 429) && attempt < 3) { const ra = +res.headers.get('Retry-After') || 0; await sleep(Math.min(30000, ra * 1000 || 1500 * (attempt + 1))); continue; }
+                    if (!res.ok) {
+                        let msg = '', code = '';
+                        try { const j = await res.json(); msg = (j.error && j.error.message) || ''; code = (j.error && j.error.code) || ''; } catch (_) {}
+                        throw apiError(res.status, `OneDrive ${res.status}: ${msg}`, { ghMessage: msg, reason: code });
+                    }
+                    return res;
+                }
+            }
+            const json = async (m, u, o) => { const r = await req(m, u, o); return r.status === 204 ? null : r.json(); };
+            const seg = s => encodeURIComponent(s).replace(/%2F/g, '/');
+            const item = f => ({ id: f.id, name: f.name, created: Date.parse(f.createdDateTime) || 0, size: +f.size || 0 });
+            async function ensure() { return true; }
+            async function list({ top = 8, token = null } = {}) {
+                let r;
+                try { r = await json('GET', token || `${API()}${ROOT}:/commits:/children?$orderby=name%20desc&$top=${top}&$select=id,name,createdDateTime`); }
+                catch (e) { if (e.status === 404) return { items: [], next: null }; throw e; }
+                const items = (r.value || []).filter(f => !f.folder).map(item);
+                // 个别账号类型会忽略 $orderby：发现顺序不对就整页读取后在本地排序，保证总能找到最新的提交
+                if (!token && items.some((x, i) => i > 0 && items[i - 1].name < x.name)) {
+                    let nx = r['@odata.nextLink'], n = 0;
+                    while (nx && n++ < 60) { const q = await json('GET', nx); (q.value || []).filter(f => !f.folder).forEach(f => items.push(item(f))); nx = q['@odata.nextLink']; }
+                    items.sort((x, y) => x.name < y.name ? 1 : x.name > y.name ? -1 : 0);
+                    return { items: items.slice(0, Math.max(top, 8)), next: null };
+                }
+                return { items, next: r['@odata.nextLink'] || null };
+            }
+            async function find(name) {
+                try { return item(await json('GET', `${API()}${ROOT}:/commits/${seg(name)}?$select=id,name,createdDateTime`)); }
+                catch (e) { if (e.status === 404) return null; throw e; }
+            }
+            async function put(kind, name, blob, mime) {
+                if (blob.size <= (S._simpleMax || 60 * 1024 * 1024)) {
+                    return item(await json('PUT', `${API()}${ROOT}:/${kind}/${seg(name)}:/content?@microsoft.graph.conflictBehavior=fail`, { headers: { 'Content-Type': mime }, body: blob }));
+                }
+                // 大文件：上传会话，每片 10 MB（必须是 320 KiB 的整数倍）
+                const s = await json('POST', `${API()}${ROOT}:/${kind}/${seg(name)}:/createUploadSession`, { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ item: { '@microsoft.graph.conflictBehavior': 'fail' } }) });
+                const CH = S._chunk || 32 * 320 * 1024;
+                let last = null;
+                for (let off = 0; off < blob.size; off += CH) {
+                    const end = Math.min(blob.size, off + CH);
+                    const r = await req('PUT', s.uploadUrl, { noAuth: true, headers: { 'Content-Range': `bytes ${off}-${end - 1}/${blob.size}` }, body: blob.slice(off, end) });
+                    if (r.status === 200 || r.status === 201) last = await r.json();
+                }
+                return item(last);
+            }
+            const urls = new Map();
+            async function dlUrl(id, fresh) {
+                const c = urls.get(id);
+                if (!fresh && c && c.exp > Date.now()) return c.url;
+                const r = await json('GET', `${API()}/me/drive/items/${encodeURIComponent(id)}`);
+                const url = r['@microsoft.graph.downloadUrl'];
+                if (!url) throw apiError(404, '无法读取备份文件');
+                urls.set(id, { url, exp: Date.now() + 40 * 60000 });
+                return url;
+            }
+            let noRange = false, whole = null;
+            async function read(ref, range) {
+                // 个别下载服务器不接受跨域的 Range 请求：退回整包下载，并缓存最近一个包
+                if (range && noRange) {
+                    if (!whole || whole.id !== ref) whole = { id: ref, b: await read(ref) };
+                    return whole.b.slice(range[0], range[0] + range[1]);
+                }
+                const headers = range ? { Range: `bytes=${range[0]}-${range[0] + range[1] - 1}` } : {};
+                let r;
+                try { r = await req('GET', await dlUrl(ref), { noAuth: true, headers }); }
+                catch (e) { if (range && e.code === 'network' && !noRange) { noRange = true; return read(ref, range); } if (e.code === 'network') throw e; r = null; if (!(e.status === 401 || e.status === 403 || e.status === 404)) throw e; }
+                if (r) { let b = new Uint8Array(await r.arrayBuffer()); if (range && r.status === 200 && b.length > range[1]) b = b.slice(range[0], range[0] + range[1]); return b; }
+                r = await req('GET', await dlUrl(ref, true), { noAuth: true, headers });   // 下载地址过期：重新获取一次
+                let b = new Uint8Array(await r.arrayBuffer());
+                if (range && r.status === 200 && b.length > range[1]) b = b.slice(range[0], range[0] + range[1]);
+                return b;
+            }
+            const del = it => req('DELETE', `${API()}/me/drive/items/${encodeURIComponent(it.id)}`);
+            async function account() {
+                const d = await json('GET', `${API()}/me/drive?$select=owner,quota`);
+                const u = (d.owner && d.owner.user) || {}, qu = d.quota || {};
+                return { email: (S.cfg && S.cfg.auth && S.cfg.auth.user) || u.email || '', name: u.displayName || '', used: +qu.used || 0, total: +qu.total || 0 };
+            }
+            return { name: 'OneDrive', short: 'OneDrive', settle: 700, ensure, list, find, put, read, del, account, refOf: it => it.id, webUrl: () => 'https://onedrive.live.com/' };
+        }
+
+        // ======================== 云备份：GitHub 私有仓库 / Google 云端硬盘 / OneDrive 自动备份与多设备同步 ========================
+        // 网盘登录需要“应用凭据”（在 Google Cloud / Microsoft Entra 注册一次，见使用说明）。网站主人可以直接填在这里，
+        // 这样每台设备只需点“登录”；也可以在 设置 → 云备份 → 使用自己的应用凭据 里按设备填写（只保存在本机浏览器）。
+        const CSB_APPS = {
+            gdrive: { clientId: '', clientSecret: '' },          // Google Cloud → 凭据 → OAuth 客户端 ID（Web 应用）
+            onedrive: { clientId: '', tenant: 'common' }          // Microsoft Entra → 应用注册 → 应用程序(客户端) ID（平台：单页应用程序）
+        };
         // 为什么需要：浏览器崩溃时 Chromium 可能判定 IndexedDB(LevelDB) 损坏并整库删除，persist() 也挡不住，
         // 只有把数据放到浏览器之外才算真正的备份。这里直接调用 GitHub REST API（支持 CORS），不需要任何服务器。
         //
@@ -19035,9 +19537,9 @@
             const BATCH_FILES = 300, BATCH_BYTES = 24 * 1024 * 1024;   // 大量上传时分批提交，断网/关页后可续传
             const GUARD_MIN = 20, GUARD_PCT = 0.25, GUARD_ABS = 500;
             const DEFAULTS = {
-                repo: '', token: '', branch: 'main', deviceId: '', deviceName: '',
-                paused: false, includeOpfs: true, includeSystem: true, includeLocal: true,
-                maxMB: 50, excludeExt: '', delay: 30, interval: 5, bgFlush: true,
+                provider: 'github', repo: '', token: '', branch: 'main', auth: null, gd: null, deviceId: '', deviceName: '',
+                paused: false, includeOpfs: false, includeSystem: true, includeLocal: true,
+                maxMB: 50, excludeExt: '', delay: 60, interval: 5, bgFlush: true,
                 shared: { enabled: false, path: '/desktop/云同步' }
             };
             const CLOUD_KEYS = ['includeOpfs', 'includeSystem', 'includeLocal', 'maxMB', 'excludeExt', 'delay', 'interval', 'bgFlush', 'shared'];
@@ -19047,8 +19549,11 @@
                 phase: 'off', msg: '', progress: null,
                 lastOk: 0, lastPush: 0, lastCheck: 0, lastCommit: '', lastError: '', guard: null, skipped: [], stats: null,
                 sharedStat: null, log: [], etag: '', rate: null, lsHash: '', devices: null,
-                uploaded: new Set(), treeCache: new Map(), blobText: new Map()
+                uploaded: new Set(), treeCache: new Map(), blobText: new Map(),
+                lastRunEnd: 0, noop: 0, skipPaths: new Set(), apps: {}, oauth: null, runs: []
             };
+            const PROVIDERS = { github: 'GitHub', gdrive: 'Google 云端硬盘', onedrive: 'OneDrive' };
+            const provName = p => PROVIDERS[p || (S.cfg && S.cfg.provider) || 'github'] || 'GitHub';
             const listeners = new Set();
 
             // ---------- 小工具 ----------
@@ -19058,6 +19563,8 @@
             const now = () => Date.now();
             const api = () => { try { return localStorage.getItem('JSOS_CLOUD_API') || API_DEFAULT; } catch (_) { return API_DEFAULT; } };
             const repoPath = () => `/repos/${S.cfg.repo}`;
+            const MOCK_HOSTS = { 'https://www.googleapis.com': '/gapi', 'https://oauth2.googleapis.com': '/goauth', 'https://accounts.google.com': '/goauth', 'https://graph.microsoft.com': '/graph', 'https://login.microsoftonline.com': '/msoauth' };
+            const ep = url => { let m = ''; try { m = localStorage.getItem('JSOS_CLOUD_MOCK') || ''; } catch (_) {} if (!m) return url; for (const h in MOCK_HOSTS) if (url.startsWith(h)) return m + MOCK_HOSTS[h] + url.slice(h.length); return url; };
             const extOf = name => { const m = /\.([^.\/]+)$/.exec(name); return m ? m[1].toLowerCase() : ''; };
             const normPath = p => '/' + String(p || '').split('/').filter(Boolean).join('/');
             const under = (p, root) => p === root || p.startsWith(root === '/' ? '/' : root + '/');
@@ -19152,7 +19659,7 @@
             async function saveConfig() { await kvSet('config', S.cfg); }
             async function saveState() {
                 await kvSet('state', { lastOk: S.lastOk, lastPush: S.lastPush, lastCommit: S.lastCommit, skipped: S.skipped, stats: S.stats, log: S.log.slice(0, 60),
-                    guard: S.guard, lastError: S.lastError, sharedStat: S.sharedStat, lsHash: S.lsHash }).catch(() => {});
+                    guard: S.guard, lastError: S.lastError, sharedStat: S.sharedStat, lsHash: S.lsHash, manCore: S.manCore || '', noop: S.noop || 0 }).catch(() => {});
             }
             function log(text, kind) {
                 S.log.unshift({ t: now(), text, kind: kind || 'info' });
@@ -19178,6 +19685,25 @@
             function explain(e) {
                 if (!e) return '未知错误';
                 if (e.code === 'network') return '网络连接失败，稍后会自动重试';
+                if (e.code === 'noapp') return e.message + '（设置 → 云备份 → 应用凭据）';
+                if (e.code === 'auth') return `${provName()} 登录已过期，请点“重新登录”`;
+                if (e.oauth) {
+                    if (e.oauth === 'invalid_client' || e.oauth === 'unauthorized_client') return '应用凭据不正确（客户端 ID / 密钥），请检查设置';
+                    if (e.oauth === 'invalid_grant') return '授权码已失效，请重新登录';
+                    if (e.oauth === 'redirect_uri_mismatch' || /redirect/i.test(e.ghMessage || '')) return '重定向 URI 不匹配：请把设置里显示的地址添加到应用注册中';
+                    return e.message.slice(0, 160);
+                }
+                if (isDrive()) {
+                    const n = provName();
+                    if (e.status === 401) return `${n} 拒绝了访问，请重新登录`;
+                    if (e.status === 403 && /quota|storage|insufficient/i.test((e.reason || '') + (e.ghMessage || ''))) return `${n} 空间已满，请清理网盘后再试`;
+                    if (e.status === 403 && /rate|limit/i.test((e.reason || '') + (e.ghMessage || ''))) return `${n} 请求太频繁，稍后自动继续`;
+                    if (e.status === 403) return `${n} 拒绝了访问（权限不足），请重新登录并同意授权`;
+                    if (e.status === 507) return `${n} 空间已满，请清理网盘后再试`;
+                    if (e.status === 429) return `${n} 请求太频繁，稍后自动继续`;
+                    if (e.status === 404) return `在 ${n} 里找不到备份文件，可能被手动删除了`;
+                    return (e.ghMessage || e.message || String(e)).slice(0, 160);
+                }
                 if (e.status === 401) return '令牌无效或已过期，请在设置里更换令牌';
                 if (e.status === 403 && /rate limit/i.test(e.ghMessage || '')) return 'GitHub 请求次数已达上限，稍后自动继续';
                 if (e.status === 403) return '令牌没有写入权限（需要 Contents: Read and write）';
@@ -19218,13 +19744,13 @@
                 await gh('PUT', `${repoPath()}/contents/README.md`, { body: { message: '初始化 JISHENG OS 云备份', content: utf8b64(readme), branch: S.cfg.branch } });
             }
             // 读取分支最新提交。etag 相同（304）时 unchanged=true，不计入 GitHub 请求次数。
-            async function getHead(useEtag) {
+            async function ghGetHead(useEtag) {
                 let r;
                 try { r = await gh('GET', `${repoPath()}/git/ref/heads/${encodeURIComponent(S.cfg.branch)}`, { etag: useEtag ? S.etag : '' }); }
                 catch (e) {
                     if (e.status === 409) {                         // 新建的空仓库：先写入 README 建立第一个提交
                         await ensureInitialized();
-                        return getHead(false);
+                        return ghGetHead(false);
                     }
                     throw e;
                 }
@@ -19236,7 +19762,7 @@
                 return { ...S.headCache, unchanged: false };
             }
             // 递归树 → Map(path → {sha, size})，只保留文件
-            async function getTree(treeSha) {
+            async function ghGetTree(treeSha) {
                 if (S.treeCache.has(treeSha)) return S.treeCache.get(treeSha);
                 const r = await gh('GET', `${repoPath()}/git/trees/${treeSha}?recursive=1`);
                 if (r.data.truncated) throw apiError(0, '仓库文件数量超过 GitHub 单次列表上限（约 10 万个），请换一个新仓库');
@@ -19246,11 +19772,11 @@
                 S.treeCache.set(treeSha, map);
                 return map;
             }
-            async function treeOfCommit(commitSha) {
+            async function ghTreeOfCommit(commitSha) {
                 const c = await gh('GET', `${repoPath()}/git/commits/${commitSha}`);
-                return { tree: await getTree(c.data.tree.sha), date: Date.parse(c.data.committer && c.data.committer.date || c.data.author.date) || 0, message: c.data.message };
+                return { tree: await ghGetTree(c.data.tree.sha), date: Date.parse(c.data.committer && c.data.committer.date || c.data.author.date) || 0, message: c.data.message };
             }
-            const getBlob = sha => gh('GET', `${repoPath()}/git/blobs/${sha}`, { raw: true });
+            const ghGetBlob = sha => gh('GET', `${repoPath()}/git/blobs/${sha}`, { raw: true });
             async function getJson(sha) {
                 if (S.blobText.has(sha)) return S.blobText.get(sha);
                 const bytes = await getBlob(sha);
@@ -19260,7 +19786,7 @@
                 S.blobText.set(sha, v);
                 return v;
             }
-            async function uploadBlob(bytes, sha) {
+            async function ghUploadBlob(bytes, sha) {
                 if (S.uploaded.has(sha)) return;
                 const content = await toBase64(bytes);
                 const r = await gh('POST', `${repoPath()}/git/blobs`, { body: { content, encoding: 'base64' } });
@@ -19268,7 +19794,7 @@
                 S.uploaded.add(sha);
             }
             // 在 base 上提交 entries；被别的设备抢先（非快进）时：rebasable 则基于新头重做，否则抛出 nonff 让上层整轮重来
-            async function commitEntries(base, entries, message, rebasable) {
+            async function ghCommitEntries(base, entries, message, rebasable) {
                 let cur = base;
                 for (let attempt = 0; attempt < 5; attempt++) {
                     const tree = await gh('POST', `${repoPath()}/git/trees`, { body: { base_tree: cur.tree, tree: entries } });
@@ -19282,12 +19808,164 @@
                         if (e.status !== 422 && e.status !== 409) throw e;
                         if (!rebasable) throw apiError(422, 'nonff', { code: 'nonff' });
                         await sleep(300 + Math.random() * 700);
-                        cur = await getHead(false);
-                        const t = await getTree(cur.tree);
+                        cur = await ghGetHead(false);
+                        const t = await ghGetTree(cur.tree);
                         entries = entries.filter(x => x.sha !== null || t.has(x.path));
                     }
                 }
                 throw apiError(422, '多次提交冲突，稍后重试', { code: 'nonff' });
+            }
+
+
+            // ---------- 存储后端分发：GitHub / Google 云端硬盘 / OneDrive ----------
+            const GH = { getHead: ghGetHead, getTree: ghGetTree, treeOfCommit: ghTreeOfCommit, getBlob: ghGetBlob, uploadBlob: ghUploadBlob, commitEntries: ghCommitEntries, history: ghHistory, reset() {} };
+            const ctx = { S, apiError, gitSha, sleep, enc, ep, saveConfig: () => saveConfig(), accessToken: f => accessToken(f) };
+            let driveBE = null, driveKey = '';
+            function be(p = S.cfg && S.cfg.provider) {
+                if (!p || p === 'github') return GH;
+                if (driveKey !== p || !driveBE) { driveKey = p; driveBE = csbDriveStore(ctx, p === 'gdrive' ? csbGoogleTransport(ctx) : csbGraphTransport(ctx)); driveBE.T = driveBE.T || null; }
+                return driveBE;
+            }
+            function transport() { const b = be(); return b === GH ? null : b.T; }
+            const getHead = u => be().getHead(u);
+            const getTree = t => be().getTree(t);
+            const treeOfCommit = c => be().treeOfCommit(c);
+            const getBlob = sha => be().getBlob(sha);
+            const uploadBlob = (b, sha, rp) => be().uploadBlob(b, sha, rp);
+            const commitEntries = (base, entries, msg, rb) => be().commitEntries(base, entries, msg, rb);
+            const history = (path, page) => be().history(path, page);
+            const isDrive = (p = S.cfg && S.cfg.provider) => p === 'gdrive' || p === 'onedrive';
+            const connected = () => !!(S.cfg && S.cfg.deviceId && (isDrive() ? S.cfg.auth && (S.cfg.auth.refresh || S.cfg.auth.access) : S.cfg.token));
+
+            // ---------- 网盘登录（OAuth 2.0 授权码 + PKCE；整页跳转，回来后自动继续） ----------
+            const OAUTH = {
+                gdrive: { auth: () => 'https://accounts.google.com/o/oauth2/v2/auth', token: () => 'https://oauth2.googleapis.com/token',
+                    scope: 'openid email https://www.googleapis.com/auth/drive.file', extra: { access_type: 'offline', prompt: 'consent', include_granted_scopes: 'true' } },
+                onedrive: { auth: t => `https://login.microsoftonline.com/${t}/oauth2/v2.0/authorize`, token: t => `https://login.microsoftonline.com/${t}/oauth2/v2.0/token`,
+                    scope: 'openid profile offline_access Files.ReadWrite.AppFolder', extra: { response_mode: 'query' } }
+            };
+            function appOf(p) {
+                const a = (S.apps && S.apps[p]) || {}, d = CSB_APPS[p] || {};
+                return { clientId: (a.clientId || d.clientId || '').trim(), clientSecret: (a.clientSecret || d.clientSecret || '').trim(), tenant: (a.tenant || d.tenant || 'common').trim() || 'common', custom: !!a.clientId };
+            }
+            const appReady = p => { const a = appOf(p); return !!a.clientId && (p !== 'gdrive' || !!a.clientSecret); };
+            async function saveApps(p, v) { S.apps = { ...(S.apps || {}), [p]: v && v.clientId ? v : undefined }; if (!S.apps[p]) delete S.apps[p]; await kvSet('apps', S.apps); emit(); }
+            const redirectUri = () => location.origin + location.pathname;
+            const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            async function authUrl(p, o = {}) {
+                const app = appOf(p), cfg = OAUTH[p];
+                if (!appReady(p)) throw apiError(0, `还没有设置 ${provName(p)} 的应用凭据`, { code: 'noapp' });
+                const verifier = b64url(crypto.getRandomValues(new Uint8Array(32)));
+                const challenge = b64url(await crypto.subtle.digest('SHA-256', enc.encode(verifier)));
+                const state = `csb.${p}.${o.silent ? 's' : 'i'}.${b64url(crypto.getRandomValues(new Uint8Array(9)))}`;
+                const pend = { provider: p, verifier, state, redirect: redirectUri(), mode: o.mode || 'connect', deviceName: o.deviceName || '', at: now() };
+                try { localStorage.setItem(o.silent ? 'JSOS_CLOUD_OAUTH_S' : 'JSOS_CLOUD_OAUTH', JSON.stringify(pend)); } catch (_) {}
+                const q = { client_id: app.clientId, redirect_uri: pend.redirect, response_type: 'code', scope: cfg.scope, state, code_challenge: challenge, code_challenge_method: 'S256', ...cfg.extra };
+                if (o.hint) q.login_hint = o.hint;
+                if (o.silent) q.prompt = 'none';
+                else if (p === 'onedrive') q.prompt = 'select_account';
+                return ep(cfg.auth(app.tenant)) + '?' + new URLSearchParams(q);
+            }
+            async function login(p, o = {}) { location.assign(await authUrl(p, o)); }
+            function idUser(t) { try { const j = JSON.parse(decodeURIComponent(escape(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))))); return j.email || j.preferred_username || j.upn || ''; } catch (_) { return ''; } }
+            async function tokenRequest(p, body) {
+                const app = appOf(p), cfg = OAUTH[p];
+                const form = new URLSearchParams({ client_id: app.clientId, ...body });
+                if (p === 'gdrive') form.set('client_secret', app.clientSecret);
+                else form.set('scope', cfg.scope);
+                let res;
+                try { res = await fetch(ep(cfg.token(app.tenant)), { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: form, cache: 'no-store' }); }
+                catch (_) { throw apiError(0, '网络连接失败', { code: 'network' }); }
+                let j = {};
+                try { j = await res.json(); } catch (_) {}
+                if (!res.ok || !j.access_token) throw apiError(res.status || 400, `${provName(p)} 登录失败：${j.error_description || j.error || res.status}`, { oauth: j.error || 'error', ghMessage: j.error_description || '' });
+                return j;
+            }
+            function authFrom(t, prev) {
+                return { access: t.access_token, exp: now() + (Number(t.expires_in) || 3600) * 1000, refresh: t.refresh_token || (prev && prev.refresh) || '',
+                    user: (t.id_token && idUser(t.id_token)) || (prev && prev.user) || '', signin: prev && !t.id_token ? prev.signin : now() };
+            }
+            async function exchange(p, code, pend) {
+                return authFrom(await tokenRequest(p, { grant_type: 'authorization_code', code, redirect_uri: pend.redirect, code_verifier: pend.verifier }));
+            }
+            // 页面从登录页跳回来：用授权码换令牌，然后清掉地址栏里的参数
+            async function handleRedirect() {
+                let u;
+                try { u = new URL(location.href); } catch (_) { return; }
+                const state = u.searchParams.get('state') || '';
+                if (!/^csb\.(gdrive|onedrive)\.i\./.test(state)) return;
+                const code = u.searchParams.get('code'), err = u.searchParams.get('error'), desc = u.searchParams.get('error_description');
+                ['code', 'state', 'scope', 'authuser', 'prompt', 'hd', 'session_state', 'error', 'error_description', 'error_uri', 'iss'].forEach(k => u.searchParams.delete(k));
+                try { window.history.replaceState(window.history.state, '', u.pathname + (u.search || '') + u.hash); } catch (_) {}
+                let pend = null;
+                try { pend = JSON.parse(localStorage.getItem('JSOS_CLOUD_OAUTH') || 'null'); localStorage.removeItem('JSOS_CLOUD_OAUTH'); } catch (_) {}
+                const p = state.split('.')[1];
+                if (!pend || pend.state !== state) { S.oauth = { provider: p, error: '登录已过期或来自其他页面，请重新点“登录”' }; return; }
+                if (err || !code) { S.oauth = { provider: p, error: err === 'access_denied' ? '你取消了授权' : (desc || err || '登录没有完成') }; return; }
+                try {
+                    const auth = await exchange(p, code, pend);
+                    S.oauth = { provider: p, auth, mode: pend.mode, deviceName: pend.deviceName };
+                    if (pend.mode === 'relogin' && S.cfg && S.cfg.provider === p) {
+                        S.cfg.auth = { ...auth, refresh: auth.refresh || (S.cfg.auth && S.cfg.auth.refresh) || '' };
+                        await saveConfig();
+                        S.lastError = ''; S._errShown = false;
+                        log(`已重新登录 ${provName(p)}`, 'ok');
+                        S.oauth = { provider: p, mode: 'relogin', done: true };
+                    }
+                } catch (e) { S.oauth = { provider: p, error: explain(e) }; }
+            }
+            // OneDrive 的刷新令牌只有 24 小时：过期后先用隐藏的 iframe 静默续期（需要浏览器允许第三方 Cookie），不行再请你点一下“重新登录”
+            function silentLogin(p) {
+                return new Promise(async (resolve, reject) => {
+                    let ifr = null, timer = 0;
+                    const done = () => { clearTimeout(timer); window.removeEventListener('message', onMsg); if (ifr) ifr.remove(); };
+                    const onMsg = async ev => {
+                        if (ev.origin !== location.origin || !ev.data || !ev.data.csbOAuth) return;
+                        done();
+                        try {
+                            const u = new URL(ev.data.csbOAuth);
+                            const pend = JSON.parse(localStorage.getItem('JSOS_CLOUD_OAUTH_S') || 'null');
+                            localStorage.removeItem('JSOS_CLOUD_OAUTH_S');
+                            if (!pend || pend.state !== u.searchParams.get('state') || !u.searchParams.get('code')) throw apiError(401, u.searchParams.get('error') || 'silent failed');
+                            resolve(await exchange(p, u.searchParams.get('code'), pend));
+                        } catch (e) { reject(e); }
+                    };
+                    try {
+                        const url = await authUrl(p, { silent: true, mode: 'silent', hint: S.cfg && S.cfg.auth && S.cfg.auth.user });
+                        window.addEventListener('message', onMsg);
+                        ifr = document.createElement('iframe');
+                        ifr.style.cssText = 'position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;border:0;opacity:0';
+                        ifr.setAttribute('aria-hidden', 'true');
+                        ifr.src = url;
+                        document.body.appendChild(ifr);
+                        timer = setTimeout(() => { done(); reject(apiError(401, 'silent timeout')); }, 15000);
+                    } catch (e) { done(); reject(e); }
+                });
+            }
+            async function accessToken(force) {
+                const a = S.cfg && S.cfg.auth, p = S.cfg && S.cfg.provider;
+                if (!a) throw apiError(401, '需要登录', { code: 'auth' });
+                if (!force && a.access && a.exp - now() > 90000) return a.access;
+                if (!S._tokP) S._tokP = (async () => {
+                    try {
+                        if (!a.refresh) throw apiError(400, 'no refresh token', { oauth: 'invalid_grant' });
+                        Object.assign(a, authFrom(await tokenRequest(p, { grant_type: 'refresh_token', refresh_token: a.refresh }), a));
+                        await saveConfig();
+                        return a.access;
+                    } catch (e) {
+                        if (e.code === 'network') throw e;
+                        if (p === 'onedrive') {
+                            try { Object.assign(a, await silentLogin(p)); await saveConfig(); log('OneDrive 登录已自动续期', 'info'); return a.access; } catch (_) {}
+                        }
+                        throw apiError(401, '需要重新登录', { code: 'auth' });
+                    }
+                })().finally(() => { S._tokP = null; });
+                return S._tokP;
+            }
+            async function driveInfo(p) {
+                const b = be(p);
+                await b.T.ensure(true);
+                return b.T.account();
             }
 
             // ---------- 本机扫描 ----------
@@ -19441,7 +20119,11 @@
                 const manSha = await gitSha(enc.encode(manText));
                 const remoteMan = remote.get(prefix + 'manifest.json');
                 const manChanged = !remoteMan || remoteMan.sha !== manSha;
-                return { prefix, fp, uploads, deletes, manifest, manText, manChanged, stats: { files: desired.size, bytes }, skipped: out.skipped, localCount: desired.size };
+                // 只是修改日期变了（内容相同的文件被重新保存，安卓上很常见）：单独不值得提交，跟着下一次真正的改动一起上传
+                const core = quickHash(JSON.stringify({ ...manifest, mtimes: null, skipped: manifest.skipped.map(x => x.path + '|' + x.why) }));
+                const manMinor = manChanged && !!remoteMan && S.manCore === core;
+                if (!manChanged) S.manCore = core;
+                return { prefix, fp, uploads, deletes, manifest, manText, manChanged, manMinor, core, stats: { files: desired.size, bytes }, skipped: out.skipped, localCount: desired.size };
             }
             function deviceJson(stats) {
                 return JSON.stringify({
@@ -19544,12 +20226,14 @@
             // ---------- 一轮同步 ----------
             async function cycle(reason, opt) {
                 const cfg = S.cfg;
-                const wasDirty = S.dirty;
-                S.dirty = false; S.dirtySince = 0;
+                const wasDirty = S.dirty || S.soft;
+                S._wasDirty = S.dirty;
+                S.dirty = false; S.dirtySince = 0; S.soft = false;
+                S.runs.push({ at: now(), reason }); if (S.runs.length > 40) S.runs.shift();
                 const lsNow = cfg.includeLocal ? quickHash(JSON.stringify(lsSnapshot())) : '';
                 try {
                     for (let attempt = 0; attempt < 3; attempt++) {
-                        setPhase('sync', '正在连接 GitHub…');
+                        setPhase('sync', `正在连接 ${provName()}…`);
                         const head = await getHead(true);
                         S.lastCheck = now();
                         // 本机没有改动、远端也没变：什么都不用做（304 不消耗请求次数）
@@ -19580,7 +20264,8 @@
                         const totalBytes = toSend.reduce((a, u) => a + (known.has(u.sha) || S.uploaded.has(u.sha) ? 0 : u.size), 0);
                         let sentBytes = 0, sentFiles = 0;
                         let cur = head;
-                        const needFinal = (dev && (dev.uploads.length || dev.deletes.length || dev.manChanged)) ||
+                        const devMan = !!(dev && dev.manChanged && !(dev.manMinor && !opt.manual && !opt.force && now() - (S.lastPush || 0) < 30 * 60000));
+                        const needFinal = (dev && (dev.uploads.length || dev.deletes.length || devMan)) ||
                             (shared && (shared.uploads.length || shared.remoteDeletes.length || shared.conflicts.length));
                         if (!needFinal) {
                             if (shared) await commitSharedBase(shared);
@@ -19603,7 +20288,7 @@
                                 const bytes = u.bytes || await readBytes(u.path);
                                 const realSha = u.bytes ? u.sha : await gitSha(bytes);
                                 if (realSha !== u.sha) { u.sha = realSha; }   // 扫描后文件又被改了：以实际上传的内容为准
-                                await uploadBlob(bytes, u.sha);
+                                await uploadBlob(bytes, u.sha, u.rp);
                                 known.add(u.sha);
                                 sentBytes += u.size;
                             }
@@ -19623,7 +20308,8 @@
                             dev.uploads.forEach(u => u.isNew ? added++ : changed++);
                             removed = dev.deletes.length;
                             dev.deletes.forEach(rp => final.push({ path: rp, mode: '100644', type: 'blob', sha: null }));
-                            if (dev.manChanged || dev.uploads.length || dev.deletes.length) {
+                            if (devMan || dev.uploads.length || dev.deletes.length) {
+                                S._pendingCore = dev.core;
                                 final.push({ path: dev.prefix + 'manifest.json', mode: '100644', type: 'blob', content: dev.manText });
                                 final.push({ path: dev.prefix + 'device.json', mode: '100644', type: 'blob', content: deviceJson(dev.stats) });
                             }
@@ -19682,9 +20368,13 @@
                 await kvSet('sharedBase', { root: shared.root, repo: S.cfg.repo, map: shared.nextBase });
             }
             function finishOk(committed, guard) {
+                S.skipPaths = new Set((S.skipped || []).map(x => x.path));
+                if (committed || S._manual) S.noop = 0; else if (S._auto) S.noop = Math.min(8, (S.noop || 0) + 1);
                 S.lastError = ''; S._errShown = false;
                 S.lastOk = now();
                 if (committed) S.lastPush = now();
+                if (committed && S._pendingCore) S.manCore = S._pendingCore;
+                S._pendingCore = null;
                 if (guard) {
                     setPhase('guard', guard.kind === 'device' ? `本机比备份少了 ${guard.deletes} 个文件，已暂停删除` : `共享文件夹将删除 ${guard.deletes} 个文件，已暂停`);
                 } else setPhase(S.cfg.paused ? 'paused' : (S.dirty ? 'pending' : 'ok'));
@@ -19693,19 +20383,30 @@
 
             // ---------- 调度 ----------
             function run(reason, opt = {}) {
-                if (!S.cfg || !S.cfg.token || !S.cfg.deviceId) return Promise.resolve();
+                if (!S.cfg || !connected()) return Promise.resolve();
+                if (S.phase === 'auth' && !opt.manual) return Promise.resolve();   // 等你重新登录，不反复请求
                 if (S.restoring && !opt.duringRestore) return Promise.resolve();
                 if (S.cfg.paused && !opt.manual) { setPhase('paused'); return Promise.resolve(); }
                 if (S.running) { S.again = S.again || opt; return S.runP; }
                 if (navigator.onLine === false) { setPhase('offline', '离线，联网后自动继续'); return Promise.resolve(); }
                 clearTimeout(S.timer); S.timer = 0;
                 S.running = true;
+                S._manual = !!opt.manual; S._auto = !opt.manual && (reason === 'auto' || reason === 'again');
+                if (opt.manual) S.noop = 0;
                 const work = () => cycle(reason, opt);
                 S.runP = (navigator.locks && navigator.locks.request ? navigator.locks.request('jisheng-cloud-sync', work) : work())
                     .catch(e => {
                         console.warn('云备份失败:', e);
                         S.lastError = explain(e);
                         log('失败：' + S.lastError, 'err');
+                        S.dirty = S.dirty || !!S._wasDirty;
+                        if (e.code === 'auth') {
+                            setPhase('auth', S.lastError); saveState();
+                            if (!S._errShown || opt.manual) Notify.warning('云备份需要重新登录', `${provName()} 的登录已过期。打开 设置 → 云备份，点“重新登录”即可继续，本机改动会保留。`);
+                            S._errShown = true;
+                            if (opt.throwErrors) throw e;
+                            return;
+                        }
                         setPhase('error', S.lastError);
                         saveState();
                         if (opt.manual || e.status === 401 || e.status === 403 || e.status === 404) {
@@ -19718,38 +20419,57 @@
                     })
                     .finally(() => {
                         S.running = false;
-                        if (S.again) { const o = S.again; S.again = false; setTimeout(() => run('again', typeof o === 'object' ? o : {}), 400); }
+                        S.lastRunEnd = now();
+                        // 同步期间又有改动：手动触发的立刻补一轮；自动的按正常节奏排队（以前 0.4 秒后就重跑，扫描慢的手机上会一直循环）
+                        if (S.again) { const o = S.again; S.again = false; if (o && o.manual) setTimeout(() => run('again', o), 400); else if (S.dirty) schedule(); }
                         else if (S.dirty) schedule();
                     });
                 return S.runP;
             }
+            const baseDelay = () => Math.max(10, Number(S.cfg && S.cfg.delay) || 60) * 1000;
+            // 改动停下来后等 delay 再备份；一直在改也最多等 maxWait；连续几轮“什么都没变”就自动放慢（最多 8 倍）
             function schedule(fast) {
-                if (!S.cfg || !S.cfg.deviceId || S.cfg.paused) return;
+                if (!S.cfg || !S.cfg.deviceId || S.cfg.paused || S.phase === 'auth') return;
                 clearTimeout(S.timer);
-                const delay = fast ? 1500 : Math.max(5, Number(S.cfg.delay) || 30) * 1000;
-                const maxWait = Math.max(delay * 4, 120000);
-                const wait = Math.max(500, Math.min(delay, (S.dirtySince || now()) + maxWait - now()));
-                S.timer = setTimeout(() => run('auto'), wait);
+                const d0 = baseDelay();
+                const delay = fast ? 1500 : d0 * Math.pow(2, Math.min(S.noop || 0, 3));
+                const maxWait = Math.max(d0 * 5, 300000);
+                let wait = Math.min(delay, (S.dirtySince || now()) + maxWait - now());
+                if (!fast) wait = Math.max(wait, (S.lastRunEnd || 0) + d0 - now());   // 两轮自动同步之间至少间隔 delay
+                S.timer = setTimeout(() => { S.timer = 0; run('auto'); }, Math.max(fast ? 500 : 3000, wait));
             }
             function markDirty() {
                 if (!S.cfg || !S.cfg.deviceId || S.restoring) return;
                 if (!S.dirty) { S.dirty = true; S.dirtySince = now(); }
-                if (S.cfg.paused) return;
+                if (S.cfg.paused || S.phase === 'auth') return;
                 if (S.phase === 'ok' || S.phase === 'idle') setPhase('pending');
-                schedule();
+                // 已经排好队的就不再推迟（否则持续写入时会无限往后拖，或者每次写入都重设计时器）
+                if (!S.timer || S.dirtySince === now()) schedule();
             }
             function relevant(p) {
                 if (!p || !S.cfg) return false;
                 if (under(p, '/mnt')) return false;
+                const name = p.slice(p.lastIndexOf('/') + 1);
+                if (/\.crswap$/i.test(name) || name === '.DS_Store' || name === 'desktop.ini') return false;   // 浏览器/系统的临时文件
                 if (S.cfg.shared.enabled && under(p, normPath(S.cfg.shared.path))) return true;
                 return backupRoots().some(r => under(p, r));
+            }
+            // 被跳过的文件（太大、排除的类型、名称不支持）改动时不触发备份，只在下次检查时顺带重新扫描
+            function softOnly(p) {
+                if (!p) return true;
+                if (S.skipPaths.has(p)) return true;
+                const name = p.slice(p.lastIndexOf('/') + 1);
+                if (badName(name)) return true;
+                const ex = exclusionOf(S.cfg);
+                return ex.set.has(extOf(name));
             }
             function startPolling() {
                 clearInterval(S.poll);
                 if (!S.cfg || !S.cfg.deviceId) return;
                 S.poll = setInterval(() => {
                     if (document.visibilityState === 'hidden' && !S.dirty) return;
-                    if (S.cfg.includeLocal && quickHash(JSON.stringify(lsSnapshot())) !== S.lsHash) S.dirty = S.dirty || true;
+                    if (S.phase === 'auth' || S.running) return;
+                    if (S.cfg.includeLocal && quickHash(JSON.stringify(lsSnapshot())) !== S.lsHash) S.dirty = true;
                     run('poll');
                 }, Math.max(1, Number(S.cfg.interval) || 5) * 60000);
             }
@@ -19760,17 +20480,32 @@
                     SYSTEM.fs.watch(ev => {
                         ev.changes.forEach(c => { invalidate(c.path); if (c.oldPath) invalidate(c.oldPath); });
                         if (S.applying || S.restoring) return;
-                        if (ev.changes.some(c => relevant(c.path) || relevant(c.oldPath))) markDirty();
+                        const rel = ev.changes.filter(c => relevant(c.path) || relevant(c.oldPath));
+                        if (!rel.length) return;
+                        if (rel.every(c => c.type !== 'delete' && c.type !== 'unlink' && c.type !== 'rename' && c.type !== 'rmdir' && softOnly(c.path) && (!c.oldPath || softOnly(c.oldPath)))) { S.soft = true; return; }
+                        markDirty();
                     });
                 }
-                // Android 切到后台/锁屏时随时可能杀掉标签页：有改动就立刻备份
-                const flush = () => { if (S.cfg && S.cfg.bgFlush && S.dirty && !S.cfg.paused) run('hidden'); };
+                // Android 切到后台/锁屏时随时可能杀掉标签页：有改动就尽快备份。
+                // 但手机上切应用、下拉通知栏都会触发，所以距上次同步不到 15 秒就不重复跑
+                const flush = () => {
+                    if (!S.cfg || !S.cfg.bgFlush || !S.dirty || S.cfg.paused || S.running || S.phase === 'auth') return;
+                    const left = (S.lastRunEnd || 0) + 15000 - now();
+                    // 刚同步过：不立刻再传，但排在 15 秒后（而不是放弃），以免标签页随后被回收时丢掉这次改动
+                    if (left > 0) { clearTimeout(S.timer); S.timer = setTimeout(() => { S.timer = 0; if (S.dirty) run('hidden'); }, left); return; }
+                    run('hidden');
+                };
                 document.addEventListener('visibilitychange', () => {
                     if (document.visibilityState === 'hidden') flush();
-                    else if (S.cfg && S.cfg.deviceId && now() - S.lastCheck > 60000) run('focus');
+                    else if (S.cfg && S.cfg.deviceId && !S.running && now() - Math.max(S.lastCheck || 0, S.lastRunEnd || 0) > 180000) run('focus');
                 });
                 window.addEventListener('pagehide', flush);
-                window.addEventListener('online', () => { if (S.cfg && S.cfg.deviceId) run('online'); });
+                let onlineT = 0;
+                window.addEventListener('online', () => {
+                    clearTimeout(onlineT);
+                    // 手机网络切换（Wi-Fi ↔ 移动数据）会连续触发：等网络稳定 4 秒，而且只在有改动或很久没检查时才同步
+                    onlineT = setTimeout(() => { if (S.cfg && S.cfg.deviceId && (S.dirty || now() - (S.lastCheck || 0) > 180000)) run('online'); else if (S.phase === 'offline') setPhase(S.dirty ? 'pending' : 'ok'); }, 4000);
+                });
                 window.addEventListener('offline', () => { if (S.cfg && S.cfg.deviceId) setPhase('offline', '离线，联网后自动继续'); });
             }
 
@@ -19779,15 +20514,19 @@
                 try {
                     const cfg = await kvGet('config');
                     S.cfg = cfg ? { ...DEFAULTS, ...cfg, shared: { ...DEFAULTS.shared, ...(cfg.shared || {}) } } : null;
+                    S.apps = (await kvGet('apps').catch(() => null)) || {};
+                    if (S.cfg && !S.cfg.provider) S.cfg.provider = 'github';
                     const st = await kvGet('state');
-                    if (st) Object.assign(S, { lastOk: st.lastOk || 0, lastPush: st.lastPush || 0, lastCommit: st.lastCommit || '', skipped: st.skipped || [], stats: st.stats || null, log: st.log || [], guard: st.guard || null, lastError: st.lastError || '', sharedStat: st.sharedStat || null, lsHash: st.lsHash || '' });
+                    if (st) Object.assign(S, { lastOk: st.lastOk || 0, lastPush: st.lastPush || 0, lastCommit: st.lastCommit || '', skipped: st.skipped || [], stats: st.stats || null, log: st.log || [], guard: st.guard || null, lastError: st.lastError || '', sharedStat: st.sharedStat || null, lsHash: st.lsHash || '', manCore: st.manCore || '', noop: Math.min(st.noop || 0, 3) });
                 } catch (e) { console.warn('云备份：读取配置失败', e); }
+                if (window.top === window) { try { await handleRedirect(); } catch (e) { console.warn('云备份：处理登录回跳失败', e); } }
+                if (S.cfg) S.skipPaths = new Set((S.skipped || []).map(x => x.path));
                 S.loaded = true;
                 wire();
                 if (S.cfg && S.cfg.deviceId) {
                     setPhase(S.cfg.paused ? 'paused' : S.guard ? 'guard' : 'ok', S.guard ? '等待你确认删除' : '');
                     startPolling();
-                    setTimeout(() => run('boot'), 6000);
+                    setTimeout(() => run('boot', S.oauth && S.oauth.done ? { manual: true } : {}), S.oauth && S.oauth.done ? 1500 : 8000);
                 } else setPhase('off');
             }
 
@@ -19818,23 +20557,26 @@
                 S.devices = { list: out, shared: { files: sharedFiles, bytes: sharedBytes }, head, at: now() };
                 return S.devices;
             }
-            async function connect({ repo, token, deviceName, deviceId, branch, cloud }) {
+            async function connect({ provider = 'github', repo, token = '', deviceName, deviceId, branch, cloud, auth = null }) {
                 const prev = S.cfg || {};
                 const keep = {};
                 if (cloud && typeof cloud === 'object') CLOUD_KEYS.forEach(k => { if (cloud[k] != null) keep[k] = cloud[k]; });
-                S.cfg = { ...DEFAULTS, ...prev, ...keep, repo, token, branch: branch || 'main', deviceName, deviceId, paused: false, shared: { ...DEFAULTS.shared, ...(prev.shared || {}), ...(keep.shared || {}) } };
-                S.etag = ''; S.headCache = null; S.lastCommit = ''; S.devices = null; S.guard = null; S.lastError = ''; S._errShown = false;
+                const sameAcct = prev.provider === provider && prev.repo === repo;
+                S.cfg = { ...DEFAULTS, ...prev, ...keep, provider, repo, token: provider === 'github' ? token : '', auth: provider === 'github' ? null : (auth || prev.auth),
+                    gd: sameAcct ? prev.gd : null, branch: branch || 'main', deviceName, deviceId, paused: false, shared: { ...DEFAULTS.shared, ...(prev.shared || {}), ...(keep.shared || {}) } };
+                S.etag = ''; S.headCache = null; S.lastCommit = ''; S.devices = null; S.guard = null; S.lastError = ''; S._errShown = false; S.noop = 0;
                 S.treeCache.clear(); S.uploaded.clear();
+                if (!sameAcct || driveKey !== provider) { driveBE = null; driveKey = ''; }
                 if (prev.repo !== repo || prev.deviceId !== deviceId) { hashCache = {}; hashDirty = true; await kvDel('sharedBase').catch(() => {}); S.log = []; S.lastOk = 0; S.stats = null; S.skipped = []; }
                 await saveConfig();
-                log(`已连接 ${repo}，本机为「${deviceName}」`, 'ok');
+                log(`已连接 ${provider === 'github' ? repo : provName(provider) + (S.cfg.auth && S.cfg.auth.user ? '（' + S.cfg.auth.user + '）' : '')}，本机为「${deviceName}」`, 'ok');
                 await saveState();
                 startPolling();
                 emit();
             }
             async function disconnect() {
                 clearInterval(S.poll); clearTimeout(S.timer);
-                S.cfg = null; S.guard = null; S.devices = null; S.lastError = '';
+                S.cfg = null; S.guard = null; S.devices = null; S.lastError = ''; driveBE = null; driveKey = '';
                 await kvDel('config'); await kvDel('state'); await kvDel('hashes'); await kvDel('sharedBase').catch(() => {});
                 hashCache = null; S.log = []; S.lastOk = 0; S.lastCommit = ''; S.stats = null; S.skipped = [];
                 setPhase('off');
@@ -19949,13 +20691,14 @@
                 try { return await writeLocal(list, onProgress); }
                 finally { S.restoring = false; if (S.cfg && S.cfg.deviceId) { S.dirty = true; S.dirtySince = now(); schedule(); } emit(); }
             }
-            async function history(path, page = 1) {
+            async function ghHistory(path, page = 1) {
                 const r = await gh('GET', `${repoPath()}/commits?sha=${encodeURIComponent(S.cfg.branch)}&path=${encodeURIComponent(path)}&per_page=40&page=${page}`);
                 return r.data.map(c => ({ sha: c.sha, date: Date.parse(c.commit.author.date) || 0, message: c.commit.message }));
             }
 
             return {
                 S, DEFAULTS, init, run, markDirty, connect, disconnect, updateConfig, testConnection, listDevices, guessDeviceName, makeDeviceId, parseRepo,
+                PROVIDERS, provName, isDrive, connected, login, appOf, appReady, saveApps, redirectUri, driveInfo, transport, accessToken, CSB_APPS,
                 getHead, getTree, treeOfCommit, getBlob, getJson, history, restoreSnapshot, importFiles, mapToLocal, backupRoots, explain, fmtAgo, fmtDate, stamp, normPath,
                 on: fn => { listeners.add(fn); return () => listeners.delete(fn); }, emit, log, saveState,
                 confirmGuard: async () => { const g = S.guard; S.guard = null; log(`已确认删除 ${g ? g.deletes : 0} 个文件`, 'warn'); await saveState(); return run('confirm', { manual: true, confirmDeletes: true, force: true }); }
@@ -19972,8 +20715,22 @@
             paused:  { t: '自动备份已暂停', ic: 'csbCloudOff', cls: 'off' },
             guard:   { t: '需要你确认', ic: 'csbShieldAlert', cls: 'warn' },
             error:   { t: '备份出错', ic: 'csbCloudAlert', cls: 'err' },
-            offline: { t: '离线', ic: 'csbCloudOff', cls: 'off' }
+            offline: { t: '离线', ic: 'csbCloudOff', cls: 'off' },
+            auth:    { t: '需要重新登录', ic: 'csbKey', cls: 'warn' }
         };
+        // 服务商标志（彩色，内联 SVG）
+        const CSB_LOGO = {
+            github: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>',
+            gdrive: '<svg viewBox="0 0 87.3 78" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>',
+            onedrive: '<svg viewBox="0 0 32 22" aria-hidden="true"><path d="M12.2 6.6a8.4 8.4 0 0 1 14.3 3.1A6 6 0 0 1 26 21.5H12.6z" fill="#0364b8"/><path d="M12.2 6.6 26.5 9.7a6.1 6.1 0 0 1 4.9 8.9L19 13z" fill="#0078d4"/><path d="M19 13 31.4 18.6A6 6 0 0 1 26 21.5H8.4z" fill="#1490df"/><path d="M8.4 21.5A6.6 6.6 0 0 1 3 10.9a7 7 0 0 1 9.2-4.3L19 13z" fill="#28a8ea"/></svg>'
+        };
+        const CSB_PROV_INFO = {
+            github: { tag: '私有仓库 · 每个文件单独保存，可在网页上直接查看', how: '需要创建一个私有仓库和访问令牌' },
+            gdrive: { tag: '打包成 zip 存进你的云端硬盘（类似篡改猴的备份方式）', how: '用 Google 账号登录即可' },
+            onedrive: { tag: '打包成 zip 存进 OneDrive 的「应用」文件夹', how: '用 Microsoft 账号登录即可' }
+        };
+        const CSB_CONSOLE = { gdrive: 'https://console.cloud.google.com/apis/credentials', onedrive: 'https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade' };
+        const csbDur = sec => sec >= 60 ? `${Math.round(sec / 60)} 分钟` : `${sec} 秒`;
         const CSB_PAT_URL = 'https://github.com/settings/personal-access-tokens/new?name=' + encodeURIComponent('JISHENG OS 云备份')
             + '&description=' + encodeURIComponent('JISHENG OS 自动备份到私有仓库（只需要 Contents 读写）') + '&expires_in=none&contents=write';
         const CSB_NEW_REPO_URL = 'https://github.com/new?name=jisheng-backup&visibility=private&description=' + encodeURIComponent('JISHENG OS 云备份（请保持私有）');
@@ -19988,7 +20745,8 @@
             const files = S.stats ? `${S.stats.files.toLocaleString()} 个文件 · ${formatStorageBytes(S.stats.bytes)}` : '';
             switch (S.phase) {
                 case 'ok': sub = [`最近同步 ${CSB.fmtAgo(S.lastOk)}`, files].filter(Boolean).join(' · '); break;
-                case 'pending': sub = `约 ${cfg ? cfg.delay : 30} 秒后自动备份` + (S.lastOk ? ` · 上次同步 ${CSB.fmtAgo(S.lastOk)}` : ''); break;
+                case 'pending': sub = `约 ${csbDur(cfg ? Number(cfg.delay) || 60 : 60)}内自动备份` + (S.lastOk ? ` · 上次同步 ${CSB.fmtAgo(S.lastOk)}` : ''); break;
+                case 'auth': sub = `${CSB.provName()} 的登录已过期，点“重新登录”继续；本机的改动会保留`; break;
                 case 'sync': sub = S.msg || '请稍候'; break;
                 case 'paused': sub = '改动会被记下，继续后一次性备份' + (S.lastOk ? ` · 上次同步 ${CSB.fmtAgo(S.lastOk)}` : ''); break;
                 case 'guard': sub = S.msg; break;
@@ -20009,7 +20767,7 @@
                     <div class="csb-orb">${icon(st.ph.ic)}</div>
                     <div class="csb-hero-tx"><b>${stxEsc(st.title)}</b><small>${stxEsc(st.sub)}</small>${prog}</div>
                     <div class="stx-btns">
-                        ${stxBtn('立即备份', `csbRunNow(${winId})`, { cls: 'primary sm' + (S.phase === 'sync' ? ' busy' : ''), ic: S.phase === 'sync' ? 'stxRefreshCw' : 'csbCloudUpload', dis: S.phase === 'sync' })}
+                        ${S.phase === 'auth' ? stxBtn('重新登录', `csbRelogin()`, { cls: 'primary sm', ic: 'csbKey' }) : stxBtn('立即备份', `csbRunNow(${winId})`, { cls: 'primary sm' + (S.phase === 'sync' ? ' busy' : ''), ic: S.phase === 'sync' ? 'stxRefreshCw' : 'csbCloudUpload', dis: S.phase === 'sync' })}
                         ${stxBtn('浏览与恢复', 'openCloudBrowser()', { cls: 'sm', ic: 'csbHistory' })}
                         ${stxBtn(paused ? '继续' : '暂停', `csbTogglePause(${winId})`, { cls: 'ghost sm', ic: paused ? 'uiPlay' : 'uiPause', title: paused ? '恢复自动备份' : '暂停自动备份（手动“立即备份”仍可用）' })}
                     </div>
@@ -20046,13 +20804,13 @@
             const skipped = S.skipped || [];
             const content = `<div class="stx-card">
                 ${stxRow({ id: 'cloud-docs', ic: 'stxFolderOpen', title: '桌面与文档', desc: 'IndexedDB 存储里的全部文件和文件夹（包括空文件夹与修改日期）。挂载的本地文件夹（/mnt/local）不会备份。', ctl: stxPill('始终备份', 'ok', 'stxCheck') })}
-                ${stxRow({ id: 'cloud-opfs', ic: 'stxHardDrive', title: '高速存储（OPFS）', desc: opfsOk ? '备份 /opfs 里的所有文件。OPFS 里放了很多大文件、不想占用仓库空间时可以关闭。' : '当前浏览器没有可用的 OPFS。', cls: opfsOk ? '' : 'dis',
+                ${stxRow({ id: 'cloud-opfs', ic: 'stxHardDrive', title: '高速存储（OPFS）', desc: opfsOk ? '默认关闭。OPFS 常用来存放大文件和频繁写入的数据（例如虚拟机磁盘、缓存），备份它们会占用大量流量和空间。需要时再打开，会一并备份 /opfs。' : '当前浏览器没有可用的 OPFS。', cls: opfsOk ? '' : 'dis',
                     ctl: stxSwitch(cfg.includeOpfs && opfsOk, `csbSet(${winId}, 'includeOpfs', ${!cfg.includeOpfs})`, '备份 OPFS', { dis: !opfsOk }) })}
                 ${stxRow({ id: 'cloud-system', ic: 'stxPalette', title: '系统设置、壁纸与图标布局', desc: '/system 文件夹：设置、自定义壁纸、桌面图标位置、最近使用的壁纸。',
                     ctl: stxSwitch(cfg.includeSystem, `csbSet(${winId}, 'includeSystem', ${!cfg.includeSystem})`, '备份系统设置') })}
                 ${stxRow({ id: 'cloud-local', ic: 'stxFileText', title: '浏览器偏好与记事本草稿', desc: '保存在 localStorage 里的界面偏好、排序方式和记事本未保存的草稿。',
                     ctl: stxSwitch(cfg.includeLocal, `csbSet(${winId}, 'includeLocal', ${!cfg.includeLocal})`, '备份浏览器偏好') })}
-                ${stxRow({ id: 'cloud-max', ic: 'stxArchive', title: '单个文件大小上限', desc: '超过上限的文件不会上传，并列在下面。GitHub 单个文件最大 100 MB，大文件太多会让仓库变慢。',
+                ${stxRow({ id: 'cloud-max', ic: 'stxArchive', title: '单个文件大小上限', desc: CSB.isDrive() ? '超过上限的文件不会上传，并列在下面。大文件会单独打包，手机上上传大文件比较耗流量和内存。' : '超过上限的文件不会上传，并列在下面。GitHub 单个文件最大 100 MB，大文件太多会让仓库变慢。',
                     ctl: seg(Number(cfg.maxMB), [[10, '10 MB'], [25, '25 MB'], [50, '50 MB'], [90, '90 MB']], 'csbSetMax', '单个文件大小上限') })}
                 ${stxRow({ id: 'cloud-exclude', ic: 'stxFilm', title: '不备份的文件类型', desc: '扩展名，用逗号或空格分隔，例如 iso, img, mp4, mkv。留空表示不排除。', cls: 'stx-row-wide',
                     ctl: `<div class="csb-inline"><input class="csb-input" id="csb-ex-${winId}" value="${stxAttr(cfg.excludeExt || '')}" placeholder="iso, img, mp4" spellcheck="false" onkeydown="if(event.key==='Enter')csbSaveExclude(${winId})">${stxBtn('保存', `csbSaveExclude(${winId})`, { cls: 'sm' })}</div>` })}
@@ -20060,16 +20818,16 @@
                     ctl: stxBtn('查看全部', 'csbShowSkipped()', { cls: 'sm' }) }) : ''}
             </div>`;
             const auto = `<div class="stx-card">
-                ${stxRow({ id: 'cloud-delay', ic: 'csbTimer', title: '改动后多久备份', desc: '连续修改时会等你停下来再备份；最长不超过 2 分钟。',
-                    ctl: seg(Number(cfg.delay), [[10, '10 秒'], [30, '30 秒'], [60, '1 分钟'], [300, '5 分钟']], 'csbSetDelay', '改动后多久备份') })}
+                ${stxRow({ id: 'cloud-delay', ic: 'csbTimer', title: '改动后多久备份', desc: '第一次改动后等这么久再备份，期间的所有改动合并成一次上传；两次自动备份之间至少间隔这么久。连续几次检查都没有实际变化时会自动放慢。',
+                    ctl: seg(Number(cfg.delay), [[30, '30 秒'], [60, '1 分钟'], [120, '2 分钟'], [300, '5 分钟'], [600, '10 分钟']], 'csbSetDelay', '改动后多久备份') })}
                 ${stxRow({ id: 'cloud-interval', ic: 'stxRefreshCw', title: '定时检查', desc: '定时拉取其他设备对共享文件夹的修改，并备份记事本草稿等不经过文件系统的改动。',
                     ctl: seg(Number(cfg.interval), [[2, '2 分钟'], [5, '5 分钟'], [15, '15 分钟'], [30, '30 分钟']], 'csbSetInterval', '定时检查') })}
-                ${stxRow({ id: 'cloud-bg', ic: 'stxMonitorSmartphone', title: '切到后台时立即备份', desc: '手机切换应用、锁屏或关闭标签页时，如果有未备份的改动就马上上传（安卓随时可能回收后台标签页）。',
+                ${stxRow({ id: 'cloud-bg', ic: 'stxMonitorSmartphone', title: '切到后台时立即备份', desc: '手机切换应用、锁屏或关闭标签页时，如果有未备份的改动就马上上传（安卓随时可能回收后台标签页）。刚同步过 15 秒内不会重复上传。',
                     ctl: stxSwitch(cfg.bgFlush, `csbSet(${winId}, 'bgFlush', ${!cfg.bgFlush})`, '切到后台时立即备份') })}
             </div>`;
             const sh = cfg.shared, ss = S.sharedStat;
             const shared = `<div class="stx-card">
-                ${stxRow({ id: 'cloud-shared', ic: 'stxFolderSync', title: '启用共享文件夹', desc: '放进这个文件夹的文件会出现在所有连接到同一仓库的设备上；任何一台设备修改或删除，其他设备都会跟着变。两边同时修改时会保留两份。',
+                ${stxRow({ id: 'cloud-shared', ic: 'stxFolderSync', title: '启用共享文件夹', desc: '放进这个文件夹的文件会出现在所有连接到同一备份位置（同一仓库 / 同一网盘账号）的设备上；任何一台设备修改或删除，其他设备都会跟着变。两边同时修改时会保留两份。',
                     ctl: stxSwitch(sh.enabled, `csbToggleShared(${winId})`, '启用共享文件夹') })}
                 ${stxRow({ id: 'cloud-shared-path', ic: 'stxFolder', title: '本机位置', cls: sh.enabled ? '' : 'dis',
                     desc: `<span class="stx-mono">${stxEsc(sh.path)}</span>` + (sh.enabled && ss ? ` · 最近同步 ${CSB.fmtAgo(ss.at)} · ${ss.files} 个文件` : ''),
@@ -20077,15 +20835,28 @@
             </div>`;
             const devices = `<div class="stx-card" data-csb-devices="${winId}"><div class="stx-empty">${icon('csbUsers')}正在读取设备列表…</div></div>`;
             const masked = cfg.token ? cfg.token.slice(0, 7) + '••••••' + cfg.token.slice(-4) : '';
-            const conn = `<div class="stx-card">
+            const drive = CSB.isDrive(), T = drive ? CSB.transport() : null, au = cfg.auth || {};
+            const deviceRow = stxRow({ id: 'cloud-device', ic: 'stxMonitor', title: '本机名称', desc: `「${stxEsc(cfg.deviceName)}」 · 设备编号 <span class="stx-mono">${stxEsc(cfg.deviceId)}</span>`,
+                    ctl: stxBtn('重命名…', `csbRename(${winId})`, { cls: 'sm' }) });
+            const conn = drive ? `<div class="stx-card">
+                ${stxRow({ id: 'cloud-repo', ic: 'csbCloud', title: `<span class="csb-logo sm">${CSB_LOGO[cfg.provider]}</span>${stxEsc(CSB.provName())}`,
+                    desc: `<span class="stx-mono">${stxEsc(au.user || '已登录')}</span> · ${cfg.provider === 'gdrive' ? '文件夹「JISHENG OS 云备份」' : '文件夹「应用 / 你注册的应用名」'}<span data-csb-quota="${winId}"></span>`,
+                    ctl: stxBtn('打开网盘', `window.open(CSB.transport().webUrl(), '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) })}
+                ${deviceRow}
+                ${stxRow({ id: 'cloud-token', ic: 'csbKey', title: '登录状态', desc: S.phase === 'auth' ? '<b class="csb-warn-t">登录已过期</b>，点右边重新登录后会自动接着备份。'
+                        : `已登录，访问令牌会自动续期${cfg.provider === 'onedrive' ? '（OneDrive 每 24 小时需要续一次，浏览器拦截第三方 Cookie 时可能要你点一下“重新登录”）' : ''}。<br>登录信息只保存在这个浏览器里。`,
+                    ctl: stxBtn('重新登录', 'csbRelogin()', { cls: S.phase === 'auth' ? 'primary sm' : 'sm', ic: 'csbKey' }) })}
+                ${stxRow({ id: 'cloud-app', ic: 'stxPlugZap', title: '应用凭据', desc: CSB.appOf(cfg.provider).custom ? '使用你在本机填写的凭据' : '使用网站内置的凭据',
+                    ctl: stxBtn('修改…', `csbEditApp(${stxJs(cfg.provider)}, ${winId})`, { cls: 'ghost sm' }) })}
+            </div>` : `<div class="stx-card">
                 ${stxRow({ id: 'cloud-repo', ic: 'csbGithub', title: '仓库', desc: `<span class="stx-mono">${stxEsc(cfg.repo)}</span> · 分支 ${stxEsc(cfg.branch)}`,
                     ctl: stxBtn('在 GitHub 打开', `window.open(${stxJs('https://github.com/' + cfg.repo)}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) })}
-                ${stxRow({ id: 'cloud-device', ic: 'stxMonitor', title: '本机名称', desc: `「${stxEsc(cfg.deviceName)}」 · 文件夹 <span class="stx-mono">devices/${stxEsc(cfg.deviceId)}</span>`,
-                    ctl: stxBtn('重命名…', `csbRename(${winId})`, { cls: 'sm' }) })}
+                ${deviceRow}
                 ${stxRow({ id: 'cloud-token', ic: 'csbKey', title: '访问令牌', desc: `<span class="stx-mono">${stxEsc(masked)}</span>${S.rate ? ` · 本小时剩余 ${S.rate.remaining}/${S.rate.limit} 次请求` : ''}<br>只保存在这个浏览器里，只发送给 api.github.com。`,
                     ctl: stxBtn('更换令牌…', `csbChangeToken(${winId})`, { cls: 'sm' }) })}
-            </div>
-            <div class="stx-card stx-danger">${stxRow({ id: 'cloud-disconnect', ic: 'csbCloudOff', title: '断开云备份', desc: '停止自动备份并删除本机保存的令牌。仓库里的备份不会被删除，随时可以重新连接（选择“接替”这台设备即可继续）。',
+            </div>`;
+            const connAll = conn + `
+            <div class="stx-card stx-danger">${stxRow({ id: 'cloud-disconnect', ic: 'csbCloudOff', title: '断开云备份', desc: `停止自动备份并删除本机保存的${drive ? '登录信息' : '令牌'}。${drive ? '网盘' : '仓库'}里的备份不会被删除，随时可以重新连接（选择“接替”这台设备即可继续）。`,
                 ctl: stxBtn('断开…', `csbDisconnect(${winId})`, { cls: 'danger sm' }) })}</div>`;
             const logs = S.log.length ? `<div class="stx-card csb-log">${S.log.slice(0, 12).map(l => `<div class="csb-log-row ${l.kind}"><i></i><span>${stxEsc(l.text)}</span><time>${CSB.fmtDate(l.t)}</time></div>`).join('')}</div>` : '';
             setTimeout(() => csbFillDevices(winId), 0);
@@ -20095,26 +20866,39 @@
                 ${stxGroup('备份内容', '', content)}
                 ${stxGroup('自动备份', '', auto)}
                 ${stxGroup('共享文件夹', '在所有设备间双向同步', shared)}
-                ${stxGroup('连接', '', conn)}
+                ${stxGroup('连接', '', connAll)}
                 ${logs ? stxGroup('活动记录', '', logs) : ''}
             </div>`;
         }
         function csbSetupPage(winId) {
             const name = CSB.guessDeviceName();
+            const st = STX_STATE[winId] || {};
+            const prov = st.csbProv || 'github';
             const feats = [
-                ['csbTimer', '改动后约 30 秒自动备份，切到后台立即备份'],
+                ['csbTimer', '改动后约 1 分钟自动备份，切到后台立即备份'],
                 ['csbUsers', '每台设备一个独立文件夹，互不覆盖'],
                 ['csbHistory', '时光机：任何一次备份都能找回，删掉的也行'],
                 ['stxFolderSync', '共享文件夹：所有设备双向同步']
             ];
+            const cards = Object.keys(CSB_LOGO).map(k => `<button type="button" class="csb-prov${k === prov ? ' on' : ''}" role="radio" aria-checked="${k === prov}" onclick="csbPickProv(${winId}, '${k}')">
+                    <span class="csb-logo ${k}">${CSB_LOGO[k]}</span>
+                    <span class="csb-prov-tx"><b>${stxEsc(CSB.PROVIDERS[k])}</b><small>${stxEsc(CSB_PROV_INFO[k].tag)}</small><em>${stxEsc(CSB_PROV_INFO[k].how)}</em></span>
+                    <span class="csb-prov-ck">${icon('stxCheck')}</span>
+                </button>`).join('');
+            const body = prov === 'github' ? csbSetupGithub(winId, name) : csbSetupDrive(winId, prov, name);
             return `<div class="stx-page">${stxHead('backup')}
                 <div class="csb-intro">
                     <div class="csb-orb big">${icon('csbCloud')}</div>
-                    <div><h3>把整台 JISHENG OS 自动备份到你自己的 GitHub 私有仓库</h3>
-                    <p>浏览器崩溃、被清理数据、换手机，都不怕。不需要服务器，数据只在你的浏览器和你的仓库之间传输。</p>
+                    <div><h3>把整台 JISHENG OS 自动备份到云端</h3>
+                    <p>浏览器崩溃、被清理数据、换手机，都不怕。不需要服务器，数据只在你的浏览器和你自己的 GitHub / Google / Microsoft 账号之间传输。</p>
                     <ul>${feats.map(([ic, t]) => `<li>${icon(ic)}<span>${t}</span></li>`).join('')}</ul></div>
                 </div>
-                ${stxGroup('第 1 步', '新建一个私有仓库', `<div class="stx-card">${stxRow({ ic: 'csbGithub', title: '在 GitHub 新建仓库', desc: '名称随意（例如 jisheng-backup），<b>可见性选择 Private（私有）</b>，其他保持默认，点 Create repository。已经有空的私有仓库可以跳过。',
+                ${stxGroup('备份到哪里', '以后可以断开后换成别的', `<div class="csb-provs" role="radiogroup" aria-label="备份位置">${cards}</div>`)}
+                ${body}
+            </div>`;
+        }
+        function csbSetupGithub(winId, name) {
+            return `${stxGroup('第 1 步', '新建一个私有仓库', `<div class="stx-card">${stxRow({ ic: 'csbGithub', title: '在 GitHub 新建仓库', desc: '名称随意（例如 jisheng-backup），<b>可见性选择 Private（私有）</b>，其他保持默认，点 Create repository。已经有空的私有仓库可以跳过。',
                     ctl: stxBtn('新建仓库', `window.open(${stxJs(CSB_NEW_REPO_URL)}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) })}</div>`)}
                 ${stxGroup('第 2 步', '创建只能访问这个仓库的令牌', `<div class="stx-card">${stxRow({ ic: 'csbKey', title: '创建细粒度令牌（Fine-grained token）', cls: 'stx-row-wide',
                     desc: '打开的页面已自动填好名称、权限（Contents: Read and write）和永不过期。你只需要：在 <b>Repository access</b> 选 <b>Only select repositories</b> 并勾选刚才的仓库 → 点页面底部 <b>Generate token</b> → 复制以 github_pat_ 开头的令牌。',
@@ -20126,8 +20910,37 @@
                     <div class="csb-form-foot"><small class="stx-muted">${icon('stxShieldCheck')}令牌只保存在这个浏览器里，只发送给 api.github.com。</small>
                     ${stxBtn('连接并开始备份', `csbConnect(${winId})`, { cls: 'primary', ic: 'csbCloudUpload', attrs: `id="csb-connect-${winId}"` })}</div>
                 </div>`)}
-                <p class="stx-note">${icon('stxInfo')}浏览器数据丢失后重新连接时，在第 3 步之后选择“接替”原来的设备，就能一键把文件恢复回来。</p>
-            </div>`;
+                <p class="stx-note">${icon('stxInfo')}浏览器数据丢失后重新连接时，在第 3 步之后选择“接替”原来的设备，就能一键把文件恢复回来。</p>`;
+        }
+        function csbAppForm(winId, prov) {
+            const app = CSB.appOf(prov), g = prov === 'gdrive';
+            const steps = g
+                ? `在 <b>Google Cloud 控制台</b> 新建项目 → 启用 <b>Google Drive API</b> → 配置 OAuth 同意屏幕（外部，添加自己为测试用户，或发布为正式版）→ 凭据 → 创建 <b>OAuth 客户端 ID</b>，类型选 <b>Web 应用</b>，把下面的地址填进“已获授权的重定向 URI”。`
+                : `在 <b>Microsoft Entra 管理中心</b> → 应用注册 → 新注册：账户类型选“任何组织目录中的帐户和个人 Microsoft 帐户”，平台选 <b>单页应用程序 (SPA)</b>，重定向 URI 填下面的地址。不需要客户端密码。`;
+            return `<div class="stx-card csb-form csb-app">
+                    <p class="csb-app-tip">${icon('stxInfo')}<span>网盘登录需要一个“应用凭据”，只要注册一次，所有设备通用（详见使用说明）。${steps}</span></p>
+                    <label><span>重定向 URI</span><span class="csb-inline"><input class="csb-input stx-mono" readonly value="${stxAttr(CSB.redirectUri())}" onclick="this.select()">${stxBtn('复制', `csbCopy(${stxJs(CSB.redirectUri())})`, { cls: 'sm', ic: 'stxCopy' })}</span></label>
+                    <label><span>客户端 ID</span><input class="csb-input" id="csb-cid-${winId}" value="${stxAttr(app.custom ? app.clientId : '')}" placeholder="${g ? 'xxxx.apps.googleusercontent.com' : '00000000-0000-0000-0000-000000000000'}" spellcheck="false" autocomplete="off"></label>
+                    ${g ? `<label><span>客户端密钥</span><input class="csb-input" id="csb-csec-${winId}" type="password" value="${stxAttr(app.custom ? app.clientSecret : '')}" placeholder="GOCSPX-…" spellcheck="false" autocomplete="off"></label>` : ''}
+                    <div class="csb-form-foot"><small class="stx-muted">${icon('stxShieldCheck')}只保存在这个浏览器里。${g ? 'Google 要求网页应用也提供密钥，它不能单独访问你的数据。' : ''}</small>
+                    <span class="stx-btns">${stxBtn('打开控制台', `window.open(${stxJs(CSB_CONSOLE[prov])}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' })}${stxBtn('保存', `csbSaveApp(${winId}, '${prov}')`, { cls: 'sm primary' })}</span></div>
+                </div>`;
+        }
+        function csbSetupDrive(winId, prov, name) {
+            const ready = CSB.appReady(prov), app = CSB.appOf(prov), st = STX_STATE[winId] || {};
+            const showApp = !ready || st.csbShowApp;
+            const brand = prov === 'gdrive' ? 'Google' : 'Microsoft';
+            const where = prov === 'gdrive'
+                ? '备份放在你云端硬盘的「JISHENG OS 云备份」文件夹里：commits 是每次备份的记录，packs 里是打包好的 zip（可以直接下载解压查看）。只申请“仅限本应用创建的文件”权限，看不到你网盘里的其他文件。'
+                : '备份放在 OneDrive 的「应用 / 应用名」文件夹里：commits 是每次备份的记录，packs 里是打包好的 zip。只申请“应用文件夹”权限，看不到你网盘里的其他文件。';
+            return `${showApp ? stxGroup(ready ? '应用凭据' : '先设置应用凭据', ready ? '' : '只需一次', csbAppForm(winId, prov)) : ''}
+                ${stxGroup(showApp && !ready ? '然后' : '', `登录 ${CSB.PROVIDERS[prov]}`, `<div class="stx-card csb-form">
+                    <label><span>本机名称</span><input class="csb-input" id="csb-name-${winId}" value="${stxAttr(name)}" maxlength="40" spellcheck="false" autocomplete="off"></label>
+                    <p class="csb-app-tip">${icon('stxFolderOpen')}<span>${where}</span></p>
+                    <div class="csb-form-foot"><small class="stx-muted">${icon('stxShieldCheck')}会跳转到 ${brand} 登录页，完成后自动回到这里继续。${ready && !showApp ? ` <a href="javascript:void 0" onclick="csbToggleApp(${winId})">应用凭据${app.custom ? '（本机）' : ''}</a>` : ''}</small>
+                    ${stxBtn(`使用 ${brand} 账号登录`, `csbLogin(${winId}, '${prov}')`, { cls: 'primary', ic: 'csbKey', dis: !ready, attrs: `id="csb-connect-${winId}"` })}</div>
+                </div>`)}
+                <p class="stx-note">${icon('stxInfo')}换设备或浏览器数据丢失后，用同一个账号登录并选择“接替”原来的设备，就能一键恢复。</p>`;
         }
 
         // ---------- 设置页交互 ----------
@@ -20205,9 +21018,57 @@
             CSB.run('token', { manual: true, force: true });
             stxRender(winId, { keepScroll: true });
         }
+        function csbPickProv(winId, p) { if (!STX_STATE[winId]) return; STX_STATE[winId].csbProv = p; STX_STATE[winId].csbShowApp = false; stxRender(winId, { keepScroll: true }); }
+        function csbToggleApp(winId) { if (!STX_STATE[winId]) return; STX_STATE[winId].csbShowApp = !STX_STATE[winId].csbShowApp; stxRender(winId, { keepScroll: true }); }
+        function csbCopy(text) {
+            const ok = () => Notify.success('已复制', text);
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, () => SysDialog.prompt({ title: '请手动复制', value: text }));
+            else SysDialog.prompt({ title: '请手动复制', value: text });
+        }
+        function csbCheckApp(p, v) {
+            if (!v.clientId) return '请填写客户端 ID';
+            if (p === 'gdrive' && !/\.apps\.googleusercontent\.com$/.test(v.clientId)) return 'Google 的客户端 ID 以 .apps.googleusercontent.com 结尾';
+            if (p === 'gdrive' && !v.clientSecret) return '请填写客户端密钥';
+            if (p === 'onedrive' && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v.clientId)) return 'OneDrive 的应用程序(客户端) ID 是 8-4-4-4-12 格式的一串字符';
+            return null;
+        }
+        async function csbSaveApp(winId, p) {
+            const val = id => ((document.getElementById(id + '-' + winId) || {}).value || '').trim();
+            const v = { clientId: val('csb-cid'), clientSecret: p === 'gdrive' ? val('csb-csec') : '' };
+            if (!v.clientId && CSB.appOf(p).custom) { await CSB.saveApps(p, null); Notify.info('已清除本机凭据', CSB.appReady(p) ? '改用网站内置的凭据' : ''); stxRender(winId, { keepScroll: true }); return; }
+            const err = csbCheckApp(p, v);
+            if (err) { Notify.warning('应用凭据不完整', err); return; }
+            await CSB.saveApps(p, v);
+            if (STX_STATE[winId]) STX_STATE[winId].csbShowApp = false;
+            Notify.success('已保存', '现在可以登录了');
+            stxRender(winId, { keepScroll: true });
+        }
+        async function csbEditApp(p, winId) {
+            const app = CSB.appOf(p), g = p === 'gdrive';
+            const r = await SysDialog.form({ title: `${CSB.PROVIDERS[p]} 应用凭据`, icon: 'stxPlugZap', okText: '保存',
+                message: `重定向 URI：${CSB.redirectUri()}\n留空表示使用网站内置的凭据。修改后需要重新登录。`,
+                fields: [{ type: 'text', name: 'clientId', label: '客户端 ID', value: app.custom ? app.clientId : '' }, ...(g ? [{ type: 'text', name: 'clientSecret', label: '客户端密钥', value: app.custom ? app.clientSecret : '' }] : [])],
+                validate: v => (!v.clientId && !(CSB.CSB_APPS[p] || {}).clientId) ? '网站没有内置凭据，请填写' : v.clientId ? csbCheckApp(p, { clientId: v.clientId.trim(), clientSecret: (v.clientSecret || '').trim() }) : null });
+            if (!r) return;
+            await CSB.saveApps(p, r.clientId ? { clientId: r.clientId.trim(), clientSecret: (r.clientSecret || '').trim() } : null);
+            stxRender(winId, { keepScroll: true });
+            if (await SysDialog.confirm({ title: '现在重新登录？', icon: 'csbKey', okText: '重新登录', message: '使用新的应用凭据需要重新登录一次。' })) csbRelogin();
+        }
+        async function csbLogin(winId, p) {
+            const el = document.getElementById('csb-name-' + winId);
+            const name = (el && el.value.trim()) || CSB.guessDeviceName();
+            try { await CSB.login(p, { deviceName: name, mode: 'connect' }); }
+            catch (e) { Notify.error('无法登录', CSB.explain(e)); }
+        }
+        async function csbRelogin() {
+            const cfg = CSB.S.cfg; if (!cfg || !CSB.isDrive()) return;
+            if (CSB.S.dirty || CSB.S.phase === 'pending') { try { await CSB.saveState(); } catch (_) {} }
+            try { await CSB.login(cfg.provider, { mode: 'relogin', hint: cfg.auth && cfg.auth.user }); }
+            catch (e) { Notify.error('无法登录', CSB.explain(e)); }
+        }
         async function csbDisconnect(winId) {
             const ok = await SysDialog.confirm({ title: '断开云备份？', icon: 'csbCloudOff', danger: true, okText: '断开',
-                message: '这台设备将停止自动备份，并删除保存在本机的令牌。\n仓库里已有的备份不受影响，以后可以重新连接并“接替”这台设备。' });
+                message: CSB.isDrive() ? `这台设备将停止自动备份，并退出 ${CSB.provName()} 登录。\n网盘里已有的备份不受影响，以后可以重新登录并“接替”这台设备。` : '这台设备将停止自动备份，并删除保存在本机的令牌。\n仓库里已有的备份不受影响，以后可以重新连接并“接替”这台设备。' });
             if (!ok) return;
             await CSB.disconnect();
             stxRender(winId);
@@ -20224,6 +21085,15 @@
             if (!ok) return;
             await CSB.confirmGuard();
             stxRender(winId, { keepScroll: true });
+        }
+        let csbQuota = null;
+        async function csbFillQuota(winId) {
+            try {
+                if (!csbQuota || Date.now() - csbQuota.at > 300000 || csbQuota.p !== CSB.S.cfg.provider) csbQuota = { at: Date.now(), p: CSB.S.cfg.provider, a: await CSB.transport().account() };
+                const el = document.querySelector(`[data-csb-quota="${winId}"]`);
+                const a = csbQuota.a;
+                if (el && a && a.total) el.textContent = ` · 网盘已用 ${formatStorageBytes(a.used)} / ${formatStorageBytes(a.total)}`;
+            } catch (_) {}
         }
         async function csbFillDevices(winId, force) {
             const host = document.querySelector(`[data-csb-devices="${winId}"]`);
@@ -20242,6 +21112,7 @@
                 rows.push(stxRow({ ic: 'stxFolderSync', title: '共享文件夹（云端）', desc: `${d.shared.files.toLocaleString()} 个文件 · ${formatStorageBytes(d.shared.bytes)}`,
                     ctl: stxBtn('浏览', `openCloudBrowser({ shared: true })`, { cls: 'sm', ic: 'csbHistory' }) }));
                 h.innerHTML = rows.join('') || `<div class="stx-empty">仓库里还没有设备</div>`;
+                if (CSB.isDrive()) csbFillQuota(winId);
             } catch (e) {
                 const h = document.querySelector(`[data-csb-devices="${winId}"]`);
                 if (h) h.innerHTML = `<div class="stx-empty">${icon('stxTriangleAlert')}无法读取设备列表：${stxEsc(CSB.explain(e))}</div>`;
@@ -20264,24 +21135,59 @@
                         message: `任何人都能看到 ${info.full} 里的文件。\n强烈建议先到仓库的 Settings → General → Danger Zone → Change visibility 改为 Private，再回来连接。` });
                     if (!go) return;
                 }
+                await csbSetupDevice(winId, { provider: 'github', repo: info.full, token, branch: info.branch }, name);
+            } catch (e) {
+                Notify.error('连接失败', CSB.explain(e));
+                if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect();
+            } finally { busy(false); }
+        }
+        // 网盘登录回来之后：检查网盘、读取已有设备，然后和 GitHub 一样选择“新设备 / 接替”
+        async function csbFinishDrive(o) {
+            const winId = csbBackupWin();
+            const p = o.provider;
+            const prog = csbProgress(`正在连接 ${CSB.PROVIDERS[p]}…`);
+            let conn;
+            try {
+                conn = { provider: p, repo: `${p}:${o.auth.user || 'account'}`, auth: o.auth };
+                await CSB.connect({ ...conn, deviceName: o.deviceName || CSB.guessDeviceName(), deviceId: '' });
+                const acct = await CSB.driveInfo(p);
+                if (acct && acct.email && !o.auth.user) { o.auth.user = acct.email; conn.repo = `${p}:${acct.email}`; }
+                prog.done();
+            } catch (e) {
+                prog.done();
+                Notify.error('连接失败', CSB.explain(e));
+                if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect();
+                if (winId) stxRender(winId);
+                return;
+            }
+            try { await csbSetupDevice(winId, conn, o.deviceName || CSB.guessDeviceName()); }
+            catch (e) { Notify.error('连接失败', CSB.explain(e)); if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect(); if (winId) stxRender(winId); }
+        }
+        function csbBackupWin() {
+            const ids = stxAllWins().filter(id => STX_STATE[id] && STX_STATE[id].page === 'backup');
+            return ids.length ? ids[ids.length - 1] : null;
+        }
+        async function csbSetupDevice(winId, conn, name) {
+            {
+                const where = conn.provider === 'github' ? '仓库' : '网盘';
                 // 先以“未指定设备”的状态连上（不会自动备份），读取已有设备
-                await CSB.connect({ repo: info.full, token, branch: info.branch, deviceName: name, deviceId: '' });
+                await CSB.connect({ ...conn, deviceName: name, deviceId: '' });
                 const devs = await CSB.listDevices(true);
                 let deviceId = '', deviceName = name, takeover = null;
                 if (devs.list.length) {
                     const r = await SysDialog.form({ title: '这台设备是？', icon: 'csbUsers', okText: '继续',
-                        message: '仓库里已经有其他设备的备份。如果这台设备之前连接过（比如浏览器数据丢失后重新设置），请选择“接替”，备份会接着原来的文件夹继续，并可以一键恢复。',
+                        message: `${where}里已经有其他设备的备份。如果这台设备之前连接过（比如浏览器数据丢失后重新设置），请选择“接替”，备份会接着原来的文件夹继续，并可以一键恢复。`,
                         fields: [{ type: 'radio', name: 'dev', value: '__new', options: [
-                            { value: '__new', label: `新设备：「${name}」`, desc: '在仓库里新建一个设备文件夹', icon: 'stxFolderPlus' },
+                            { value: '__new', label: `新设备：「${name}」`, desc: `在${where}里新建一个设备文件夹`, icon: 'stxFolderPlus' },
                             ...devs.list.map(d => ({ value: d.id, label: `接替「${d.name}」`, desc: `最近备份 ${d.lastBackup ? CSB.fmtDate(d.lastBackup) : '—'} · ${d.files} 个文件 · ${formatStorageBytes(d.bytes)}`, icon: 'csbArchiveRestore' }))
                         ] }] });
                     if (!r) { await CSB.disconnect(); return; }
                     if (r.dev !== '__new') { takeover = devs.list.find(d => d.id === r.dev); deviceId = takeover.id; deviceName = takeover.name; }
                 }
                 if (!deviceId) deviceId = CSB.makeDeviceId(name);
-                await CSB.connect({ repo: info.full, token, branch: info.branch, deviceName, deviceId, cloud: takeover && takeover.cloud });
+                await CSB.connect({ ...conn, deviceName, deviceId, cloud: takeover && takeover.cloud });
                 if (takeover && takeover.cloud && takeover.cloud.shared && takeover.cloud.shared.enabled) { try { await SYSTEM.jfs.mkdirp(takeover.cloud.shared.path); } catch (_) {} }
-                stxRender(winId);
+                if (winId) stxRender(winId); else csbRerender();
                 if (takeover && takeover.files > 0) {
                     const local = await csbLocalCount();
                     const restore = await SysDialog.confirm({ title: '要把备份恢复到本机吗？', icon: 'csbArchiveRestore', okText: '选择恢复方式…', cancelText: '暂不恢复',
@@ -20290,10 +21196,7 @@
                 }
                 Notify.info('云备份已开启', '正在进行首次备份，文件较多时需要几分钟');
                 CSB.run('first', { manual: true, force: true });
-            } catch (e) {
-                Notify.error('连接失败', CSB.explain(e));
-                if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect();
-            } finally { busy(false); }
+            }
         }
         async function csbLocalCount() {
             let n = 0;
@@ -20685,13 +21588,28 @@
             csbTray();
             // 相对时间（“3 分钟前”）定时刷新
             setInterval(() => { if (document.querySelector('[data-csb-live]')) csbLive(); else csbTray(); }, 30000);
-            CSB.init();
+            CSB.init().then(() => {
+                const o = CSB.S.oauth;
+                if (!o) return;
+                CSB.S.oauth = null;
+                const open = () => { try { openSettings('backup'); } catch (_) {} };
+                if (o.error) {
+                    open();
+                    setTimeout(() => { const w = csbBackupWin(); if (w && STX_STATE[w] && !CSB.S.cfg) { STX_STATE[w].csbProv = o.provider; stxRender(w); } }, 300);
+                    Notify.error(`${CSB.PROVIDERS[o.provider] || ''} 登录没有完成`, o.error);
+                } else if (o.done) {
+                    Notify.success('已重新登录', '正在继续备份');
+                } else if (o.auth) {
+                    open();
+                    setTimeout(() => csbFinishDrive(o), 500);
+                }
+            });
         }
 
         function stxPageClean(winId) {
             const opfsOk = stxOpfsOk();
             const backup = `<div class="stx-card">
-                ${stxRow({ id: 'cloudlink', ic: 'csbCloud', title: '云备份（自动）', desc: '把全部文件、设置和壁纸自动备份到你的 GitHub 私有仓库，可随时恢复到任意时间点。',
+                ${stxRow({ id: 'cloudlink', ic: 'csbCloud', title: '云备份（自动）', desc: '把全部文件、设置和壁纸自动备份到 GitHub 私有仓库、Google 云端硬盘或 OneDrive，可随时恢复到任意时间点。',
                     ctl: stxBtn('打开', `stxGo(${winId}, 'backup')`, { cls: 'primary sm', ic: 'csbCloud' }) })}
                 ${stxRow({ id: 'export', ic: 'edxFileUp', title: '导出设置备份', desc: '保存系统设置、壁纸和桌面图标位置为一个 .json 文件，可在换电脑或重置后恢复。不包含文件本身。',
                     ctl: stxBtn('导出…', 'stxExportBackup()', { cls: 'sm', ic: 'edxFileUp' }) })}
@@ -21755,5 +22673,5 @@
 
     window.sevenZipEngine = new SevenZipEngine();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a53c08c88debc1fe',t:'MTc5MzU0ODAwNw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a53c08c88debc1fe',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a544fdd2bcc5cba7',t:'MTc5MzY0MTkzMA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a544fdd2bcc5cba7',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
