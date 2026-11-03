@@ -2784,6 +2784,73 @@
         .csb-form-foot a { color: rgb(var(--al-4cc2ff, 76,194,255)); text-decoration: none; }
         .csb-form-foot a:hover { text-decoration: underline; }
         .csb-warn-t { color: var(--warn); }
+        /* 多个备份位置 */
+        .csb-tgts { padding: 0; overflow: hidden; }
+        .csb-tgt + .csb-tgt, .csb-tgt + .csb-add-btn, .csb-tgt + .csb-add { border-top: 1px solid var(--line); }
+        .csb-tgt-main { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 14px; align-items: center; padding: 14px 16px; }
+        .csb-tgt-tx { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+        .csb-tgt-tx > b { font-size: 13.5px; font-weight: 650; display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+        .csb-tgt-tx > b .stx-mono { font-weight: 400; font-size: 11.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+        .csb-tgt-st { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); min-width: 0; }
+        .csb-tgt-st > i { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 18%, transparent); }
+        .csb-tgt-st.pend > i { background: rgb(var(--a-0078d4, 0,120,212)); box-shadow: 0 0 0 3px rgba(var(--a-0078d4, 0,120,212), .2); }
+        .csb-tgt-st.sync > i { background: rgb(var(--a-00d4ff, 0,212,255)); animation: csbPulse 1.2s ease-in-out infinite; }
+        .csb-tgt-st.warn > i { background: var(--warn); box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 22%, transparent); }
+        .csb-tgt-st.err > i { background: var(--danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 22%, transparent); }
+        .csb-tgt-st.off > i { background: var(--muted); box-shadow: none; }
+        .csb-tgt-st.warn, .csb-tgt-st.err { color: var(--ink); }
+        @keyframes csbPulse { 50% { opacity: .35; } }
+        .csb-tgt-tx .csb-prog { margin-top: 3px; max-width: 280px; }
+        .csb-more { padding: 0 7px; }
+        .csb-more .icon-svg { width: 15px; height: 15px; transition: transform .2s; }
+        .csb-more.on .icon-svg { transform: rotate(180deg); }
+        .csb-tgt.open { background: linear-gradient(180deg, var(--l10, rgba(255,255,255,.035)), transparent 140px); }
+        .csb-tgt-detail { padding: 0 16px 10px 66px; animation: csbIn .2s ease-out; }
+        .csb-tgt-detail .stx-row { padding-left: 0; padding-right: 0; min-height: 52px; }
+        .csb-tgt-detail .stx-row + .stx-row { border-top: 1px dashed var(--line); }
+        .csb-tgt-detail .stx-empty { padding: 14px 0; }
+        @keyframes csbIn { from { opacity: 0; transform: translateY(-4px); } }
+        .csb-sub-h { display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; padding: 8px 0 2px; }
+        .csb-sub-h .stx-btn { min-height: 24px; padding: 0 6px; }
+        .csb-sub-h .stx-btn .icon-svg { width: 13px; height: 13px; }
+        .csb-danger-row .stx-row-ic { color: var(--danger); }
+        .csb-add-btn { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 14px; align-items: center; width: 100%; padding: 14px 16px; text-align: left;
+            background: transparent; border: 0; color: var(--ink); font: inherit; cursor: pointer; transition: background .15s; }
+        .csb-add-btn > .icon-svg { width: 36px; height: 36px; padding: 9px; border-radius: 10px; box-sizing: border-box; color: rgb(var(--al-4cc2ff, 76,194,255));
+            border: 1.5px dashed color-mix(in srgb, rgb(var(--al-4cc2ff, 76,194,255)) 55%, transparent); transition: transform .2s, background .2s; }
+        .csb-add-btn:hover { background: var(--l2, rgba(255,255,255,.04)); }
+        .csb-add-btn:hover > .icon-svg { transform: rotate(90deg); background: rgba(var(--al-4cc2ff, 76,194,255), .1); }
+        .csb-add-btn span { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+        .csb-add-btn b { font-size: 13.5px; font-weight: 600; }
+        .csb-add-btn small { font-size: 12px; color: var(--muted); }
+        .csb-add-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(var(--al-0078d4, 0,120,212), .35) inset; }
+        .csb-add { padding: 14px 16px 16px; background: var(--l10, rgba(255,255,255,.03)); animation: csbIn .2s ease-out; }
+        .csb-add-h { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .csb-add-h b { font-size: 14px; font-weight: 650; }
+        .csb-add .stx-card { background: var(--card); }
+        .csb-prov.dis { opacity: .45; cursor: default; transform: none; }
+        .csb-prov.dis:hover { border-color: var(--line); transform: none; }
+        .csb-modes { grid-template-columns: repeat(2, minmax(0,1fr)); margin-bottom: 0; }
+        @container (max-width: 560px) { .csb-modes { grid-template-columns: 1fr; } }
+        .csb-mode .csb-logo .icon-svg { width: 19px; height: 19px; color: var(--muted); transition: color .18s; }
+        .csb-mode.on .csb-logo .icon-svg { color: rgb(var(--al-4cc2ff, 76,194,255)); }
+        .csb-auto { margin-top: 10px; animation: csbIn .2s ease-out; }
+        .csb-log-row .csb-logo.sm { vertical-align: -4px; margin-right: 6px; width: 16px; height: 16px; }
+        .csb-log-row .csb-logo.sm svg { width: 13px; height: 13px; }
+        .csb-side-tgt[hidden] { display: none; }
+        .csb-tgt-tabs { display: flex; gap: 4px; padding: 0 8px 6px; flex-wrap: wrap; }
+        .csb-tgt-tab { display: inline-flex; align-items: center; gap: 0; padding: 4px 9px 4px 6px; border-radius: 999px; border: 1px solid var(--line); background: transparent;
+            color: var(--muted); font: inherit; font-size: 11.5px; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+        .csb-tgt-tab .csb-logo.sm { margin-right: 5px; width: 16px; height: 16px; vertical-align: 0; }
+        .csb-tgt-tab .csb-logo.sm svg { width: 13px; height: 13px; }
+        .csb-tgt-tab:hover { color: var(--ink); }
+        .csb-tgt-tab.on { color: var(--ink); border-color: rgb(var(--a-0078d4, 0,120,212)); background: rgba(var(--al-0078d4, 0,120,212), .14); }
+        @container (max-width: 560px) {
+            .csb-tgt-main { grid-template-columns: auto minmax(0,1fr); }
+            .csb-tgt-main > .stx-btns { grid-column: 1 / -1; justify-content: flex-start; }
+            .csb-tgt-detail { padding-left: 16px; }
+        }
+        .csb-form label[hidden] { display: none; }
 </style>
     <script>
     /* ===== 外观引擎：深色/浅色主题 · 强调色 · 毛玻璃（v10.8）=====
@@ -18027,7 +18094,7 @@
             { k: 'personal', n: '个性化', d: '颜色、透明效果、窗口与桌面交互方式', ic: 'stxPalette' },
             { k: 'wallpaper', n: '壁纸', d: '桌面壁纸、Windows 聚焦、预设与最近使用的壁纸', ic: 'stxWallpaper' },
             { k: 'storage', n: '存储', d: '空间占用、存储位置与工作区复制', ic: 'stxHardDrive' },
-            { k: 'backup', n: '云备份', d: '自动备份到 GitHub、Google 云端硬盘或 OneDrive，多设备浏览、恢复与共享文件夹', ic: 'csbCloud' },
+            { k: 'backup', n: '云备份', d: '把系统备份到 Google 云端硬盘、OneDrive 或 GitHub（可以同时多个），一键恢复与多设备共享', ic: 'csbCloud' },
             { k: 'files', n: '文件管理', d: '隐藏文件与已挂载的本地文件夹', ic: 'stxFolderOpen' },
             { k: 'clean', n: '清理与维护', d: '清理临时文件、备份设置、重置数据', ic: 'stxBrushCleaning' },
             { k: 'apps', n: '应用', d: '默认打开方式与系统应用快捷方式', ic: 'stxLayoutGrid' },
@@ -19529,8 +19596,37 @@
         // 同步算法：本地文件按 git blob 规则计算 SHA-1（按 路径+大小+修改时间 缓存），与远端递归树对比，
         // 只上传变化的内容；用 Git Data API 一次提交（树 → 提交 → 移动分支）。历史即“时光机”。
         // 大量删除 / 本机突然变空时暂停并询问（防止崩溃后空白的本机把备份“同步”成空的）。
-        const CSB = (() => {
-            const DB_NAME = 'JISHENG_CLOUD';
+        // ---------- 本地存储（独立的 IndexedDB 库 JISHENG_CLOUD，不碰系统的 JISHENG_OS_V3） ----------
+        let csbDbP = null;
+        function csbDb() {
+            if (!csbDbP) csbDbP = new Promise((resolve, reject) => {
+                const r = indexedDB.open('JISHENG_CLOUD', 1);
+                r.onupgradeneeded = () => { r.result.createObjectStore('kv'); };
+                r.onsuccess = () => resolve(r.result);
+                r.onerror = () => { csbDbP = null; reject(r.error); };
+            });
+            return csbDbP;
+        }
+        async function csbKvGet(k) {
+            const d = await csbDb();
+            return new Promise((resolve, reject) => { const q = d.transaction('kv').objectStore('kv').get(k); q.onsuccess = () => resolve(q.result); q.onerror = () => reject(q.error); });
+        }
+        async function csbKvSet(k, v) {
+            const d = await csbDb();
+            return new Promise((resolve, reject) => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, k); t.oncomplete = () => resolve(); t.onerror = () => reject(t.error); });
+        }
+        async function csbKvDel(k) {
+            const d = await csbDb();
+            return new Promise((resolve, reject) => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').delete(k); t.oncomplete = () => resolve(); t.onerror = () => reject(t.error); });
+        }
+        // 文件 SHA 缓存（路径+大小+修改时间 → SHA）：与备份到哪里无关，多个备份位置共用，只算一次
+        let csbHashCache = null, csbHashDirty = false;
+        async function csbHashes() { if (!csbHashCache) csbHashCache = (await csbKvGet('hashes').catch(() => null)) || {}; return csbHashCache; }
+        async function csbSaveHashes() { if (csbHashDirty && csbHashCache) { csbHashDirty = false; await csbKvSet('hashes', csbHashCache).catch(() => {}); } }
+        let csbApps = {};   // 本机填写的应用凭据（所有位置共用）
+
+        // 一个备份位置 = 一个同步引擎实例（tid 区分，例如 t1、t2）。多个位置由文件末尾的 CSB 统一管理。
+        function csbEngine(tid, hub) {
             const API_DEFAULT = 'https://api.github.com';
             const LS_PREFIXES = ['JISHENG_OS_', 'JSOS_', 'jsos-'];
             const LS_SKIP = /^(JISHENG_OS_MTIME_CACHE$|JSOS_CLOUD)/;
@@ -19538,11 +19634,11 @@
             const GUARD_MIN = 20, GUARD_PCT = 0.25, GUARD_ABS = 500;
             const DEFAULTS = {
                 provider: 'github', repo: '', token: '', branch: 'main', auth: null, gd: null, deviceId: '', deviceName: '',
-                paused: false, includeOpfs: false, includeSystem: true, includeLocal: true,
+                mode: 'manual', paused: false, includeOpfs: false, includeSystem: true, includeLocal: true,
                 maxMB: 50, excludeExt: '', delay: 60, interval: 5, bgFlush: true,
                 shared: { enabled: false, path: '/desktop/云同步' }
             };
-            const CLOUD_KEYS = ['includeOpfs', 'includeSystem', 'includeLocal', 'maxMB', 'excludeExt', 'delay', 'interval', 'bgFlush', 'shared'];
+            const CLOUD_KEYS = ['mode', 'includeOpfs', 'includeSystem', 'includeLocal', 'maxMB', 'excludeExt', 'delay', 'interval', 'bgFlush', 'shared'];
             const S = {
                 cfg: null, loaded: false, running: false, again: false, runP: null, timer: 0, poll: 0,
                 dirty: false, dirtySince: 0, applying: 0, restoring: false,
@@ -19555,6 +19651,8 @@
             const PROVIDERS = { github: 'GitHub', gdrive: 'Google 云端硬盘', onedrive: 'OneDrive' };
             const provName = p => PROVIDERS[p || (S.cfg && S.cfg.provider) || 'github'] || 'GitHub';
             const listeners = new Set();
+            let dead = false;
+            const isAuto = () => !!(S.cfg && S.cfg.mode === 'auto');   // 默认手动：只有打开“自动备份”才会自己同步
 
             // ---------- 小工具 ----------
             const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -19630,36 +19728,14 @@
                 return m ? `${m[1]}/${m[2]}` : '';
             }
 
-            // ---------- 本地状态（独立的 IndexedDB 库，不碰系统的 JISHENG_OS_V3） ----------
-            let dbp = null;
-            function db() {
-                if (!dbp) dbp = new Promise((resolve, reject) => {
-                    const r = indexedDB.open(DB_NAME, 1);
-                    r.onupgradeneeded = () => { r.result.createObjectStore('kv'); };
-                    r.onsuccess = () => resolve(r.result);
-                    r.onerror = () => { dbp = null; reject(r.error); };
-                });
-                return dbp;
-            }
-            async function kvGet(k) {
-                const d = await db();
-                return new Promise((resolve, reject) => { const q = d.transaction('kv').objectStore('kv').get(k); q.onsuccess = () => resolve(q.result); q.onerror = () => reject(q.error); });
-            }
-            async function kvSet(k, v) {
-                const d = await db();
-                return new Promise((resolve, reject) => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, k); t.oncomplete = () => resolve(); t.onerror = () => reject(t.error); });
-            }
-            async function kvDel(k) {
-                const d = await db();
-                return new Promise((resolve, reject) => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').delete(k); t.oncomplete = () => resolve(); t.onerror = () => reject(t.error); });
-            }
-            let hashCache = null, hashDirty = false;
-            async function hashes() { if (!hashCache) hashCache = (await kvGet('hashes').catch(() => null)) || {}; return hashCache; }
-            async function saveHashes() { if (hashDirty && hashCache) { hashDirty = false; await kvSet('hashes', hashCache).catch(() => {}); } }
+            // ---------- 本地状态：每个备份位置一组独立的键（t1:config、t1:state…）；SHA 缓存与应用凭据共用 ----------
+            const ns = k => (k === 'apps' || k === 'hashes') ? k : tid + ':' + k;
+            const kvGet = k => csbKvGet(ns(k)), kvSet = (k, v) => csbKvSet(ns(k), v), kvDel = k => csbKvDel(ns(k));
+            const hashes = () => csbHashes(), saveHashes = () => csbSaveHashes();
             async function saveConfig() { await kvSet('config', S.cfg); }
             async function saveState() {
                 await kvSet('state', { lastOk: S.lastOk, lastPush: S.lastPush, lastCommit: S.lastCommit, skipped: S.skipped, stats: S.stats, log: S.log.slice(0, 60),
-                    guard: S.guard, lastError: S.lastError, sharedStat: S.sharedStat, lsHash: S.lsHash, manCore: S.manCore || '', noop: S.noop || 0 }).catch(() => {});
+                    guard: S.guard, lastError: S.lastError, sharedStat: S.sharedStat, lsHash: S.lsHash, manCore: S.manCore || '', noop: S.noop || 0, dirty: !!S.dirty }).catch(() => {});
             }
             function log(text, kind) {
                 S.log.unshift({ t: now(), text, kind: kind || 'info' });
@@ -19675,16 +19751,16 @@
             function emit() {
                 if (emitQueued) return;
                 emitQueued = true;
-                requestAnimationFrame(() => { emitQueued = false; listeners.forEach(fn => { try { fn(S); } catch (e) { console.warn(e); } }); });
+                requestAnimationFrame(() => { emitQueued = false; listeners.forEach(fn => { try { fn(S); } catch (e) { console.warn(e); } }); hub.emit(); });
             }
 
             // ---------- GitHub API ----------
             function apiError(status, message, extra) {
-                const e = new Error(message); e.status = status; Object.assign(e, extra || {}); return e;
+                const e = new Error(message); e.status = status; e.tid = tid; Object.assign(e, extra || {}); return e;
             }
             function explain(e) {
                 if (!e) return '未知错误';
-                if (e.code === 'network') return '网络连接失败，稍后会自动重试';
+                if (e.code === 'network') return isAuto() ? '网络连接失败，稍后会自动重试' : '网络连接失败，请检查网络后再点“备份”';
                 if (e.code === 'noapp') return e.message + '（设置 → 云备份 → 应用凭据）';
                 if (e.code === 'auth') return `${provName()} 登录已过期，请点“重新登录”`;
                 if (e.oauth) {
@@ -19845,11 +19921,11 @@
                     scope: 'openid profile offline_access Files.ReadWrite.AppFolder', extra: { response_mode: 'query' } }
             };
             function appOf(p) {
-                const a = (S.apps && S.apps[p]) || {}, d = CSB_APPS[p] || {};
+                const a = (csbApps && csbApps[p]) || {}, d = CSB_APPS[p] || {};
                 return { clientId: (a.clientId || d.clientId || '').trim(), clientSecret: (a.clientSecret || d.clientSecret || '').trim(), tenant: (a.tenant || d.tenant || 'common').trim() || 'common', custom: !!a.clientId };
             }
             const appReady = p => { const a = appOf(p); return !!a.clientId && (p !== 'gdrive' || !!a.clientSecret); };
-            async function saveApps(p, v) { S.apps = { ...(S.apps || {}), [p]: v && v.clientId ? v : undefined }; if (!S.apps[p]) delete S.apps[p]; await kvSet('apps', S.apps); emit(); }
+            async function saveApps(p, v) { csbApps = { ...(csbApps || {}), [p]: v && v.clientId ? v : undefined }; if (!csbApps[p]) delete csbApps[p]; await csbKvSet('apps', csbApps); emit(); hub.emit(); }
             const redirectUri = () => location.origin + location.pathname;
             const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
             async function authUrl(p, o = {}) {
@@ -19858,7 +19934,7 @@
                 const verifier = b64url(crypto.getRandomValues(new Uint8Array(32)));
                 const challenge = b64url(await crypto.subtle.digest('SHA-256', enc.encode(verifier)));
                 const state = `csb.${p}.${o.silent ? 's' : 'i'}.${b64url(crypto.getRandomValues(new Uint8Array(9)))}`;
-                const pend = { provider: p, verifier, state, redirect: redirectUri(), mode: o.mode || 'connect', deviceName: o.deviceName || '', at: now() };
+                const pend = { provider: p, verifier, state, redirect: redirectUri(), mode: o.mode || 'connect', deviceName: o.deviceName || '', tid, at: now() };
                 try { localStorage.setItem(o.silent ? 'JSOS_CLOUD_OAUTH_S' : 'JSOS_CLOUD_OAUTH', JSON.stringify(pend)); } catch (_) {}
                 const q = { client_id: app.clientId, redirect_uri: pend.redirect, response_type: 'code', scope: cfg.scope, state, code_challenge: challenge, code_challenge_method: 'S256', ...cfg.extra };
                 if (o.hint) q.login_hint = o.hint;
@@ -20018,18 +20094,18 @@
                 const data = await SYSTEM.jfs.readFile(f.path);
                 const bytes = data instanceof Uint8Array ? data : new Uint8Array(data);
                 const sha = await gitSha(bytes);
-                hc[key] = [f.size, f.raw, sha]; hashDirty = true;
+                hc[key] = [f.size, f.raw, sha]; csbHashDirty = true;
                 return { sha, bytes: bytes.length <= 4 * 1024 * 1024 ? bytes : null };
             }
             async function remember(path, sha) {
-                try { const st = await rawStat(path); (await hashes())[path] = [st.size, msOf(st.mtime), sha]; hashDirty = true; } catch (_) {}
+                try { const st = await rawStat(path); (await hashes())[path] = [st.size, msOf(st.mtime), sha]; csbHashDirty = true; } catch (_) {}
             }
             // 文件被改动/删除/移动时清掉它（及子路径）的缓存——不依赖修改时间，双保险
             function invalidate(path) {
-                if (!hashCache || !path) return;
-                if (hashCache[path]) { delete hashCache[path]; hashDirty = true; }
+                if (!csbHashCache || !path) return;
+                if (csbHashCache[path]) { delete csbHashCache[path]; csbHashDirty = true; }
                 const pre = path + '/';
-                for (const k in hashCache) if (k.startsWith(pre)) { delete hashCache[k]; hashDirty = true; }
+                for (const k in csbHashCache) if (k.startsWith(pre)) { delete csbHashCache[k]; csbHashDirty = true; }
             }
             async function readBytes(path) {
                 const data = await SYSTEM.jfs.readFile(path);
@@ -20073,7 +20149,7 @@
                 // 清掉已不存在文件的缓存，避免缓存无限增长
                 const roots = backupRoots(), present = new Set(out.files.map(f => f.path));
                 const sharedRoot = cfg.shared.enabled ? normPath(cfg.shared.path) : null;
-                Object.keys(hc).forEach(k => { if (roots.some(r => under(k, r)) && !present.has(k) && !(sharedRoot && under(k, sharedRoot))) { delete hc[k]; hashDirty = true; } });
+                Object.keys(hc).forEach(k => { if (roots.some(r => under(k, r)) && !present.has(k) && !(sharedRoot && under(k, sharedRoot))) { delete hc[k]; csbHashDirty = true; } });
 
                 const remoteFiles = [...remote.keys()].filter(p => p.startsWith(fp));
                 const uploads = [], deletes = [];
@@ -20383,12 +20459,13 @@
 
             // ---------- 调度 ----------
             function run(reason, opt = {}) {
-                if (!S.cfg || !connected()) return Promise.resolve();
+                if (dead || !S.cfg || !connected()) return Promise.resolve();
+                if (!opt.manual && !isAuto()) return Promise.resolve();   // 手动模式：只有点“备份”才同步
                 if (S.phase === 'auth' && !opt.manual) return Promise.resolve();   // 等你重新登录，不反复请求
-                if (S.restoring && !opt.duringRestore) return Promise.resolve();
+                if ((S.restoring || hub.restoring()) && !opt.duringRestore) return Promise.resolve();
                 if (S.cfg.paused && !opt.manual) { setPhase('paused'); return Promise.resolve(); }
                 if (S.running) { S.again = S.again || opt; return S.runP; }
-                if (navigator.onLine === false) { setPhase('offline', '离线，联网后自动继续'); return Promise.resolve(); }
+                if (navigator.onLine === false) { setPhase('offline', isAuto() ? '离线，联网后自动继续' : '离线，联网后再点“备份”'); return Promise.resolve(); }
                 clearTimeout(S.timer); S.timer = 0;
                 S.running = true;
                 S._manual = !!opt.manual; S._auto = !opt.manual && (reason === 'auto' || reason === 'again');
@@ -20402,7 +20479,7 @@
                         S.dirty = S.dirty || !!S._wasDirty;
                         if (e.code === 'auth') {
                             setPhase('auth', S.lastError); saveState();
-                            if (!S._errShown || opt.manual) Notify.warning('云备份需要重新登录', `${provName()} 的登录已过期。打开 设置 → 云备份，点“重新登录”即可继续，本机改动会保留。`);
+                            if (!opt.quiet && (!S._errShown || opt.manual)) Notify.warning('云备份需要重新登录', `${provName()} 的登录已过期。打开 设置 → 云备份，点“重新登录”即可继续，本机改动会保留。`);
                             S._errShown = true;
                             if (opt.throwErrors) throw e;
                             return;
@@ -20410,11 +20487,12 @@
                         setPhase('error', S.lastError);
                         saveState();
                         if (opt.manual || e.status === 401 || e.status === 403 || e.status === 404) {
-                            if (!S._errShown || opt.manual) Notify.error('云备份失败', S.lastError);
+                            if (!opt.quiet && (!S._errShown || opt.manual)) Notify.error(`${provName()} 备份失败`, S.lastError);
                             S._errShown = true;
                         }
                         // 网络/服务器错误：1 分钟后重试
-                        if (!e.status || e.status >= 500 || e.status === 429) { S.dirty = true; S.dirtySince = now(); clearTimeout(S.timer); S.timer = setTimeout(() => run('retry'), 60000); }
+                        if (!e.status || e.status >= 500 || e.status === 429) S.dirty = true;
+                        if (isAuto() && (!e.status || e.status >= 500 || e.status === 429)) { S.dirty = true; S.dirtySince = now(); clearTimeout(S.timer); S.timer = setTimeout(() => run('retry'), 60000); }
                         if (opt.throwErrors) throw e;
                     })
                     .finally(() => {
@@ -20429,7 +20507,7 @@
             const baseDelay = () => Math.max(10, Number(S.cfg && S.cfg.delay) || 60) * 1000;
             // 改动停下来后等 delay 再备份；一直在改也最多等 maxWait；连续几轮“什么都没变”就自动放慢（最多 8 倍）
             function schedule(fast) {
-                if (!S.cfg || !S.cfg.deviceId || S.cfg.paused || S.phase === 'auth') return;
+                if (dead || !isAuto() || !S.cfg || !S.cfg.deviceId || S.cfg.paused || S.phase === 'auth') return;
                 clearTimeout(S.timer);
                 const d0 = baseDelay();
                 const delay = fast ? 1500 : d0 * Math.pow(2, Math.min(S.noop || 0, 3));
@@ -20439,10 +20517,10 @@
                 S.timer = setTimeout(() => { S.timer = 0; run('auto'); }, Math.max(fast ? 500 : 3000, wait));
             }
             function markDirty() {
-                if (!S.cfg || !S.cfg.deviceId || S.restoring) return;
-                if (!S.dirty) { S.dirty = true; S.dirtySince = now(); }
-                if (S.cfg.paused || S.phase === 'auth') return;
+                if (dead || !S.cfg || !S.cfg.deviceId || S.restoring || hub.restoring()) return;
+                if (!S.dirty) { S.dirty = true; S.dirtySince = now(); saveState(); }   // 记下来：手动模式下关掉页面再打开也知道有改动没上传
                 if (S.phase === 'ok' || S.phase === 'idle') setPhase('pending');
+                if (!isAuto() || S.cfg.paused || S.phase === 'auth') return;
                 // 已经排好队的就不再推迟（否则持续写入时会无限往后拖，或者每次写入都重设计时器）
                 if (!S.timer || S.dirtySince === now()) schedule();
             }
@@ -20464,8 +20542,8 @@
                 return ex.set.has(extOf(name));
             }
             function startPolling() {
-                clearInterval(S.poll);
-                if (!S.cfg || !S.cfg.deviceId) return;
+                clearInterval(S.poll); S.poll = 0;
+                if (dead || !S.cfg || !S.cfg.deviceId || !isAuto()) return;
                 S.poll = setInterval(() => {
                     if (document.visibilityState === 'hidden' && !S.dirty) return;
                     if (S.phase === 'auth' || S.running) return;
@@ -20478,8 +20556,9 @@
                 if (wired) return; wired = true;
                 if (SYSTEM.fs && typeof SYSTEM.fs.watch === 'function') {
                     SYSTEM.fs.watch(ev => {
+                        if (dead) return;
                         ev.changes.forEach(c => { invalidate(c.path); if (c.oldPath) invalidate(c.oldPath); });
-                        if (S.applying || S.restoring) return;
+                        if (S.applying || S.restoring || hub.restoring()) return;
                         const rel = ev.changes.filter(c => relevant(c.path) || relevant(c.oldPath));
                         if (!rel.length) return;
                         if (rel.every(c => c.type !== 'delete' && c.type !== 'unlink' && c.type !== 'rename' && c.type !== 'rmdir' && softOnly(c.path) && (!c.oldPath || softOnly(c.oldPath)))) { S.soft = true; return; }
@@ -20489,7 +20568,7 @@
                 // Android 切到后台/锁屏时随时可能杀掉标签页：有改动就尽快备份。
                 // 但手机上切应用、下拉通知栏都会触发，所以距上次同步不到 15 秒就不重复跑
                 const flush = () => {
-                    if (!S.cfg || !S.cfg.bgFlush || !S.dirty || S.cfg.paused || S.running || S.phase === 'auth') return;
+                    if (dead || !isAuto() || !S.cfg || !S.cfg.bgFlush || !S.dirty || S.cfg.paused || S.running || S.phase === 'auth') return;
                     const left = (S.lastRunEnd || 0) + 15000 - now();
                     // 刚同步过：不立刻再传，但排在 15 秒后（而不是放弃），以免标签页随后被回收时丢掉这次改动
                     if (left > 0) { clearTimeout(S.timer); S.timer = setTimeout(() => { S.timer = 0; if (S.dirty) run('hidden'); }, left); return; }
@@ -20497,16 +20576,16 @@
                 };
                 document.addEventListener('visibilitychange', () => {
                     if (document.visibilityState === 'hidden') flush();
-                    else if (S.cfg && S.cfg.deviceId && !S.running && now() - Math.max(S.lastCheck || 0, S.lastRunEnd || 0) > 180000) run('focus');
+                    else if (!dead && isAuto() && S.cfg && S.cfg.deviceId && !S.running && now() - Math.max(S.lastCheck || 0, S.lastRunEnd || 0) > 180000) run('focus');
                 });
                 window.addEventListener('pagehide', flush);
                 let onlineT = 0;
                 window.addEventListener('online', () => {
                     clearTimeout(onlineT);
                     // 手机网络切换（Wi-Fi ↔ 移动数据）会连续触发：等网络稳定 4 秒，而且只在有改动或很久没检查时才同步
-                    onlineT = setTimeout(() => { if (S.cfg && S.cfg.deviceId && (S.dirty || now() - (S.lastCheck || 0) > 180000)) run('online'); else if (S.phase === 'offline') setPhase(S.dirty ? 'pending' : 'ok'); }, 4000);
+                    onlineT = setTimeout(() => { if (dead) return; if (isAuto() && S.cfg && S.cfg.deviceId && (S.dirty || now() - (S.lastCheck || 0) > 180000)) run('online'); else if (S.phase === 'offline') setPhase(S.dirty ? 'pending' : 'ok'); }, 4000);
                 });
-                window.addEventListener('offline', () => { if (S.cfg && S.cfg.deviceId) setPhase('offline', '离线，联网后自动继续'); });
+                window.addEventListener('offline', () => { if (!dead && S.cfg && S.cfg.deviceId) setPhase('offline', isAuto() ? '离线，联网后自动继续' : '离线'); });
             }
 
             // ---------- 初始化 ----------
@@ -20514,19 +20593,21 @@
                 try {
                     const cfg = await kvGet('config');
                     S.cfg = cfg ? { ...DEFAULTS, ...cfg, shared: { ...DEFAULTS.shared, ...(cfg.shared || {}) } } : null;
-                    S.apps = (await kvGet('apps').catch(() => null)) || {};
+                    if (S.cfg && hub.settings()) Object.assign(S.cfg, hub.settings(), { shared: { ...S.cfg.shared, ...(hub.settings().shared || {}) } });   // 备份内容、同步方式等所有位置共用
                     if (S.cfg && !S.cfg.provider) S.cfg.provider = 'github';
                     const st = await kvGet('state');
-                    if (st) Object.assign(S, { lastOk: st.lastOk || 0, lastPush: st.lastPush || 0, lastCommit: st.lastCommit || '', skipped: st.skipped || [], stats: st.stats || null, log: st.log || [], guard: st.guard || null, lastError: st.lastError || '', sharedStat: st.sharedStat || null, lsHash: st.lsHash || '', manCore: st.manCore || '', noop: Math.min(st.noop || 0, 3) });
+                    if (st) Object.assign(S, { lastOk: st.lastOk || 0, lastPush: st.lastPush || 0, lastCommit: st.lastCommit || '', skipped: st.skipped || [], stats: st.stats || null, log: st.log || [], guard: st.guard || null, lastError: st.lastError || '', sharedStat: st.sharedStat || null, lsHash: st.lsHash || '', manCore: st.manCore || '', noop: Math.min(st.noop || 0, 3), dirty: !!st.dirty });
                 } catch (e) { console.warn('云备份：读取配置失败', e); }
-                if (window.top === window) { try { await handleRedirect(); } catch (e) { console.warn('云备份：处理登录回跳失败', e); } }
+                if (window.top === window && hub.redirectFor() === tid) { try { await handleRedirect(); } catch (e) { console.warn('云备份：处理登录回跳失败', e); } }
                 if (S.cfg) S.skipPaths = new Set((S.skipped || []).map(x => x.path));
                 S.loaded = true;
                 wire();
                 if (S.cfg && S.cfg.deviceId) {
-                    setPhase(S.cfg.paused ? 'paused' : S.guard ? 'guard' : 'ok', S.guard ? '等待你确认删除' : '');
+                    setPhase(S.guard ? 'guard' : (S.cfg.paused && isAuto()) ? 'paused' : S.dirty ? 'pending' : 'ok', S.guard ? '等待你确认删除' : '');
                     startPolling();
-                    setTimeout(() => run('boot', S.oauth && S.oauth.done ? { manual: true } : {}), S.oauth && S.oauth.done ? 1500 : 8000);
+                    // 重新登录回来：接着把刚才没传完的备份传上去；自动模式下打开页面时也检查一次
+                    if (S.oauth && S.oauth.done) setTimeout(() => run('relogin', { manual: true, force: true }), 1500);
+                    else if (isAuto()) setTimeout(() => run('boot'), 8000);
                 } else setPhase('off');
             }
 
@@ -20562,23 +20643,29 @@
                 const keep = {};
                 if (cloud && typeof cloud === 'object') CLOUD_KEYS.forEach(k => { if (cloud[k] != null) keep[k] = cloud[k]; });
                 const sameAcct = prev.provider === provider && prev.repo === repo;
-                S.cfg = { ...DEFAULTS, ...prev, ...keep, provider, repo, token: provider === 'github' ? token : '', auth: provider === 'github' ? null : (auth || prev.auth),
-                    gd: sameAcct ? prev.gd : null, branch: branch || 'main', deviceName, deviceId, paused: false, shared: { ...DEFAULTS.shared, ...(prev.shared || {}), ...(keep.shared || {}) } };
+                // 只有第一个备份位置接替设备时沿用云端原来的设置；之后添加的位置使用本机当前共用的设置
+                const base = hub.settings() || {};
+                if (hub.count(tid) > 0) Object.keys(keep).forEach(k => delete keep[k]);
+                S.cfg = { ...DEFAULTS, ...prev, ...base, ...keep, provider, repo, token: provider === 'github' ? token : '', auth: provider === 'github' ? null : (auth || prev.auth),
+                    gd: sameAcct ? prev.gd : null, branch: branch || 'main', deviceName, deviceId, paused: false, shared: { ...DEFAULTS.shared, ...(prev.shared || {}), ...(base.shared || {}), ...(keep.shared || {}) } };
                 S.etag = ''; S.headCache = null; S.lastCommit = ''; S.devices = null; S.guard = null; S.lastError = ''; S._errShown = false; S.noop = 0;
                 S.treeCache.clear(); S.uploaded.clear();
                 if (!sameAcct || driveKey !== provider) { driveBE = null; driveKey = ''; }
-                if (prev.repo !== repo || prev.deviceId !== deviceId) { hashCache = {}; hashDirty = true; await kvDel('sharedBase').catch(() => {}); S.log = []; S.lastOk = 0; S.stats = null; S.skipped = []; }
+                if (prev.repo !== repo || prev.deviceId !== deviceId) { await kvDel('sharedBase').catch(() => {}); S.log = []; S.lastOk = 0; S.stats = null; S.skipped = []; }
                 await saveConfig();
                 log(`已连接 ${provider === 'github' ? repo : provName(provider) + (S.cfg.auth && S.cfg.auth.user ? '（' + S.cfg.auth.user + '）' : '')}，本机为「${deviceName}」`, 'ok');
                 await saveState();
+                if (deviceId) await hub.onConnected(tid, S.cfg);
                 startPolling();
                 emit();
             }
             async function disconnect() {
                 clearInterval(S.poll); clearTimeout(S.timer);
                 S.cfg = null; S.guard = null; S.devices = null; S.lastError = ''; driveBE = null; driveKey = '';
-                await kvDel('config'); await kvDel('state'); await kvDel('hashes'); await kvDel('sharedBase').catch(() => {});
-                hashCache = null; S.log = []; S.lastOk = 0; S.lastCommit = ''; S.stats = null; S.skipped = [];
+                await kvDel('config'); await kvDel('state'); await kvDel('sharedBase').catch(() => {});
+                dead = true;
+                await hub.onRemoved(tid);
+                S.log = []; S.lastOk = 0; S.lastCommit = ''; S.stats = null; S.skipped = [];
                 setPhase('off');
             }
             async function updateConfig(patch) {
@@ -20586,8 +20673,10 @@
                 const prevShared = JSON.stringify(S.cfg.shared);
                 Object.assign(S.cfg, patch);
                 await saveConfig();
-                if (patch.interval != null) startPolling();
-                if (patch.paused === false) { setPhase(S.dirty ? 'pending' : 'ok'); run('resume', { force: true }); }
+                if (patch.interval != null || 'mode' in patch) startPolling();
+                if ('mode' in patch) { clearTimeout(S.timer); S.timer = 0; if (isAuto() && S.dirty && !S.cfg.paused) schedule(); else if (!isAuto() && S.phase === 'paused') setPhase(S.dirty ? 'pending' : 'ok'); }
+                if ('mode' in patch) {}
+                else if (patch.paused === false) { setPhase(S.dirty ? 'pending' : 'ok'); run('resume', { force: true }); }
                 else if (patch.paused === true) { clearTimeout(S.timer); setPhase('paused'); }
                 else if (JSON.stringify(S.cfg.shared) !== prevShared || 'includeOpfs' in patch || 'includeSystem' in patch || 'includeLocal' in patch || 'maxMB' in patch || 'excludeExt' in patch) {
                     S.dirty = true; S.dirtySince = now(); schedule(true);
@@ -20649,7 +20738,7 @@
                     if (sharedRoot && under(mapToLocal(rel), sharedRoot)) return;
                     items.push({ rel, sha: v.sha, size: v.size, mtime: manifest.mtimes ? manifest.mtimes[rel] : 0, target: folder ? folder + '/' + rel : mapToLocal(rel) });
                 });
-                S.restoring = true;
+                S.restoring = true; hub.setRestoring(1);
                 clearTimeout(S.timer);
                 try {
                     // 空文件夹
@@ -20680,16 +20769,16 @@
                     log(`从「${devName}」${commit ? fmtDate(snap.date) + ' 的' : '最新'}备份恢复了 ${r.done} 个文件${folder ? '到 ' + folder : ''}`, 'ok');
                     return { ...r, removed, folder, settingsApplied, devName, total: items.length };
                 } finally {
-                    S.restoring = false;
+                    S.restoring = false; hub.setRestoring(-1);
                     if (S.cfg && S.cfg.deviceId) { S.dirty = true; S.dirtySince = now(); schedule(); }
                     saveState(); emit();
                 }
             }
             // 导入选中的远端文件到本机
             async function importFiles(list, onProgress) {
-                S.restoring = true;
+                S.restoring = true; hub.setRestoring(1);
                 try { return await writeLocal(list, onProgress); }
-                finally { S.restoring = false; if (S.cfg && S.cfg.deviceId) { S.dirty = true; S.dirtySince = now(); schedule(); } emit(); }
+                finally { S.restoring = false; hub.setRestoring(-1); if (S.cfg && S.cfg.deviceId) { S.dirty = true; S.dirtySince = now(); schedule(); } emit(); }
             }
             async function ghHistory(path, page = 1) {
                 const r = await gh('GET', `${repoPath()}/commits?sha=${encodeURIComponent(S.cfg.branch)}&path=${encodeURIComponent(path)}&per_page=40&page=${page}`);
@@ -20697,12 +20786,190 @@
             }
 
             return {
-                S, DEFAULTS, init, run, markDirty, connect, disconnect, updateConfig, testConnection, listDevices, guessDeviceName, makeDeviceId, parseRepo,
-                PROVIDERS, provName, isDrive, connected, login, appOf, appReady, saveApps, redirectUri, driveInfo, transport, accessToken, CSB_APPS,
+                tid, S, DEFAULTS, CLOUD_KEYS, init, run, markDirty, connect, disconnect, updateConfig, testConnection, listDevices, guessDeviceName, makeDeviceId, parseRepo,
+                PROVIDERS, provName, isDrive, isAuto, connected, login, appOf, appReady, saveApps, redirectUri, driveInfo, transport, accessToken, CSB_APPS, saveConfig,
+                handleRedirect, destroy() { dead = true; clearInterval(S.poll); clearTimeout(S.timer); listeners.clear(); },
                 getHead, getTree, treeOfCommit, getBlob, getJson, history, restoreSnapshot, importFiles, mapToLocal, backupRoots, explain, fmtAgo, fmtDate, stamp, normPath,
                 on: fn => { listeners.add(fn); return () => listeners.delete(fn); }, emit, log, saveState,
                 confirmGuard: async () => { const g = S.guard; S.guard = null; log(`已确认删除 ${g ? g.deletes : 0} 个文件`, 'warn'); await saveState(); return run('confirm', { manual: true, confirmDeletes: true, force: true }); }
             };
+        }
+
+        // ---------- 多个备份位置：统一管理 ----------
+        // 每个位置（GitHub 仓库 / Google 云端硬盘 / OneDrive）是一个独立的 csbEngine 实例，各自记录同步状态；
+        // “备份什么、多久备份一次、共享文件夹”等设置所有位置共用。点“全部备份”会依次同步到每个位置。
+        const CSB = (() => {
+            const H = { loaded: false, order: [], map: new Map(), settings: null, restoring: 0, redirectTid: '', oauth: null, listeners: new Set(), emitQ: false };
+            const hub = {
+                emit() {
+                    if (H.emitQ) return; H.emitQ = true;
+                    requestAnimationFrame(() => { H.emitQ = false; H.listeners.forEach(fn => { try { fn(); } catch (e) { console.warn(e); } }); });
+                },
+                restoring: () => H.restoring > 0,
+                setRestoring(d) {
+                    H.restoring = Math.max(0, H.restoring + d);
+                    // 恢复期间写入的文件，其他备份位置也要传上去
+                    if (!H.restoring) setTimeout(() => list().forEach(e => e.markDirty()), 80);
+                },
+                settings: () => H.settings,
+                redirectFor: () => H.redirectTid,
+                count: except => list().filter(e => e.tid !== except).length,
+                async onConnected(tid, cfg) {
+                    if (!H.order.includes(tid)) { H.order.push(tid); await csbKvSet('targets', H.order).catch(() => {}); }
+                    if (!H.settings || hub.count(tid) === 0) await saveSettings(pick(cfg));
+                    hub.emit();
+                },
+                async onRemoved(tid) {
+                    H.order = H.order.filter(x => x !== tid);
+                    await csbKvSet('targets', H.order).catch(() => {});
+                    const e = H.map.get(tid); H.map.delete(tid);
+                    if (e) setTimeout(() => e.destroy(), 0);
+                    hub.emit();
+                }
+            };
+            const U = csbEngine('_util', hub);   // 只用它的纯工具函数（格式化、路径、凭据），从不连接
+            const SET_KEYS = [...U.CLOUD_KEYS, 'paused'];
+            const pick = cfg => { const o = {}; SET_KEYS.forEach(k => { if (cfg && cfg[k] !== undefined) o[k] = k === 'shared' ? { ...cfg[k] } : cfg[k]; }); return o; };
+            async function saveSettings(s) { H.settings = s; await csbKvSet('settings', s).catch(() => {}); }
+            // 已连接好的位置（按添加顺序）
+            const list = () => H.order.map(t => H.map.get(t)).filter(e => e && e.S.cfg && e.S.cfg.deviceId);
+            const at = tid => H.map.get(tid) || null;
+            function nextTid() {
+                let n = 1;
+                while (H.order.includes('t' + n) || H.map.has('t' + n)) n++;
+                return 't' + n;
+            }
+            async function newTarget(tid) {
+                tid = tid || nextTid();
+                if (H.map.has(tid)) return H.map.get(tid);
+                const e = csbEngine(tid, hub);
+                H.map.set(tid, e);
+                await e.init();
+                return e;
+            }
+            // 放弃一个还没连接完成的位置（例如取消了“这台设备是？”对话框）
+            function discard(tid) {
+                if (H.order.includes(tid)) return;
+                const e = H.map.get(tid); if (!e) return;
+                H.map.delete(tid); e.destroy(); hub.emit();
+            }
+            // 旧版（只有一个备份位置）的数据搬到 t1:*
+            async function migrate() {
+                let order = await csbKvGet('targets').catch(() => null);
+                if (Array.isArray(order)) return order;
+                order = [];
+                const old = await csbKvGet('config').catch(() => null);
+                if (old) {
+                    for (const k of ['config', 'state', 'sharedBase']) {
+                        const v = await csbKvGet(k).catch(() => undefined);
+                        if (v !== undefined) { await csbKvSet('t1:' + k, v); await csbKvDel(k); }
+                    }
+                    // 以前的版本都是自动备份；按新的默认改为手动，并在界面上提示一次（可以在“同步方式”里改回自动）
+                    const cfg = { ...old, mode: old.mode || 'manual' };
+                    if (!old.mode && old.deviceId) H.migrated = true;
+                    await csbKvSet('t1:config', cfg);
+                    if (old.deviceId) { order = ['t1']; await saveSettings(pick({ ...U.DEFAULTS, ...cfg })); }
+                }
+                await csbKvSet('targets', order);
+                return order;
+            }
+            // 从登录页跳回来时，找出是哪个位置发起的登录
+            function peekRedirect() {
+                let state = '';
+                try { state = new URL(location.href).searchParams.get('state') || ''; } catch (_) {}
+                if (!/^csb\.(gdrive|onedrive)\.i\./.test(state)) return null;
+                let pend = null;
+                try { pend = JSON.parse(localStorage.getItem('JSOS_CLOUD_OAUTH') || 'null'); } catch (_) {}
+                if (!pend || pend.state !== state) return { tid: '_util' };
+                if (pend.tid && pend.tid !== '_util') return { tid: pend.tid };
+                const p = state.split('.')[1];
+                if (pend.mode === 'relogin') { const e = list().find(x => x.S.cfg.provider === p); if (e) return { tid: e.tid }; }
+                return { tid: nextTid() };
+            }
+            async function init() {
+                try {
+                    csbApps = (await csbKvGet('apps').catch(() => null)) || {};
+                    H.order = await migrate();
+                    H.settings = (await csbKvGet('settings').catch(() => null)) || null;
+                } catch (e) { console.warn('云备份：读取配置失败', e); }
+                const r = window.top === window ? peekRedirect() : null;
+                H.redirectTid = r ? r.tid : '';
+                for (const tid of H.order) {
+                    const e = csbEngine(tid, hub);
+                    H.map.set(tid, e);
+                }
+                await Promise.all(H.order.map(t => H.map.get(t).init()));
+                // 配置损坏/未完成的位置不算
+                const broken = H.order.filter(t => { const e = H.map.get(t); return !(e.S.cfg && e.S.cfg.deviceId); });
+                if (broken.length) { for (const t of broken) { const e = H.map.get(t); H.map.delete(t); e.destroy(); } H.order = H.order.filter(t => !broken.includes(t)); await csbKvSet('targets', H.order).catch(() => {}); }
+                if (!H.settings && list().length) await saveSettings(pick(list()[0].S.cfg));
+                if (r) {
+                    let e = H.map.get(r.tid);
+                    if (r.tid === '_util') { await U.handleRedirect().catch(() => {}); H.oauth = U.S.oauth; U.S.oauth = null; }
+                    else {
+                        if (!e) e = await newTarget(r.tid);   // 新添加的位置：init 时会处理回跳
+                        if (e.S.oauth) { H.oauth = { ...e.S.oauth, tid: r.tid }; e.S.oauth = null; }
+                    }
+                    H.redirectTid = '';
+                }
+                H.loaded = true;
+                hub.emit();
+            }
+            const PRI = ['sync', 'auth', 'guard', 'error', 'offline', 'pending', 'paused', 'ok'];
+            // 所有位置合起来的状态：最需要你注意的那个
+            function summary() {
+                const L = list();
+                if (!L.length) return { phase: 'off', list: L, lastOk: 0 };
+                let best = L[0];
+                L.forEach(e => { if (PRI.indexOf(e.S.phase) >= 0 && (PRI.indexOf(best.S.phase) < 0 || PRI.indexOf(e.S.phase) < PRI.indexOf(best.S.phase))) best = e; });
+                const oks = L.map(e => e.S.lastOk || 0);
+                return { phase: best.S.phase, top: best, list: L, lastOk: Math.min(...oks), newest: Math.max(...oks), stats: (L.find(e => e.S.stats) || { S: {} }).S.stats || null,
+                    dirty: L.some(e => e.S.dirty), running: L.find(e => e.S.running) || null };
+            }
+            // 依次同步到每个位置（一个失败不影响其他）
+            let syncAllP = null;
+            function syncAll(opt = {}) {
+                if (syncAllP) return syncAllP;
+                syncAllP = (async () => {
+                    const res = [];
+                    for (const e of list()) {
+                        if (e.S.guard && !opt.includeGuarded) { res.push({ e, skipped: 'guard' }); continue; }
+                        await e.run('manual', { manual: true, force: true, quiet: !!opt.quiet });
+                        res.push({ e, ok: e.S.phase === 'ok', phase: e.S.phase });
+                    }
+                    return res;
+                })().finally(() => { syncAllP = null; hub.emit(); });
+                return syncAllP;
+            }
+            // 共用设置：改一次，所有位置都生效
+            async function updateConfig(patch) {
+                const sp = {}, rest = {};
+                Object.keys(patch).forEach(k => (SET_KEYS.includes(k) ? sp : rest)[k] = patch[k]);
+                if (Object.keys(sp).length) await saveSettings({ ...(H.settings || pick(U.DEFAULTS)), ...sp });
+                for (const e of list()) await e.updateConfig(patch);
+                hub.emit();
+            }
+            const primary = () => list()[0] || [...H.map.values()].find(e => e.tid !== '_util') || U;
+            const api = {
+                H, U, init, list, at, newTarget, discard, summary, syncAll, updateConfig, primary,
+                get loaded() { return H.loaded; },
+                get settings() { return H.settings || pick(U.DEFAULTS); },
+                takeOauth() { const o = H.oauth; H.oauth = null; return o; },
+                isAuto: () => (H.settings || {}).mode === 'auto',
+                on: fn => { H.listeners.add(fn); return () => H.listeners.delete(fn); },
+                emit: () => hub.emit(),
+                explain: e => (e && e.tid && H.map.get(e.tid) ? H.map.get(e.tid) : U).explain(e),
+                // 兼容旧接口：只有一个备份位置时就是它
+                get S() { return primary().S; }
+            };
+            ['fmtAgo', 'fmtDate', 'stamp', 'normPath', 'mapToLocal', 'guessDeviceName', 'makeDeviceId', 'parseRepo', 'provName', 'redirectUri', 'appOf', 'appReady', 'saveApps', 'backupRoots', 'testConnection']
+                .forEach(k => { api[k] = (...a) => U[k](...a); });
+            // 兼容旧接口：直接 CSB.connect(...) 时，没有备份位置就新建一个
+            api.connect = async o => { const e = list()[0] || [...H.map.values()].find(x => x.tid !== '_util') || await newTarget(); return e.connect(o); };
+            api.PROVIDERS = U.PROVIDERS; api.CSB_APPS = U.CSB_APPS; api.DEFAULTS = U.DEFAULTS;
+            ['run', 'connect', 'disconnect', 'getHead', 'getTree', 'treeOfCommit', 'getBlob', 'getJson', 'history', 'listDevices', 'restoreSnapshot', 'importFiles', 'transport', 'driveInfo', 'isDrive', 'confirmGuard', 'saveState', 'markDirty', 'login']
+                .forEach(k => { if (!(k in api)) api[k] = (...a) => primary()[k](...a); });
+            return api;
         })();
         window.CSB = CSB;
 
@@ -20710,8 +20977,8 @@
         const CSB_PHASE = {
             off:     { t: '未开启云备份', ic: 'csbCloudOff', cls: 'off' },
             ok:      { t: '已备份', ic: 'csbCloudCheck', cls: 'ok' },
-            pending: { t: '有新的改动', ic: 'csbCloud', cls: 'pend' },
-            sync:    { t: '正在同步…', ic: 'csbCloudUpload', cls: 'sync' },
+            pending: { t: '有改动尚未备份', ic: 'csbCloud', cls: 'pend' },
+            sync:    { t: '正在备份…', ic: 'csbCloudUpload', cls: 'sync' },
             paused:  { t: '自动备份已暂停', ic: 'csbCloudOff', cls: 'off' },
             guard:   { t: '需要你确认', ic: 'csbShieldAlert', cls: 'warn' },
             error:   { t: '备份出错', ic: 'csbCloudAlert', cls: 'err' },
@@ -20720,88 +20987,189 @@
         };
         // 服务商标志（彩色，内联 SVG）
         const CSB_LOGO = {
-            github: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>',
             gdrive: '<svg viewBox="0 0 87.3 78" aria-hidden="true"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="m43.65 25-13.75-23.8c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0-1.2 4.5h27.5z" fill="#00ac47"/><path d="m73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.502l5.852 11.5z" fill="#ea4335"/><path d="m43.65 25 13.75-23.8c-1.35-.8-2.9-1.2-4.5-1.2h-18.5c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="m59.8 53h-32.3l-13.75 23.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3l-13.75 23.8 16.15 28h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg>',
-            onedrive: '<svg viewBox="0 0 32 22" aria-hidden="true"><path d="M12.2 6.6a8.4 8.4 0 0 1 14.3 3.1A6 6 0 0 1 26 21.5H12.6z" fill="#0364b8"/><path d="M12.2 6.6 26.5 9.7a6.1 6.1 0 0 1 4.9 8.9L19 13z" fill="#0078d4"/><path d="M19 13 31.4 18.6A6 6 0 0 1 26 21.5H8.4z" fill="#1490df"/><path d="M8.4 21.5A6.6 6.6 0 0 1 3 10.9a7 7 0 0 1 9.2-4.3L19 13z" fill="#28a8ea"/></svg>'
+            onedrive: '<svg viewBox="0 0 32 22" aria-hidden="true"><path d="M12.2 6.6a8.4 8.4 0 0 1 14.3 3.1A6 6 0 0 1 26 21.5H12.6z" fill="#0364b8"/><path d="M12.2 6.6 26.5 9.7a6.1 6.1 0 0 1 4.9 8.9L19 13z" fill="#0078d4"/><path d="M19 13 31.4 18.6A6 6 0 0 1 26 21.5H8.4z" fill="#1490df"/><path d="M8.4 21.5A6.6 6.6 0 0 1 3 10.9a7 7 0 0 1 9.2-4.3L19 13z" fill="#28a8ea"/></svg>',
+            github: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>'
         };
         const CSB_PROV_INFO = {
-            github: { tag: '私有仓库 · 每个文件单独保存，可在网页上直接查看', how: '需要创建一个私有仓库和访问令牌' },
-            gdrive: { tag: '打包成 zip 存进你的云端硬盘（类似篡改猴的备份方式）', how: '用 Google 账号登录即可' },
-            onedrive: { tag: '打包成 zip 存进 OneDrive 的「应用」文件夹', how: '用 Microsoft 账号登录即可' }
+            gdrive: { tag: '打包成 zip 存进你的云端硬盘（和篡改猴的备份方式一样）', how: '用 Google 账号登录即可' },
+            onedrive: { tag: '打包成 zip 存进 OneDrive 的「应用」文件夹', how: '用 Microsoft 账号登录即可' },
+            github: { tag: '私有仓库 · 每个文件单独保存，可在网页上直接查看', how: '需要一个私有仓库和访问令牌' }
         };
         const CSB_CONSOLE = { gdrive: 'https://console.cloud.google.com/apis/credentials', onedrive: 'https://entra.microsoft.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade' };
         const csbDur = sec => sec >= 60 ? `${Math.round(sec / 60)} 分钟` : `${sec} 秒`;
         const CSB_PAT_URL = 'https://github.com/settings/personal-access-tokens/new?name=' + encodeURIComponent('JISHENG OS 云备份')
-            + '&description=' + encodeURIComponent('JISHENG OS 自动备份到私有仓库（只需要 Contents 读写）') + '&expires_in=none&contents=write';
+            + '&description=' + encodeURIComponent('JISHENG OS 备份到私有仓库（只需要 Contents 读写）') + '&expires_in=none&contents=write';
         const CSB_NEW_REPO_URL = 'https://github.com/new?name=jisheng-backup&visibility=private&description=' + encodeURIComponent('JISHENG OS 云备份（请保持私有）');
 
         const csbMsg = m => String(m || '').split('\n')[0].replace(/^\[[^\]]*\]\s*/, '');
         // 备份根目录的友好名称
         const CSB_ROOT_NAMES = { desktop: '桌面', documents: '文档', opfs: '高速存储（OPFS）', system: '系统设置与壁纸' };
         const csbLabel = (st, key, name) => (st.src.kind === 'device' && !key.slice(0, -1).includes('/') && CSB_ROOT_NAMES[name]) ? CSB_ROOT_NAMES[name] : name;
-        function csbStatusText() {
-            const S = CSB.S, cfg = S.cfg, ph = CSB_PHASE[S.phase] || CSB_PHASE.ok;
+        const csbAcct = e => { const c = e.S.cfg || {}; return c.provider === 'github' ? c.repo : ((c.auth && c.auth.user) || '已登录'); };
+        const csbShort = e => ({ github: 'GitHub', gdrive: 'Google', onedrive: 'OneDrive' })[e.S.cfg.provider] || e.provName();
+        const csbUi = winId => STX_STATE[winId] || {};
+
+        // 一个备份位置的状态
+        function csbStatusOf(e) {
+            const S = e.S, cfg = S.cfg || {}, auto = cfg.mode === 'auto', ph = CSB_PHASE[S.phase] || CSB_PHASE.ok;
             let sub = '';
             const files = S.stats ? `${S.stats.files.toLocaleString()} 个文件 · ${formatStorageBytes(S.stats.bytes)}` : '';
+            const last = S.lastOk ? `上次备份 ${CSB.fmtAgo(S.lastOk)}` : '还没有备份过';
             switch (S.phase) {
-                case 'ok': sub = [`最近同步 ${CSB.fmtAgo(S.lastOk)}`, files].filter(Boolean).join(' · '); break;
-                case 'pending': sub = `约 ${csbDur(cfg ? Number(cfg.delay) || 60 : 60)}内自动备份` + (S.lastOk ? ` · 上次同步 ${CSB.fmtAgo(S.lastOk)}` : ''); break;
-                case 'auth': sub = `${CSB.provName()} 的登录已过期，点“重新登录”继续；本机的改动会保留`; break;
+                case 'ok': sub = [S.lastOk ? `最近备份 ${CSB.fmtAgo(S.lastOk)}` : '', files].filter(Boolean).join(' · '); break;
+                case 'pending': sub = (auto ? `约 ${csbDur(Number(cfg.delay) || 60)}内自动备份` : '点“备份”上传') + ' · ' + last; break;
+                case 'auth': sub = `${e.provName()} 的登录已过期，点“重新登录”后会接着备份`; break;
                 case 'sync': sub = S.msg || '请稍候'; break;
-                case 'paused': sub = '改动会被记下，继续后一次性备份' + (S.lastOk ? ` · 上次同步 ${CSB.fmtAgo(S.lastOk)}` : ''); break;
-                case 'guard': sub = S.msg; break;
-                case 'error': sub = (S.lastError || S.msg) + ' · 会自动重试'; break;
+                case 'paused': sub = '改动会被记下，继续后一次性备份 · ' + last; break;
+                case 'guard': sub = S.msg || '等待你确认删除'; break;
+                case 'error': sub = (S.lastError || S.msg) + (auto ? ' · 会自动重试' : ''); break;
                 case 'offline': sub = S.msg; break;
-                default: sub = '浏览器崩溃或被清理时，本机文件可能全部丢失';
+                default: sub = last;
             }
             return { title: ph.t, sub, ph };
         }
+        // 所有位置合起来的状态（大卡片和托盘图标用）
+        function csbStatusText() {
+            const sm = CSB.summary(), L = sm.list;
+            if (!L.length) return { title: CSB_PHASE.off.t, sub: '浏览器崩溃或被清理时，本机文件可能全部丢失', ph: CSB_PHASE.off };
+            if (L.length === 1) return csbStatusOf(L[0]);
+            const top = sm.top, one = csbStatusOf(top), ph = one.ph;
+            const auto = CSB.isAuto();
+            switch (sm.phase) {
+                case 'ok': return { title: `已备份到 ${L.length} 个位置`, sub: `最近备份 ${CSB.fmtAgo(sm.newest)}` + (sm.lastOk && sm.newest - sm.lastOk > 60000 ? ` · 最早的一个在 ${CSB.fmtAgo(sm.lastOk)}` : '') + (sm.stats ? ` · ${sm.stats.files.toLocaleString()} 个文件` : ''), ph };
+                case 'sync': return { title: `正在备份到 ${top.provName()}…`, sub: one.sub, ph };
+                case 'pending': return { title: CSB_PHASE.pending.t, sub: auto ? `约 ${csbDur(Number(CSB.settings.delay) || 60)}内自动备份到 ${L.length} 个位置` : `点“全部备份”上传到 ${L.length} 个位置` + (sm.lastOk ? ` · 上次 ${CSB.fmtAgo(sm.newest)}` : ''), ph };
+                case 'paused': return { title: CSB_PHASE.paused.t, sub: one.sub, ph };
+                default: return { title: `${top.provName()}：${one.title}`, sub: one.sub, ph };
+            }
+        }
+        function csbProgHtml(S) {
+            if (S.phase !== 'sync') return '';
+            return S.progress && S.progress.total ? `<div class="csb-prog"><i style="width:${Math.round(S.progress.done / S.progress.total * 100)}%"></i></div>` : `<div class="stx-indet csb-prog"><i></i></div>`;
+        }
         function csbHeroHtml(winId) {
-            const S = CSB.S, st = csbStatusText();
-            const prog = S.phase === 'sync'
-                ? (S.progress && S.progress.total ? `<div class="csb-prog"><i style="width:${Math.round(S.progress.done / S.progress.total * 100)}%"></i></div>` : `<div class="stx-indet csb-prog"><i></i></div>`)
-                : '';
-            const paused = S.cfg && S.cfg.paused;
-            const guard = S.guard ? csbGuardHtml(winId) : '';
+            const sm = CSB.summary(), L = sm.list, st = csbStatusText();
+            const busy = !!sm.running;
+            const prog = sm.running ? csbProgHtml(sm.running.S) : '';
+            const auto = CSB.isAuto(), paused = auto && CSB.settings.paused;
+            const authOnly = L.length === 1 && L[0].S.phase === 'auth';
             return `<div class="csb-hero ${st.ph.cls}">
                     <div class="csb-orb">${icon(st.ph.ic)}</div>
                     <div class="csb-hero-tx"><b>${stxEsc(st.title)}</b><small>${stxEsc(st.sub)}</small>${prog}</div>
                     <div class="stx-btns">
-                        ${S.phase === 'auth' ? stxBtn('重新登录', `csbRelogin()`, { cls: 'primary sm', ic: 'csbKey' }) : stxBtn('立即备份', `csbRunNow(${winId})`, { cls: 'primary sm' + (S.phase === 'sync' ? ' busy' : ''), ic: S.phase === 'sync' ? 'stxRefreshCw' : 'csbCloudUpload', dis: S.phase === 'sync' })}
+                        ${authOnly ? stxBtn('重新登录', `csbRelogin(${stxJs(L[0].tid)})`, { cls: 'primary sm', ic: 'csbKey' })
+                            : stxBtn(L.length > 1 ? '全部备份' : '立即备份', `csbRunAll(${winId})`, { cls: 'primary sm' + (busy ? ' busy' : ''), ic: busy ? 'stxRefreshCw' : 'csbCloudUpload', dis: busy, attrs: `data-csb-runall="${winId}"` })}
                         ${stxBtn('浏览与恢复', 'openCloudBrowser()', { cls: 'sm', ic: 'csbHistory' })}
-                        ${stxBtn(paused ? '继续' : '暂停', `csbTogglePause(${winId})`, { cls: 'ghost sm', ic: paused ? 'uiPlay' : 'uiPause', title: paused ? '恢复自动备份' : '暂停自动备份（手动“立即备份”仍可用）' })}
+                        ${auto ? stxBtn(paused ? '继续' : '暂停', `csbTogglePause(${winId})`, { cls: 'ghost sm', ic: paused ? 'uiPlay' : 'uiPause', title: paused ? '恢复自动备份' : '暂停自动备份（手动备份仍可用）' }) : ''}
                     </div>
-                </div>${guard}`;
+                </div>`;
         }
-        function csbGuardHtml(winId) {
-            const g = CSB.S.guard;
+        function csbGuardHtml(winId, e, multi) {
+            const g = e.S.guard;
             const text = g.kind === 'device'
                 ? (g.local === 0
-                    ? `本机现在是空的，而备份里有 ${g.remote.toLocaleString()} 个文件。这通常是浏览器崩溃或数据被清理造成的——为了保护备份，已暂停这台设备的同步，备份里的文件一个都没有删。`
-                    : `本机比备份少了 ${g.deletes.toLocaleString()} 个文件（备份 ${g.remote.toLocaleString()} 个，本机 ${g.local.toLocaleString()} 个）。为防止误删，已暂停这台设备的同步，备份里的文件都还在。`)
+                    ? `本机现在是空的，而备份里有 ${g.remote.toLocaleString()} 个文件。这通常是浏览器崩溃或数据被清理造成的——为了保护备份，已暂停同步，备份里的文件一个都没有删。`
+                    : `本机比备份少了 ${g.deletes.toLocaleString()} 个文件（备份 ${g.remote.toLocaleString()} 个，本机 ${g.local.toLocaleString()} 个）。为防止误删，已暂停同步，备份里的文件都还在。`)
                 : g.kind === 'shared-in'
                     ? `其他设备删除了共享文件夹里的 ${g.deletes} 个文件，同步后本机也会删除它们。已暂停共享文件夹同步。`
                     : `你在本机删除了共享文件夹里的 ${g.deletes} 个文件，同步后所有设备都会删除它们。已暂停共享文件夹同步。`;
-            const restoreBtn = g.kind === 'device' ? stxBtn('从备份恢复本机…', `csbRestoreDialog(${stxJs(CSB.S.cfg.deviceId)})`, { cls: 'primary sm', ic: 'csbArchiveRestore' }) : '';
+            const t = stxJs(e.tid);
+            const restoreBtn = g.kind === 'device' ? stxBtn('从备份恢复本机…', `csbRestoreDialog(${t}, ${stxJs(e.S.cfg.deviceId)})`, { cls: 'primary sm', ic: 'csbArchiveRestore' }) : '';
             return `<div class="csb-guard">
                 <div class="csb-guard-ic">${icon('csbShieldAlert')}</div>
-                <div class="csb-guard-tx"><b>检测到大量删除</b><p>${stxEsc(text)}</p>
+                <div class="csb-guard-tx"><b>检测到大量删除${multi ? ` · ${stxEsc(e.provName())}` : ''}</b><p>${stxEsc(text)}</p>
                     <div class="stx-btns">${restoreBtn}
-                        ${stxBtn('查看文件列表', 'csbGuardList()', { cls: 'sm', ic: 'stxFileText' })}
-                        ${stxBtn('确认是我删除的，继续同步', `csbGuardConfirm(${winId})`, { cls: 'danger sm', ic: 'stxTrash2' })}
+                        ${stxBtn('查看文件列表', `csbGuardList(${t})`, { cls: 'sm', ic: 'stxFileText' })}
+                        ${stxBtn('确认是我删除的，继续同步', `csbGuardConfirm(${winId}, ${t})`, { cls: 'danger sm', ic: 'stxTrash2' })}
                     </div>
                     <small class="stx-muted">即使确认，被删除的文件也能在「浏览与恢复」的历史时间点里找回。</small>
                 </div>
             </div>`;
         }
 
+        // 备份位置卡片：标题行（实时更新）+ 展开后的详情
+        function csbTargetHead(winId, e) {
+            const S = e.S, st = csbStatusOf(e), t = stxJs(e.tid), open = !!(csbUi(winId).csbOpen || {})[e.tid];
+            const busy = S.running || S.phase === 'sync';
+            return `<span class="csb-logo ${S.cfg.provider}">${CSB_LOGO[S.cfg.provider]}</span>
+                <div class="csb-tgt-tx"><b>${stxEsc(e.provName())}<span class="stx-mono">${stxEsc(csbAcct(e))}</span></b>
+                    <span class="csb-tgt-st ${st.ph.cls}"><i></i>${stxEsc(st.title)}${st.sub ? ' · ' + stxEsc(st.sub) : ''}</span>${csbProgHtml(S)}</div>
+                <div class="stx-btns">
+                    ${S.phase === 'auth' ? stxBtn('重新登录', `csbRelogin(${t})`, { cls: 'primary sm', ic: 'csbKey' })
+                        : stxBtn('备份', `csbRunNow(${winId}, ${t})`, { cls: 'sm' + (busy ? ' busy' : ''), ic: busy ? 'stxRefreshCw' : 'csbCloudUpload', dis: busy, title: `只备份到 ${e.provName()}` })}
+                    ${stxBtn('恢复…', `csbPickRestore(${t})`, { cls: 'sm', ic: 'csbArchiveRestore', title: '选择一份备份恢复到本机' })}
+                    <button type="button" class="stx-btn ghost sm csb-more${open ? ' on' : ''}" aria-expanded="${open}" title="${open ? '收起' : '更多：设备、账号、断开'}" aria-label="更多" onclick="csbToggleOpen(${winId}, ${t})">${icon('edxChevDown')}</button>
+                </div>`;
+        }
+        function csbTargetDetail(winId, e) {
+            const S = e.S, cfg = S.cfg, t = stxJs(e.tid), drive = e.isDrive(), au = cfg.auth || {};
+            const k = `${winId}:${e.tid}`;
+            const devices = `<div data-csb-devices="${k}"><div class="stx-empty">${icon('csbUsers')}正在读取这个位置里的设备…</div></div>`;
+            const rows = [];
+            if (drive) {
+                rows.push(stxRow({ ic: 'csbCloud', title: cfg.provider === 'gdrive' ? '云端硬盘里的位置' : 'OneDrive 里的位置',
+                    desc: `${cfg.provider === 'gdrive' ? '文件夹「JISHENG OS 云备份」' : '文件夹「应用 / 应用名」'}<span data-csb-quota="${k}"></span>`,
+                    ctl: stxBtn('打开网盘', `window.open(CSB.at(${t}).transport().webUrl(), '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) }));
+                rows.push(stxRow({ ic: 'csbKey', title: '登录', desc: S.phase === 'auth' ? '<b class="csb-warn-t">登录已过期</b>，重新登录后会自动接着备份。'
+                        : `${stxEsc(au.user || '已登录')} · 会自动续期${cfg.provider === 'onedrive' ? '（OneDrive 每 24 小时续一次，浏览器拦截第三方 Cookie 时可能要你点一下“重新登录”）' : ''}。登录信息只保存在这个浏览器里。`,
+                    ctl: stxBtn('重新登录', `csbRelogin(${t})`, { cls: S.phase === 'auth' ? 'primary sm' : 'sm', ic: 'csbKey' }) }));
+                if (e.appOf(cfg.provider).custom) rows.push(stxRow({ ic: 'stxPlugZap', title: '应用凭据', desc: '使用你在本机填写的凭据', ctl: stxBtn('修改…', `csbEditApp(${stxJs(cfg.provider)}, ${winId}, ${t})`, { cls: 'ghost sm' }) }));
+            } else {
+                const masked = cfg.token ? cfg.token.slice(0, 7) + '••••••' + cfg.token.slice(-4) : '';
+                rows.push(stxRow({ ic: 'csbGithub', title: '仓库', desc: `<span class="stx-mono">${stxEsc(cfg.repo)}</span> · 分支 ${stxEsc(cfg.branch)}`,
+                    ctl: stxBtn('在 GitHub 打开', `window.open(${stxJs('https://github.com/' + cfg.repo)}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) }));
+                rows.push(stxRow({ ic: 'csbKey', title: '访问令牌', desc: `<span class="stx-mono">${stxEsc(masked)}</span>${S.rate ? ` · 本小时剩余 ${S.rate.remaining}/${S.rate.limit} 次请求` : ''} · 只保存在这个浏览器里`,
+                    ctl: stxBtn('更换令牌…', `csbChangeToken(${winId}, ${t})`, { cls: 'sm' }) }));
+            }
+            rows.push(stxRow({ ic: 'csbCloudOff', title: '断开这个位置', cls: 'csb-danger-row', desc: `不再备份到${drive ? '这个网盘' : '这个仓库'}，并删除本机保存的${drive ? '登录信息' : '令牌'}。已有的备份不会删除；其他备份位置不受影响。`,
+                ctl: stxBtn('断开…', `csbDisconnect(${winId}, ${t})`, { cls: 'danger sm' }) }));
+            setTimeout(() => csbFillDevices(winId, e.tid), 0);
+            return `<div class="csb-tgt-detail">
+                <div class="csb-sub-h">这个位置里的设备<button type="button" class="stx-btn ghost sm" title="刷新" aria-label="刷新" onclick="csbFillDevices(${winId}, ${t}, true)">${icon('stxRefreshCw')}</button></div>
+                ${devices}
+                <div class="csb-sub-h">连接</div>
+                ${rows.join('')}
+            </div>`;
+        }
+        function csbTargetHtml(winId, e) {
+            const open = !!(csbUi(winId).csbOpen || {})[e.tid];
+            return `<div class="csb-tgt${open ? ' open' : ''}" data-tid="${stxAttr(e.tid)}">
+                <div class="csb-tgt-main" data-csb-trow="${winId}:${stxAttr(e.tid)}">${csbTargetHead(winId, e)}</div>
+                ${open ? csbTargetDetail(winId, e) : ''}
+            </div>`;
+        }
+
         function stxPageBackup(winId) {
-            const S = CSB.S;
-            if (!S.loaded) return `<div class="stx-page">${stxHead('backup')}<div class="stx-card"><div class="stx-empty">${icon('csbCloud')}正在读取云备份配置…</div></div></div>`;
-            if (!S.cfg || !S.cfg.deviceId) return csbSetupPage(winId);
-            const cfg = S.cfg, opfsOk = stxOpfsOk();
+            if (!CSB.loaded) return `<div class="stx-page">${stxHead('backup')}<div class="stx-card"><div class="stx-empty">${icon('csbCloud')}正在读取云备份配置…</div></div></div>`;
+            const L = CSB.list();
+            if (!L.length) return csbSetupPage(winId);
+            const cfg = CSB.settings, opfsOk = stxOpfsOk(), ui = csbUi(winId), auto = cfg.mode === 'auto';
             const seg = (cur, list, fn, label) => `<div class="stx-seg" role="radiogroup" aria-label="${stxAttr(label)}">${list.map(([v, l]) => `<button type="button" role="radio" aria-checked="${cur === v}" class="${cur === v ? 'on' : ''}" onclick="${fn}(${winId}, ${JSON.stringify(v)})">${l}</button>`).join('')}</div>`;
-            const skipped = S.skipped || [];
+            const guards = L.filter(e => e.S.guard).map(e => csbGuardHtml(winId, e, L.length > 1)).join('');
+            // —— 备份位置 ——
+            const used = new Set(L.map(e => e.S.cfg.provider));
+            const canAdd = Object.keys(CSB_LOGO).some(p => !used.has(p));
+            const addRow = ui.csbAdd ? `<div class="csb-add">${csbAddHtml(winId, used)}</div>`
+                : canAdd ? `<button type="button" class="csb-add-btn" onclick="csbShowAdd(${winId}, true)">${icon('edxPlus')}<span><b>添加备份位置</b><small>同时备份到 ${Object.keys(CSB_LOGO).filter(p => !used.has(p)).map(p => CSB.PROVIDERS[p]).join(' / ')}，多一份更安心</small></span></button>` : '';
+            const targets = `<div class="stx-card csb-tgts">${L.map(e => csbTargetHtml(winId, e)).join('')}${addRow}</div>`;
+            // —— 同步方式 ——
+            const modeCard = (v, ic, title, desc) => `<button type="button" class="csb-prov csb-mode${cfg.mode === v ? ' on' : ''}" role="radio" aria-checked="${cfg.mode === v}" onclick="csbSetMode(${winId}, '${v}')">
+                    <span class="csb-logo">${icon(ic)}</span><span class="csb-prov-tx"><b>${title}</b><small>${desc}</small></span><span class="csb-prov-ck">${icon('stxCheck')}</span></button>`;
+            const mode = `<div class="csb-provs csb-modes" role="radiogroup" aria-label="同步方式">
+                    ${modeCard('manual', 'csbCloudUpload', '手动备份', '想备份时打开这里点“备份”。不在后台联网，最省流量和电量；有没上传的改动时托盘图标会提示。')}
+                    ${modeCard('auto', 'csbTimer', '自动备份', '改动后自动上传，并定时同步共享文件夹。适合经常改文件的电脑。')}
+                </div>`;
+            const autoRows = auto ? `<div class="stx-card csb-auto">
+                ${stxRow({ id: 'cloud-delay', ic: 'csbTimer', title: '改动后多久备份', desc: '第一次改动后等这么久再备份，期间的所有改动合并成一次上传；两次自动备份之间至少间隔这么久。连续几次都没有实际变化时会自动放慢。',
+                    ctl: seg(Number(cfg.delay), [[30, '30 秒'], [60, '1 分钟'], [120, '2 分钟'], [300, '5 分钟'], [600, '10 分钟']], 'csbSetDelay', '改动后多久备份') })}
+                ${stxRow({ id: 'cloud-interval', ic: 'stxRefreshCw', title: '定时检查', desc: '定时拉取其他设备对共享文件夹的修改，并备份记事本草稿等不经过文件系统的改动。',
+                    ctl: seg(Number(cfg.interval), [[2, '2 分钟'], [5, '5 分钟'], [15, '15 分钟'], [30, '30 分钟']], 'csbSetInterval', '定时检查') })}
+                ${stxRow({ id: 'cloud-bg', ic: 'stxMonitorSmartphone', title: '切到后台时立即备份', desc: '手机切换应用、锁屏或关闭标签页时，如果有未备份的改动就马上上传（安卓随时可能回收后台标签页）。刚同步过 15 秒内不会重复上传。',
+                    ctl: stxSwitch(cfg.bgFlush, `csbSet(${winId}, 'bgFlush', ${!cfg.bgFlush})`, '切到后台时立即备份') })}
+            </div>` : '';
+            // —— 备份内容 ——
+            const skipped = (L.find(e => (e.S.skipped || []).length) || L[0]).S.skipped || [];
             const content = `<div class="stx-card">
                 ${stxRow({ id: 'cloud-docs', ic: 'stxFolderOpen', title: '桌面与文档', desc: 'IndexedDB 存储里的全部文件和文件夹（包括空文件夹与修改日期）。挂载的本地文件夹（/mnt/local）不会备份。', ctl: stxPill('始终备份', 'ok', 'stxCheck') })}
                 ${stxRow({ id: 'cloud-opfs', ic: 'stxHardDrive', title: '高速存储（OPFS）', desc: opfsOk ? '默认关闭。OPFS 常用来存放大文件和频繁写入的数据（例如虚拟机磁盘、缓存），备份它们会占用大量流量和空间。需要时再打开，会一并备份 /opfs。' : '当前浏览器没有可用的 OPFS。', cls: opfsOk ? '' : 'dis',
@@ -20810,95 +21178,84 @@
                     ctl: stxSwitch(cfg.includeSystem, `csbSet(${winId}, 'includeSystem', ${!cfg.includeSystem})`, '备份系统设置') })}
                 ${stxRow({ id: 'cloud-local', ic: 'stxFileText', title: '浏览器偏好与记事本草稿', desc: '保存在 localStorage 里的界面偏好、排序方式和记事本未保存的草稿。',
                     ctl: stxSwitch(cfg.includeLocal, `csbSet(${winId}, 'includeLocal', ${!cfg.includeLocal})`, '备份浏览器偏好') })}
-                ${stxRow({ id: 'cloud-max', ic: 'stxArchive', title: '单个文件大小上限', desc: CSB.isDrive() ? '超过上限的文件不会上传，并列在下面。大文件会单独打包，手机上上传大文件比较耗流量和内存。' : '超过上限的文件不会上传，并列在下面。GitHub 单个文件最大 100 MB，大文件太多会让仓库变慢。',
+                ${stxRow({ id: 'cloud-max', ic: 'stxArchive', title: '单个文件大小上限', desc: '超过上限的文件不会上传，并列在下面。GitHub 单个文件最大 100 MB；手机上传大文件比较耗流量和内存。',
                     ctl: seg(Number(cfg.maxMB), [[10, '10 MB'], [25, '25 MB'], [50, '50 MB'], [90, '90 MB']], 'csbSetMax', '单个文件大小上限') })}
                 ${stxRow({ id: 'cloud-exclude', ic: 'stxFilm', title: '不备份的文件类型', desc: '扩展名，用逗号或空格分隔，例如 iso, img, mp4, mkv。留空表示不排除。', cls: 'stx-row-wide',
                     ctl: `<div class="csb-inline"><input class="csb-input" id="csb-ex-${winId}" value="${stxAttr(cfg.excludeExt || '')}" placeholder="iso, img, mp4" spellcheck="false" onkeydown="if(event.key==='Enter')csbSaveExclude(${winId})">${stxBtn('保存', `csbSaveExclude(${winId})`, { cls: 'sm' })}</div>` })}
                 ${skipped.length ? stxRow({ id: 'cloud-skipped', ic: 'stxTriangleAlert', title: `有 ${skipped.length} 个文件没有备份`, desc: stxEsc(skipped.slice(0, 3).map(s => s.path.split('/').pop() + '（' + s.why + '）').join('、') + (skipped.length > 3 ? ' 等' : '')),
                     ctl: stxBtn('查看全部', 'csbShowSkipped()', { cls: 'sm' }) }) : ''}
             </div>`;
-            const auto = `<div class="stx-card">
-                ${stxRow({ id: 'cloud-delay', ic: 'csbTimer', title: '改动后多久备份', desc: '第一次改动后等这么久再备份，期间的所有改动合并成一次上传；两次自动备份之间至少间隔这么久。连续几次检查都没有实际变化时会自动放慢。',
-                    ctl: seg(Number(cfg.delay), [[30, '30 秒'], [60, '1 分钟'], [120, '2 分钟'], [300, '5 分钟'], [600, '10 分钟']], 'csbSetDelay', '改动后多久备份') })}
-                ${stxRow({ id: 'cloud-interval', ic: 'stxRefreshCw', title: '定时检查', desc: '定时拉取其他设备对共享文件夹的修改，并备份记事本草稿等不经过文件系统的改动。',
-                    ctl: seg(Number(cfg.interval), [[2, '2 分钟'], [5, '5 分钟'], [15, '15 分钟'], [30, '30 分钟']], 'csbSetInterval', '定时检查') })}
-                ${stxRow({ id: 'cloud-bg', ic: 'stxMonitorSmartphone', title: '切到后台时立即备份', desc: '手机切换应用、锁屏或关闭标签页时，如果有未备份的改动就马上上传（安卓随时可能回收后台标签页）。刚同步过 15 秒内不会重复上传。',
-                    ctl: stxSwitch(cfg.bgFlush, `csbSet(${winId}, 'bgFlush', ${!cfg.bgFlush})`, '切到后台时立即备份') })}
-            </div>`;
-            const sh = cfg.shared, ss = S.sharedStat;
+            // —— 共享文件夹 ——
+            const sh = cfg.shared, ss = (L.find(e => e.S.sharedStat) || { S: {} }).S.sharedStat;
             const shared = `<div class="stx-card">
-                ${stxRow({ id: 'cloud-shared', ic: 'stxFolderSync', title: '启用共享文件夹', desc: '放进这个文件夹的文件会出现在所有连接到同一备份位置（同一仓库 / 同一网盘账号）的设备上；任何一台设备修改或删除，其他设备都会跟着变。两边同时修改时会保留两份。',
+                ${stxRow({ id: 'cloud-shared', ic: 'stxFolderSync', title: '启用共享文件夹', desc: '放进这个文件夹的文件会出现在所有连接到同一备份位置的设备上；任何一台设备修改或删除，其他设备都会跟着变。两边同时修改时会保留两份。' + (L.length > 1 ? '连接了多个位置时，这台设备会在它们之间转交改动。' : '') + (auto ? '' : '手动模式下，点“备份”时同步。'),
                     ctl: stxSwitch(sh.enabled, `csbToggleShared(${winId})`, '启用共享文件夹') })}
                 ${stxRow({ id: 'cloud-shared-path', ic: 'stxFolder', title: '本机位置', cls: sh.enabled ? '' : 'dis',
                     desc: `<span class="stx-mono">${stxEsc(sh.path)}</span>` + (sh.enabled && ss ? ` · 最近同步 ${CSB.fmtAgo(ss.at)} · ${ss.files} 个文件` : ''),
                     ctl: stxBtn('打开', `openFileExplorer(${stxJs(sh.path)})`, { cls: 'sm', ic: 'stxExternalLink', dis: !sh.enabled }) + stxBtn('更改…', `csbSharedPath(${winId})`, { cls: 'ghost sm' }) })}
             </div>`;
-            const devices = `<div class="stx-card" data-csb-devices="${winId}"><div class="stx-empty">${icon('csbUsers')}正在读取设备列表…</div></div>`;
-            const masked = cfg.token ? cfg.token.slice(0, 7) + '••••••' + cfg.token.slice(-4) : '';
-            const drive = CSB.isDrive(), T = drive ? CSB.transport() : null, au = cfg.auth || {};
-            const deviceRow = stxRow({ id: 'cloud-device', ic: 'stxMonitor', title: '本机名称', desc: `「${stxEsc(cfg.deviceName)}」 · 设备编号 <span class="stx-mono">${stxEsc(cfg.deviceId)}</span>`,
-                    ctl: stxBtn('重命名…', `csbRename(${winId})`, { cls: 'sm' }) });
-            const conn = drive ? `<div class="stx-card">
-                ${stxRow({ id: 'cloud-repo', ic: 'csbCloud', title: `<span class="csb-logo sm">${CSB_LOGO[cfg.provider]}</span>${stxEsc(CSB.provName())}`,
-                    desc: `<span class="stx-mono">${stxEsc(au.user || '已登录')}</span> · ${cfg.provider === 'gdrive' ? '文件夹「JISHENG OS 云备份」' : '文件夹「应用 / 你注册的应用名」'}<span data-csb-quota="${winId}"></span>`,
-                    ctl: stxBtn('打开网盘', `window.open(CSB.transport().webUrl(), '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) })}
-                ${deviceRow}
-                ${stxRow({ id: 'cloud-token', ic: 'csbKey', title: '登录状态', desc: S.phase === 'auth' ? '<b class="csb-warn-t">登录已过期</b>，点右边重新登录后会自动接着备份。'
-                        : `已登录，访问令牌会自动续期${cfg.provider === 'onedrive' ? '（OneDrive 每 24 小时需要续一次，浏览器拦截第三方 Cookie 时可能要你点一下“重新登录”）' : ''}。<br>登录信息只保存在这个浏览器里。`,
-                    ctl: stxBtn('重新登录', 'csbRelogin()', { cls: S.phase === 'auth' ? 'primary sm' : 'sm', ic: 'csbKey' }) })}
-                ${stxRow({ id: 'cloud-app', ic: 'stxPlugZap', title: '应用凭据', desc: CSB.appOf(cfg.provider).custom ? '使用你在本机填写的凭据' : '使用网站内置的凭据',
-                    ctl: stxBtn('修改…', `csbEditApp(${stxJs(cfg.provider)}, ${winId})`, { cls: 'ghost sm' }) })}
-            </div>` : `<div class="stx-card">
-                ${stxRow({ id: 'cloud-repo', ic: 'csbGithub', title: '仓库', desc: `<span class="stx-mono">${stxEsc(cfg.repo)}</span> · 分支 ${stxEsc(cfg.branch)}`,
-                    ctl: stxBtn('在 GitHub 打开', `window.open(${stxJs('https://github.com/' + cfg.repo)}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) })}
-                ${deviceRow}
-                ${stxRow({ id: 'cloud-token', ic: 'csbKey', title: '访问令牌', desc: `<span class="stx-mono">${stxEsc(masked)}</span>${S.rate ? ` · 本小时剩余 ${S.rate.remaining}/${S.rate.limit} 次请求` : ''}<br>只保存在这个浏览器里，只发送给 api.github.com。`,
-                    ctl: stxBtn('更换令牌…', `csbChangeToken(${winId})`, { cls: 'sm' }) })}
-            </div>`;
-            const connAll = conn + `
-            <div class="stx-card stx-danger">${stxRow({ id: 'cloud-disconnect', ic: 'csbCloudOff', title: '断开云备份', desc: `停止自动备份并删除本机保存的${drive ? '登录信息' : '令牌'}。${drive ? '网盘' : '仓库'}里的备份不会被删除，随时可以重新连接（选择“接替”这台设备即可继续）。`,
-                ctl: stxBtn('断开…', `csbDisconnect(${winId})`, { cls: 'danger sm' }) })}</div>`;
-            const logs = S.log.length ? `<div class="stx-card csb-log">${S.log.slice(0, 12).map(l => `<div class="csb-log-row ${l.kind}"><i></i><span>${stxEsc(l.text)}</span><time>${CSB.fmtDate(l.t)}</time></div>`).join('')}</div>` : '';
-            setTimeout(() => csbFillDevices(winId), 0);
+            const c0 = L[0].S.cfg;
+            const device = `<div class="stx-card">${stxRow({ id: 'cloud-device', ic: 'stxMonitor', title: '本机名称', desc: `「${stxEsc(c0.deviceName)}」 · 在备份里用来区分不同的设备`,
+                    ctl: stxBtn('重命名…', `csbRename(${winId})`, { cls: 'sm' }) })}</div>`;
+            const logs = L.flatMap(e => (e.S.log || []).map(l => ({ ...l, p: e.S.cfg.provider }))).sort((a, b) => b.t - a.t).slice(0, 14);
+            const logHtml = logs.length ? `<div class="stx-card csb-log">${logs.map(l => `<div class="csb-log-row ${l.kind}"><i></i><span>${L.length > 1 ? `<span class="csb-logo sm ${l.p}">${CSB_LOGO[l.p]}</span>` : ''}${stxEsc(l.text)}</span><time>${CSB.fmtDate(l.t)}</time></div>`).join('')}</div>` : '';
             return `<div class="stx-page">${stxHead('backup')}
-                <div data-csb-live="${winId}">${csbHeroHtml(winId)}</div>
-                ${stxGroup('设备与时光机', '每台设备一个独立文件夹，可以浏览任意时间点', devices, stxBtn('', `csbFillDevices(${winId}, true)`, { cls: 'ghost sm', ic: 'stxRefreshCw', title: '刷新' }))}
-                ${stxGroup('备份内容', '', content)}
-                ${stxGroup('自动备份', '', auto)}
+                <div data-csb-live="${winId}">${csbHeroHtml(winId)}</div>${guards}
+                ${stxGroup('备份位置', L.length > 1 ? `同时备份到 ${L.length} 个位置，每个位置都是完整的一份` : '可以同时备份到多个位置', targets)}
+                ${stxGroup('同步方式', '', mode + autoRows)}
+                ${stxGroup('备份内容', '所有备份位置共用', content)}
                 ${stxGroup('共享文件夹', '在所有设备间双向同步', shared)}
-                ${stxGroup('连接', '', connAll)}
-                ${logs ? stxGroup('活动记录', '', logs) : ''}
+                ${stxGroup('本机', '', device)}
+                ${logHtml ? stxGroup('活动记录', '', logHtml) : ''}
             </div>`;
+        }
+
+        // ---------- 首次设置 / 添加备份位置 ----------
+        function csbDefaultProv(used) {
+            const order = Object.keys(CSB_LOGO).filter(p => !used.has(p));
+            return order.find(p => p !== 'github' && CSB.appReady(p)) || (order.includes('github') ? 'github' : order[0]);
+        }
+        function csbProvCards(winId, prov, used) {
+            return `<div class="csb-provs" role="radiogroup" aria-label="备份位置">${Object.keys(CSB_LOGO).map(k => {
+                const dis = used.has(k);
+                return `<button type="button" data-prov="${k}" class="csb-prov${k === prov ? ' on' : ''}${dis ? ' dis' : ''}" role="radio" aria-checked="${k === prov}" ${dis ? 'disabled' : ''} onclick="csbPickProv(${winId}, '${k}')">
+                    <span class="csb-logo ${k}">${CSB_LOGO[k]}</span>
+                    <span class="csb-prov-tx"><b>${stxEsc(CSB.PROVIDERS[k])}</b><small>${stxEsc(CSB_PROV_INFO[k].tag)}</small><em>${dis ? '已添加' : stxEsc(CSB_PROV_INFO[k].how)}</em></span>
+                    <span class="csb-prov-ck">${icon('stxCheck')}</span>
+                </button>`; }).join('')}</div>`;
         }
         function csbSetupPage(winId) {
             const name = CSB.guessDeviceName();
-            const st = STX_STATE[winId] || {};
-            const prov = st.csbProv || 'github';
+            const st = csbUi(winId), used = new Set();
+            const prov = st.csbProv && !used.has(st.csbProv) ? st.csbProv : csbDefaultProv(used);
             const feats = [
-                ['csbTimer', '改动后约 1 分钟自动备份，切到后台立即备份'],
-                ['csbUsers', '每台设备一个独立文件夹，互不覆盖'],
-                ['csbHistory', '时光机：任何一次备份都能找回，删掉的也行'],
+                ['csbCloudUpload', '想备份时点一下就好，也可以改成自动备份'],
+                ['csbArchiveRestore', '恢复时挑一份备份，一键还原整台系统'],
+                ['csbUsers', '可以同时备份到多个位置，每台设备各存一份'],
                 ['stxFolderSync', '共享文件夹：所有设备双向同步']
             ];
-            const cards = Object.keys(CSB_LOGO).map(k => `<button type="button" class="csb-prov${k === prov ? ' on' : ''}" role="radio" aria-checked="${k === prov}" onclick="csbPickProv(${winId}, '${k}')">
-                    <span class="csb-logo ${k}">${CSB_LOGO[k]}</span>
-                    <span class="csb-prov-tx"><b>${stxEsc(CSB.PROVIDERS[k])}</b><small>${stxEsc(CSB_PROV_INFO[k].tag)}</small><em>${stxEsc(CSB_PROV_INFO[k].how)}</em></span>
-                    <span class="csb-prov-ck">${icon('stxCheck')}</span>
-                </button>`).join('');
             const body = prov === 'github' ? csbSetupGithub(winId, name) : csbSetupDrive(winId, prov, name);
             return `<div class="stx-page">${stxHead('backup')}
                 <div class="csb-intro">
                     <div class="csb-orb big">${icon('csbCloud')}</div>
-                    <div><h3>把整台 JISHENG OS 自动备份到云端</h3>
-                    <p>浏览器崩溃、被清理数据、换手机，都不怕。不需要服务器，数据只在你的浏览器和你自己的 GitHub / Google / Microsoft 账号之间传输。</p>
+                    <div><h3>把整台 JISHENG OS 备份到云端</h3>
+                    <p>浏览器崩溃、被清理数据、换手机，都不怕。不需要服务器，数据只在你的浏览器和你自己的 Google / Microsoft / GitHub 账号之间传输。</p>
                     <ul>${feats.map(([ic, t]) => `<li>${icon(ic)}<span>${t}</span></li>`).join('')}</ul></div>
                 </div>
-                ${stxGroup('备份到哪里', '以后可以断开后换成别的', `<div class="csb-provs" role="radiogroup" aria-label="备份位置">${cards}</div>`)}
+                ${stxGroup('备份到哪里', '以后还可以再添加其他位置', csbProvCards(winId, prov, used))}
                 ${body}
             </div>`;
         }
-        function csbSetupGithub(winId, name) {
-            return `${stxGroup('第 1 步', '新建一个私有仓库', `<div class="stx-card">${stxRow({ ic: 'csbGithub', title: '在 GitHub 新建仓库', desc: '名称随意（例如 jisheng-backup），<b>可见性选择 Private（私有）</b>，其他保持默认，点 Create repository。已经有空的私有仓库可以跳过。',
+        function csbAddHtml(winId, used) {
+            const st = csbUi(winId);
+            const prov = st.csbProv && !used.has(st.csbProv) ? st.csbProv : csbDefaultProv(used);
+            const name = CSB.list()[0].S.cfg.deviceName;
+            return `<div class="csb-add-h"><b>添加备份位置</b>${stxBtn('取消', `csbShowAdd(${winId}, false)`, { cls: 'ghost sm' })}</div>
+                ${csbProvCards(winId, prov, used)}
+                ${prov === 'github' ? csbSetupGithub(winId, name, true) : csbSetupDrive(winId, prov, name, true)}`;
+        }
+        function csbSetupGithub(winId, name, adding) {
+            return `${stxGroup('第 1 步', '新建一个私有仓库', `<div class="stx-card">${stxRow({ ic: 'csbGithub', title: '在 GitHub 新建仓库', desc: '名称随意（例如 jisheng-backup），<b>可见性选择 Private（私有）</b>，其他保持默认，点 Create repository。已经有私有仓库可以跳过。',
                     ctl: stxBtn('新建仓库', `window.open(${stxJs(CSB_NEW_REPO_URL)}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' }) })}</div>`)}
                 ${stxGroup('第 2 步', '创建只能访问这个仓库的令牌', `<div class="stx-card">${stxRow({ ic: 'csbKey', title: '创建细粒度令牌（Fine-grained token）', cls: 'stx-row-wide',
                     desc: '打开的页面已自动填好名称、权限（Contents: Read and write）和永不过期。你只需要：在 <b>Repository access</b> 选 <b>Only select repositories</b> 并勾选刚才的仓库 → 点页面底部 <b>Generate token</b> → 复制以 github_pat_ 开头的令牌。',
@@ -20906,19 +21263,19 @@
                 ${stxGroup('第 3 步', '填写并连接', `<div class="stx-card csb-form">
                     <label><span>仓库</span><input class="csb-input" id="csb-repo-${winId}" placeholder="用户名/仓库名，或直接粘贴仓库网址" spellcheck="false" autocomplete="off"></label>
                     <label><span>令牌</span><input class="csb-input" id="csb-token-${winId}" type="password" placeholder="github_pat_…" spellcheck="false" autocomplete="off"></label>
-                    <label><span>本机名称</span><input class="csb-input" id="csb-name-${winId}" value="${stxAttr(name)}" maxlength="40" spellcheck="false" autocomplete="off"></label>
+                    <label${adding ? ' hidden' : ''}><span>本机名称</span><input class="csb-input" id="csb-name-${winId}" value="${stxAttr(name)}" maxlength="40" spellcheck="false" autocomplete="off"></label>
                     <div class="csb-form-foot"><small class="stx-muted">${icon('stxShieldCheck')}令牌只保存在这个浏览器里，只发送给 api.github.com。</small>
-                    ${stxBtn('连接并开始备份', `csbConnect(${winId})`, { cls: 'primary', ic: 'csbCloudUpload', attrs: `id="csb-connect-${winId}"` })}</div>
+                    ${stxBtn(adding ? '连接并备份' : '连接', `csbConnect(${winId})`, { cls: 'primary', ic: 'csbCloudUpload', attrs: `id="csb-connect-${winId}"` })}</div>
                 </div>`)}
-                <p class="stx-note">${icon('stxInfo')}浏览器数据丢失后重新连接时，在第 3 步之后选择“接替”原来的设备，就能一键把文件恢复回来。</p>`;
+                ${adding ? '' : `<p class="stx-note">${icon('stxInfo')}浏览器数据丢失后重新连接时，选择“接替”原来的设备，就能挑一份备份一键恢复。</p>`}`;
         }
         function csbAppForm(winId, prov) {
             const app = CSB.appOf(prov), g = prov === 'gdrive';
             const steps = g
-                ? `在 <b>Google Cloud 控制台</b> 新建项目 → 启用 <b>Google Drive API</b> → 配置 OAuth 同意屏幕（外部，添加自己为测试用户，或发布为正式版）→ 凭据 → 创建 <b>OAuth 客户端 ID</b>，类型选 <b>Web 应用</b>，把下面的地址填进“已获授权的重定向 URI”。`
+                ? `在 <b>Google Cloud 控制台</b> 新建项目 → 启用 <b>Google Drive API</b> → 配置 OAuth 同意屏幕（外部，发布为正式版）→ 凭据 → 创建 <b>OAuth 客户端 ID</b>，类型选 <b>Web 应用</b>，把下面的地址填进“已获授权的重定向 URI”。`
                 : `在 <b>Microsoft Entra 管理中心</b> → 应用注册 → 新注册：账户类型选“任何组织目录中的帐户和个人 Microsoft 帐户”，平台选 <b>单页应用程序 (SPA)</b>，重定向 URI 填下面的地址。不需要客户端密码。`;
             return `<div class="stx-card csb-form csb-app">
-                    <p class="csb-app-tip">${icon('stxInfo')}<span>网盘登录需要一个“应用凭据”，只要注册一次，所有设备通用（详见使用说明）。${steps}</span></p>
+                    <p class="csb-app-tip">${icon('stxInfo')}<span>${steps} 详见使用说明第九节。把得到的 ID 写进 index.html 开头的 <b>CSB_APPS</b>，所有设备就都只需点“登录”；也可以只在这台设备上填写：</span></p>
                     <label><span>重定向 URI</span><span class="csb-inline"><input class="csb-input stx-mono" readonly value="${stxAttr(CSB.redirectUri())}" onclick="this.select()">${stxBtn('复制', `csbCopy(${stxJs(CSB.redirectUri())})`, { cls: 'sm', ic: 'stxCopy' })}</span></label>
                     <label><span>客户端 ID</span><input class="csb-input" id="csb-cid-${winId}" value="${stxAttr(app.custom ? app.clientId : '')}" placeholder="${g ? 'xxxx.apps.googleusercontent.com' : '00000000-0000-0000-0000-000000000000'}" spellcheck="false" autocomplete="off"></label>
                     ${g ? `<label><span>客户端密钥</span><input class="csb-input" id="csb-csec-${winId}" type="password" value="${stxAttr(app.custom ? app.clientSecret : '')}" placeholder="GOCSPX-…" spellcheck="false" autocomplete="off"></label>` : ''}
@@ -20926,47 +21283,79 @@
                     <span class="stx-btns">${stxBtn('打开控制台', `window.open(${stxJs(CSB_CONSOLE[prov])}, '_blank', 'noopener')`, { cls: 'sm', ic: 'stxExternalLink' })}${stxBtn('保存', `csbSaveApp(${winId}, '${prov}')`, { cls: 'sm primary' })}</span></div>
                 </div>`;
         }
-        function csbSetupDrive(winId, prov, name) {
-            const ready = CSB.appReady(prov), app = CSB.appOf(prov), st = STX_STATE[winId] || {};
-            const showApp = !ready || st.csbShowApp;
+        function csbSetupDrive(winId, prov, name, adding) {
+            const ready = CSB.appReady(prov), app = CSB.appOf(prov), st = csbUi(winId);
+            const showApp = st.csbShowApp;
             const brand = prov === 'gdrive' ? 'Google' : 'Microsoft';
             const where = prov === 'gdrive'
-                ? '备份放在你云端硬盘的「JISHENG OS 云备份」文件夹里：commits 是每次备份的记录，packs 里是打包好的 zip（可以直接下载解压查看）。只申请“仅限本应用创建的文件”权限，看不到你网盘里的其他文件。'
-                : '备份放在 OneDrive 的「应用 / 应用名」文件夹里：commits 是每次备份的记录，packs 里是打包好的 zip。只申请“应用文件夹”权限，看不到你网盘里的其他文件。';
-            return `${showApp ? stxGroup(ready ? '应用凭据' : '先设置应用凭据', ready ? '' : '只需一次', csbAppForm(winId, prov)) : ''}
-                ${stxGroup(showApp && !ready ? '然后' : '', `登录 ${CSB.PROVIDERS[prov]}`, `<div class="stx-card csb-form">
-                    <label><span>本机名称</span><input class="csb-input" id="csb-name-${winId}" value="${stxAttr(name)}" maxlength="40" spellcheck="false" autocomplete="off"></label>
+                ? '备份放在你云端硬盘的「JISHENG OS 云备份」文件夹里（打包好的 zip，可以直接下载解压查看）。只申请“仅限本应用创建的文件”权限，看不到你网盘里的其他文件。'
+                : '备份放在 OneDrive 的「应用」文件夹里（打包好的 zip）。只申请“应用文件夹”权限，看不到你网盘里的其他文件。';
+            const notReady = !ready ? `<div class="stx-card csb-form"><p class="csb-app-tip">${icon('stxTriangleAlert')}<span><b>这个网站还没有配置 ${brand} 登录。</b>像篡改猴这样的扩展可以直接登录，是因为开发者事先向 ${brand} 注册了一个“应用”。网站主人只要注册一次（约 5 分钟，免费），把得到的客户端 ID 写进网站，之后所有人、所有设备就都只需点“使用 ${brand} 账号登录”。在那之前可以先用 GitHub，或者自己填写凭据。</span></p>${showApp ? '' : `<div class="csb-form-foot"><span></span>${stxBtn('我是网站主人 / 自己填写凭据', `csbToggleApp(${winId})`, { cls: 'sm', ic: 'stxPlugZap', attrs: `id="csb-owner-${winId}"` })}</div>`}</div>` : '';
+            return `${notReady}${showApp ? stxGroup('应用凭据', '', csbAppForm(winId, prov)) : ''}
+                ${ready ? stxGroup('', `登录 ${CSB.PROVIDERS[prov]}`, `<div class="stx-card csb-form">
+                    <label${adding ? ' hidden' : ''}><span>本机名称</span><input class="csb-input" id="csb-name-${winId}" value="${stxAttr(name)}" maxlength="40" spellcheck="false" autocomplete="off"></label>
                     <p class="csb-app-tip">${icon('stxFolderOpen')}<span>${where}</span></p>
-                    <div class="csb-form-foot"><small class="stx-muted">${icon('stxShieldCheck')}会跳转到 ${brand} 登录页，完成后自动回到这里继续。${ready && !showApp ? ` <a href="javascript:void 0" onclick="csbToggleApp(${winId})">应用凭据${app.custom ? '（本机）' : ''}</a>` : ''}</small>
-                    ${stxBtn(`使用 ${brand} 账号登录`, `csbLogin(${winId}, '${prov}')`, { cls: 'primary', ic: 'csbKey', dis: !ready, attrs: `id="csb-connect-${winId}"` })}</div>
-                </div>`)}
-                <p class="stx-note">${icon('stxInfo')}换设备或浏览器数据丢失后，用同一个账号登录并选择“接替”原来的设备，就能一键恢复。</p>`;
+                    <div class="csb-form-foot"><small class="stx-muted">${icon('stxShieldCheck')}会跳转到 ${brand} 登录页，完成后自动回到这里继续。${!showApp ? ` <a href="javascript:void 0" onclick="csbToggleApp(${winId})">高级${app.custom ? '（使用本机凭据）' : ''}</a>` : ''}</small>
+                    ${stxBtn(`使用 ${brand} 账号登录`, `csbLogin(${winId}, '${prov}')`, { cls: 'primary', ic: 'csbKey', attrs: `id="csb-connect-${winId}"` })}</div>
+                </div>`) : ''}
+                ${adding ? '' : `<p class="stx-note">${icon('stxInfo')}换设备或浏览器数据丢失后，用同一个账号登录并选择“接替”原来的设备，就能挑一份备份一键恢复。</p>`}`;
         }
 
         // ---------- 设置页交互 ----------
         function csbRerender() {
             stxAllWins().forEach(id => { if (STX_STATE[id] && STX_STATE[id].page === 'backup' && !STX_STATE[id].q) stxRender(id, { keepScroll: true }); });
         }
-        let csbLastConfigured = null;
+        let csbLastSig = null;
+        function csbSig() {
+            if (!CSB.loaded) return 'loading';
+            return CSB.list().map(e => e.tid + (e.S.guard ? 'g' : '') + (e.S.phase === 'auth' ? 'a' : '')).join(',') + '|' + (CSB.settings.mode || '') + (CSB.settings.paused ? 'p' : '');
+        }
         function csbLive() {
-            const S = CSB.S, configured = !!(S.cfg && S.cfg.deviceId);
-            if (csbLastConfigured !== null && csbLastConfigured !== configured) { csbLastConfigured = configured; csbRerender(); csbTray(); return; }
-            csbLastConfigured = configured;
-            document.querySelectorAll('[data-csb-live]').forEach(el => {
-                const winId = Number(el.dataset.csbLive);
-                if (el.contains(document.activeElement) && document.activeElement.tagName === 'BUTTON') { /* 正在点按钮时也可以更新 */ }
-                el.innerHTML = csbHeroHtml(winId);
+            const sig = csbSig();
+            if (csbLastSig !== null && csbLastSig !== sig) { csbLastSig = sig; csbRerender(); csbTray(); return; }
+            csbLastSig = sig;
+            document.querySelectorAll('[data-csb-live]').forEach(el => { el.innerHTML = csbHeroHtml(Number(el.dataset.csbLive)); });
+            document.querySelectorAll('[data-csb-trow]').forEach(el => {
+                const [w, tid] = el.dataset.csbTrow.split(':'); const e = CSB.at(tid);
+                if (e && e.S.cfg) el.innerHTML = csbTargetHead(Number(w), e);
             });
             csbTray();
         }
-        async function csbRunNow(winId) {
-            await CSB.run('manual', { manual: true, force: true });
-            if (CSB.S.phase === 'ok') Notify.success('已备份', csbStatusText().sub);
-            csbFillDevices(winId, true);
+        // 备份失败后的统一处理：登录过期 → 直接问要不要重新登录
+        async function csbAfterRun(list) {
+            const auth = list.filter(e => e.S.phase === 'auth');
+            const err = list.filter(e => e.S.phase === 'error');
+            if (auth.length) {
+                const e = auth[0];
+                const go = await SysDialog.confirm({ title: `${e.provName()} 需要重新登录`, icon: 'csbKey', okText: '重新登录', cancelText: '稍后',
+                    message: `登录已过期（${csbAcct(e)}）。重新登录后会自动接着备份，本机的改动都会保留。` });
+                if (go) { csbRelogin(e.tid); return; }
+            }
+            if (err.length) Notify.error(err.length > 1 ? '有备份位置失败了' : `${err[0].provName()} 备份失败`, err.map(e => (err.length > 1 ? e.provName() + '：' : '') + (e.S.lastError || '')).join('\n'));
         }
-        function csbTogglePause(winId) {
-            const p = !CSB.S.cfg.paused;
-            CSB.updateConfig({ paused: p }).then(() => stxRender(winId, { keepScroll: true }));
+        async function csbRunNow(winId, tid) {
+            const e = CSB.at(tid); if (!e) return;
+            await e.run('manual', { manual: true, force: true, quiet: true });
+            if (e.S.phase === 'ok') Notify.success(`已备份到 ${e.provName()}`, csbStatusOf(e).sub);
+            else await csbAfterRun([e]);
+            if ((csbUi(winId).csbOpen || {})[tid]) csbFillDevices(winId, tid, true);
+        }
+        async function csbRunAll(winId) {
+            const L = CSB.list();
+            if (L.length === 1) return csbRunNow(winId, L[0].tid);
+            const res = await CSB.syncAll({ quiet: true });
+            const ok = res.filter(r => r.ok).length, guarded = res.filter(r => r.skipped === 'guard');
+            if (ok === res.length) Notify.success(`已备份到 ${ok} 个位置`, res.map(r => r.e.provName()).join('、'));
+            else if (ok) Notify.info(`已备份到 ${ok} / ${res.length} 个位置`, guarded.length ? `${guarded.map(r => r.e.provName()).join('、')} 正在等待你确认删除` : '');
+            else if (guarded.length === res.length) Notify.warning('需要你确认', '检测到大量删除，请先在下面确认');
+            await csbAfterRun(res.filter(r => !r.ok && !r.skipped).map(r => r.e));
+        }
+        function csbTogglePause(winId) { CSB.updateConfig({ paused: !CSB.settings.paused }).then(() => stxRender(winId, { keepScroll: true })); }
+        async function csbSetMode(winId, m) {
+            if (CSB.settings.mode === m) return;
+            await CSB.updateConfig({ mode: m, paused: false });
+            Notify.success(m === 'auto' ? '已改为自动备份' : '已改为手动备份', m === 'auto' ? '改动后会自动上传' : '想备份时打开这里点“备份”');
+            stxRender(winId, { keepScroll: true });
         }
         function csbSet(winId, key, val) { CSB.updateConfig({ [key]: val }).then(() => stxRender(winId, { keepScroll: true })); }
         function csbSetMax(winId, v) { csbSet(winId, 'maxMB', v); }
@@ -20978,12 +21367,13 @@
             CSB.updateConfig({ excludeExt: v }).then(() => { stxRender(winId, { keepScroll: true }); Notify.success('已保存', v ? `不再备份：${v}` : '不排除任何类型'); });
         }
         function csbShowSkipped() {
-            const list = CSB.S.skipped || [];
+            const e = CSB.list().find(x => (x.S.skipped || []).length) || CSB.primary();
+            const list = e.S.skipped || [];
             SysDialog.alert({ title: `${list.length} 个文件没有备份`, icon: 'stxTriangleAlert',
                 message: list.slice(0, 80).map(s => `${s.path}  ·  ${formatStorageBytes(s.size)}  ·  ${s.why}`).join('\n') + (list.length > 80 ? `\n…还有 ${list.length - 80} 个` : '') + '\n\n可以在上面调高大小上限或修改排除类型；也可以把这些文件放到挂载的本地文件夹里。' });
         }
         async function csbToggleShared(winId) {
-            const sh = { ...CSB.S.cfg.shared, enabled: !CSB.S.cfg.shared.enabled };
+            const sh = { ...CSB.settings.shared, enabled: !CSB.settings.shared.enabled };
             if (sh.enabled) {
                 try { await SYSTEM.jfs.mkdirp(sh.path); } catch (e) { Notify.error('无法创建共享文件夹', e.message || String(e)); return; }
                 Notify.success('共享文件夹已启用', `把文件放进 ${sh.path}，其他设备启用后就会收到`);
@@ -20994,32 +21384,39 @@
         }
         async function csbSharedPath(winId) {
             const v = await SysDialog.prompt({ title: '共享文件夹位置', icon: 'stxFolderSync', message: '本机上用作共享文件夹的路径。可以是已有的文件夹，也可以是新路径（会自动创建）。\n不能放在 /system 或挂载的本地文件夹里。',
-                label: '路径', value: CSB.S.cfg.shared.path,
+                label: '路径', value: CSB.settings.shared.path,
                 validate: x => { const p = CSB.normPath(x); if (p === '/' || /^\/(system|mnt)(\/|$)/.test(p)) return '这个位置不能用作共享文件夹'; if (!/^\/(desktop|documents|opfs)(\/|$)/.test(p)) return '请放在 /desktop、/documents 或 /opfs 里'; return null; } });
             if (!v) return;
-            const path = CSB.normPath(v);
-            await CSB.updateConfig({ shared: { ...CSB.S.cfg.shared, path } });
+            await CSB.updateConfig({ shared: { ...CSB.settings.shared, path: CSB.normPath(v) } });
             stxRender(winId, { keepScroll: true });
         }
         async function csbRename(winId) {
-            const v = await SysDialog.prompt({ title: '重命名本机', icon: 'stxMonitor', label: '名称', value: CSB.S.cfg.deviceName, validate: x => !x ? '名称不能为空' : x.length > 40 ? '最多 40 个字' : null });
+            const L = CSB.list(); if (!L.length) return;
+            const v = await SysDialog.prompt({ title: '重命名本机', icon: 'stxMonitor', label: '名称', value: L[0].S.cfg.deviceName, validate: x => !x ? '名称不能为空' : x.length > 40 ? '最多 40 个字' : null });
             if (!v) return;
             await CSB.updateConfig({ deviceName: v });
-            CSB.S.dirty = true; CSB.run('rename', { force: true });
+            L.forEach(e => e.markDirty());
             stxRender(winId, { keepScroll: true });
         }
-        async function csbChangeToken(winId) {
-            const v = await SysDialog.prompt({ title: '更换访问令牌', icon: 'csbKey', message: '粘贴新的令牌（需要对仓库 ' + CSB.S.cfg.repo + ' 有 Contents 读写权限）。', label: '令牌', placeholder: 'github_pat_…', validate: x => x.length < 20 ? '令牌格式不对' : null });
+        async function csbChangeToken(winId, tid) {
+            const e = CSB.at(tid); if (!e) return;
+            const v = await SysDialog.prompt({ title: '更换访问令牌', icon: 'csbKey', message: '粘贴新的令牌（需要对仓库 ' + e.S.cfg.repo + ' 有 Contents 读写权限）。', label: '令牌', placeholder: 'github_pat_…', validate: x => x.length < 20 ? '令牌格式不对' : null });
             if (!v) return;
-            try { await CSB.testConnection(CSB.S.cfg.repo, v); }
-            catch (e) { Notify.error('令牌不可用', CSB.explain(e)); return; }
-            await CSB.updateConfig({ token: v });
+            try { await e.testConnection(e.S.cfg.repo, v); }
+            catch (err) { Notify.error('令牌不可用', CSB.explain(err)); return; }
+            await e.updateConfig({ token: v });
             Notify.success('令牌已更新');
-            CSB.run('token', { manual: true, force: true });
             stxRender(winId, { keepScroll: true });
+            csbRunNow(winId, tid);
         }
         function csbPickProv(winId, p) { if (!STX_STATE[winId]) return; STX_STATE[winId].csbProv = p; STX_STATE[winId].csbShowApp = false; stxRender(winId, { keepScroll: true }); }
         function csbToggleApp(winId) { if (!STX_STATE[winId]) return; STX_STATE[winId].csbShowApp = !STX_STATE[winId].csbShowApp; stxRender(winId, { keepScroll: true }); }
+        function csbShowAdd(winId, on) { if (!STX_STATE[winId]) return; STX_STATE[winId].csbAdd = on; STX_STATE[winId].csbProv = null; STX_STATE[winId].csbShowApp = false; stxRender(winId, { keepScroll: true }); }
+        function csbToggleOpen(winId, tid) {
+            const st = STX_STATE[winId]; if (!st) return;
+            st.csbOpen = { ...(st.csbOpen || {}), [tid]: !(st.csbOpen || {})[tid] };
+            stxRender(winId, { keepScroll: true });
+        }
         function csbCopy(text) {
             const ok = () => Notify.success('已复制', text);
             if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, () => SysDialog.prompt({ title: '请手动复制', value: text }));
@@ -21043,7 +21440,7 @@
             Notify.success('已保存', '现在可以登录了');
             stxRender(winId, { keepScroll: true });
         }
-        async function csbEditApp(p, winId) {
+        async function csbEditApp(p, winId, tid) {
             const app = CSB.appOf(p), g = p === 'gdrive';
             const r = await SysDialog.form({ title: `${CSB.PROVIDERS[p]} 应用凭据`, icon: 'stxPlugZap', okText: '保存',
                 message: `重定向 URI：${CSB.redirectUri()}\n留空表示使用网站内置的凭据。修改后需要重新登录。`,
@@ -21052,82 +21449,120 @@
             if (!r) return;
             await CSB.saveApps(p, r.clientId ? { clientId: r.clientId.trim(), clientSecret: (r.clientSecret || '').trim() } : null);
             stxRender(winId, { keepScroll: true });
-            if (await SysDialog.confirm({ title: '现在重新登录？', icon: 'csbKey', okText: '重新登录', message: '使用新的应用凭据需要重新登录一次。' })) csbRelogin();
+            if (tid && await SysDialog.confirm({ title: '现在重新登录？', icon: 'csbKey', okText: '重新登录', message: '使用新的应用凭据需要重新登录一次。' })) csbRelogin(tid);
         }
         async function csbLogin(winId, p) {
             const el = document.getElementById('csb-name-' + winId);
-            const name = (el && el.value.trim()) || CSB.guessDeviceName();
-            try { await CSB.login(p, { deviceName: name, mode: 'connect' }); }
-            catch (e) { Notify.error('无法登录', CSB.explain(e)); }
+            const name = (el && el.value.trim()) || (CSB.list()[0] && CSB.list()[0].S.cfg.deviceName) || CSB.guessDeviceName();
+            const e = await CSB.newTarget();
+            try { await e.login(p, { deviceName: name, mode: 'connect' }); }
+            catch (err) { CSB.discard(e.tid); Notify.error('无法登录', CSB.explain(err)); }
         }
-        async function csbRelogin() {
-            const cfg = CSB.S.cfg; if (!cfg || !CSB.isDrive()) return;
-            if (CSB.S.dirty || CSB.S.phase === 'pending') { try { await CSB.saveState(); } catch (_) {} }
-            try { await CSB.login(cfg.provider, { mode: 'relogin', hint: cfg.auth && cfg.auth.user }); }
-            catch (e) { Notify.error('无法登录', CSB.explain(e)); }
+        async function csbRelogin(tid) {
+            const e = CSB.at(tid); if (!e || !e.S.cfg || !e.isDrive()) return;
+            const cfg = e.S.cfg;
+            try { await e.saveState(); } catch (_) {}
+            try { await e.login(cfg.provider, { mode: 'relogin', hint: cfg.auth && cfg.auth.user }); }
+            catch (err) { Notify.error('无法登录', CSB.explain(err)); }
         }
-        async function csbDisconnect(winId) {
-            const ok = await SysDialog.confirm({ title: '断开云备份？', icon: 'csbCloudOff', danger: true, okText: '断开',
-                message: CSB.isDrive() ? `这台设备将停止自动备份，并退出 ${CSB.provName()} 登录。\n网盘里已有的备份不受影响，以后可以重新登录并“接替”这台设备。` : '这台设备将停止自动备份，并删除保存在本机的令牌。\n仓库里已有的备份不受影响，以后可以重新连接并“接替”这台设备。' });
+        async function csbDisconnect(winId, tid) {
+            const e = CSB.at(tid); if (!e) return;
+            const others = CSB.list().length - 1, drive = e.isDrive();
+            const ok = await SysDialog.confirm({ title: `断开 ${e.provName()}？`, icon: 'csbCloudOff', danger: true, okText: '断开',
+                message: (drive ? `这台设备将不再备份到 ${e.provName()}（${csbAcct(e)}），并退出登录。\n网盘里已有的备份不受影响，以后可以重新登录并“接替”这台设备。` : `这台设备将不再备份到仓库 ${e.S.cfg.repo}，并删除保存在本机的令牌。\n仓库里已有的备份不受影响，以后可以重新连接并“接替”这台设备。`)
+                    + (others ? `\n其他 ${others} 个备份位置照常工作。` : '') });
             if (!ok) return;
-            await CSB.disconnect();
+            await e.disconnect();
+            if (STX_STATE[winId] && STX_STATE[winId].csbOpen) delete STX_STATE[winId].csbOpen[tid];
             stxRender(winId);
         }
-        function csbGuardList() {
-            const g = CSB.S.guard; if (!g) return;
+        function csbGuardList(tid) {
+            const e = CSB.at(tid), g = e && e.S.guard; if (!g) return;
             SysDialog.alert({ title: `将被删除的 ${g.deletes} 个文件`, icon: 'csbShieldAlert',
                 message: g.sample.slice(0, 60).join('\n') + (g.deletes > 60 ? `\n…还有 ${g.deletes - 60} 个` : '') });
         }
-        async function csbGuardConfirm(winId) {
-            const g = CSB.S.guard; if (!g) return;
+        async function csbGuardConfirm(winId, tid) {
+            const e = CSB.at(tid), g = e && e.S.guard; if (!g) return;
             const ok = await SysDialog.confirm({ title: `确认删除 ${g.deletes} 个文件？`, icon: 'stxTrash2', danger: true, okText: '确认并同步',
                 message: g.kind === 'shared-in' ? '本机共享文件夹里的这些文件会被删除。' : '备份的最新状态中会删除这些文件。\n它们仍保留在历史里，可以在「浏览与恢复」中选择更早的时间点找回。' });
             if (!ok) return;
-            await CSB.confirmGuard();
+            await e.confirmGuard();
             stxRender(winId, { keepScroll: true });
         }
-        let csbQuota = null;
-        async function csbFillQuota(winId) {
+        const csbQuota = {};
+        async function csbFillQuota(winId, tid) {
+            const e = CSB.at(tid); if (!e || !e.S.cfg) return;
             try {
-                if (!csbQuota || Date.now() - csbQuota.at > 300000 || csbQuota.p !== CSB.S.cfg.provider) csbQuota = { at: Date.now(), p: CSB.S.cfg.provider, a: await CSB.transport().account() };
-                const el = document.querySelector(`[data-csb-quota="${winId}"]`);
-                const a = csbQuota.a;
+                const q = csbQuota[tid];
+                if (!q || Date.now() - q.at > 300000 || q.p !== e.S.cfg.provider) csbQuota[tid] = { at: Date.now(), p: e.S.cfg.provider, a: await e.transport().account() };
+                const el = document.querySelector(`[data-csb-quota="${winId}:${tid}"]`);
+                const a = csbQuota[tid].a;
                 if (el && a && a.total) el.textContent = ` · 网盘已用 ${formatStorageBytes(a.used)} / ${formatStorageBytes(a.total)}`;
             } catch (_) {}
         }
-        async function csbFillDevices(winId, force) {
-            const host = document.querySelector(`[data-csb-devices="${winId}"]`);
-            if (!host || !CSB.S.cfg) return;
+        const csbDevIcon = name => /安卓|iPhone|手机|Android/i.test(name) ? 'edxPhone' : /iPad|平板/i.test(name) ? 'edxTablet' : 'edxMonitor';
+        async function csbFillDevices(winId, tid, force) {
+            const sel = `[data-csb-devices="${winId}:${tid}"]`;
+            const e = CSB.at(tid);
+            if (!document.querySelector(sel) || !e || !e.S.cfg) return;
+            const t = stxJs(tid);
             try {
-                const d = await CSB.listDevices(force);
-                const h = document.querySelector(`[data-csb-devices="${winId}"]`);
+                const d = await e.listDevices(force);
+                const h = document.querySelector(sel);
                 if (!h) return;
                 const rows = d.list.map(dev => stxRow({
-                    ic: /安卓|iPhone|手机|Android/i.test(dev.name) ? 'edxPhone' : /iPad|平板/i.test(dev.name) ? 'edxTablet' : 'edxMonitor',
+                    ic: csbDevIcon(dev.name),
                     title: `${stxEsc(dev.name)} ${dev.me ? stxPill('本机', 'ok') : ''}`,
                     desc: `最近备份 ${dev.lastBackup ? CSB.fmtAgo(dev.lastBackup) : '—'} · ${dev.files.toLocaleString()} 个文件 · ${formatStorageBytes(dev.bytes)}`,
-                    ctl: stxBtn('浏览', `openCloudBrowser({ device: ${stxJs(dev.id)} })`, { cls: 'sm', ic: 'csbHistory' })
-                        + stxBtn('恢复…', `csbRestoreDialog(${stxJs(dev.id)})`, { cls: 'ghost sm', ic: 'csbArchiveRestore', title: '把这台设备的备份恢复到本机' })
+                    ctl: stxBtn('浏览', `openCloudBrowser({ tid: ${t}, device: ${stxJs(dev.id)} })`, { cls: 'sm', ic: 'csbHistory' })
+                        + stxBtn('恢复…', `csbRestoreDialog(${t}, ${stxJs(dev.id)})`, { cls: 'ghost sm', ic: 'csbArchiveRestore', title: '把这台设备的备份恢复到本机' })
                 }));
                 rows.push(stxRow({ ic: 'stxFolderSync', title: '共享文件夹（云端）', desc: `${d.shared.files.toLocaleString()} 个文件 · ${formatStorageBytes(d.shared.bytes)}`,
-                    ctl: stxBtn('浏览', `openCloudBrowser({ shared: true })`, { cls: 'sm', ic: 'csbHistory' }) }));
-                h.innerHTML = rows.join('') || `<div class="stx-empty">仓库里还没有设备</div>`;
-                if (CSB.isDrive()) csbFillQuota(winId);
-            } catch (e) {
-                const h = document.querySelector(`[data-csb-devices="${winId}"]`);
-                if (h) h.innerHTML = `<div class="stx-empty">${icon('stxTriangleAlert')}无法读取设备列表：${stxEsc(CSB.explain(e))}</div>`;
+                    ctl: stxBtn('浏览', `openCloudBrowser({ tid: ${t}, shared: true })`, { cls: 'sm', ic: 'csbHistory' }) }));
+                h.innerHTML = rows.join('');
+                if (e.isDrive()) csbFillQuota(winId, tid);
+            } catch (err) {
+                const h = document.querySelector(sel);
+                if (h) h.innerHTML = `<div class="stx-empty">${icon('stxTriangleAlert')}无法读取设备列表：${stxEsc(CSB.explain(err))}</div>`;
             }
+        }
+        // “恢复…”：像篡改猴一样，先选是哪台设备的备份，再选时间点
+        async function csbPickRestore(tid) {
+            const e = CSB.at(tid); if (!e) return;
+            const prog = csbProgress(`正在读取 ${e.provName()} 里的备份…`);
+            let d;
+            try { d = await e.listDevices(true); } catch (err) { prog.done(); Notify.error('无法读取备份', CSB.explain(err)); return; }
+            prog.done();
+            const list = d.list.filter(x => x.files > 0);
+            if (!list.length) { Notify.info('这里还没有备份', `先点“备份”把本机备份到 ${e.provName()}`); return; }
+            let id = list[0].id;
+            if (list.length > 1) {
+                const r = await SysDialog.form({ title: '恢复哪台设备的备份？', icon: 'csbArchiveRestore', okText: '下一步',
+                    message: `${e.provName()} 里有 ${list.length} 台设备的备份。下一步可以选择时间点和恢复方式。`,
+                    fields: [{ type: 'radio', name: 'dev', value: id, options: list.map(x => ({ value: x.id, label: x.name + (x.me ? '（本机）' : ''),
+                        desc: `最近备份 ${x.lastBackup ? CSB.fmtDate(x.lastBackup) : '—'} · ${x.files.toLocaleString()} 个文件 · ${formatStorageBytes(x.bytes)}`, icon: csbDevIcon(x.name) })) }] });
+                if (!r) return;
+                id = r.dev;
+            }
+            csbRestoreDialog(tid, id);
         }
 
         // ---------- 连接向导 ----------
+        async function csbAbortNew(e) {
+            if (!e) return;
+            if (CSB.list().includes(e)) return;
+            if (e.S.cfg) await e.disconnect().catch(() => {}); else CSB.discard(e.tid);
+        }
         async function csbConnect(winId) {
             const val = id => (document.getElementById(id + '-' + winId) || {}).value || '';
-            const repo = CSB.parseRepo(val('csb-repo')), token = val('csb-token').trim(), name = val('csb-name').trim() || CSB.guessDeviceName();
+            const repo = CSB.parseRepo(val('csb-repo')), token = val('csb-token').trim();
+            const name = val('csb-name').trim() || (CSB.list()[0] && CSB.list()[0].S.cfg.deviceName) || CSB.guessDeviceName();
             if (!repo) { Notify.warning('请填写仓库', '格式为 用户名/仓库名，例如 SFGFDSD/jisheng-backup'); return; }
             if (token.length < 20) { Notify.warning('请粘贴令牌', '在第 2 步创建的 github_pat_ 开头的令牌'); return; }
             const btn = document.getElementById('csb-connect-' + winId);
             const busy = on => { if (btn) { btn.disabled = on; btn.classList.toggle('busy', on); } };
             busy(true);
+            let e = null;
             try {
                 const info = await CSB.testConnection(repo, token);
                 if (!info.private) {
@@ -21135,68 +21570,72 @@
                         message: `任何人都能看到 ${info.full} 里的文件。\n强烈建议先到仓库的 Settings → General → Danger Zone → Change visibility 改为 Private，再回来连接。` });
                     if (!go) return;
                 }
-                await csbSetupDevice(winId, { provider: 'github', repo: info.full, token, branch: info.branch }, name);
-            } catch (e) {
-                Notify.error('连接失败', CSB.explain(e));
-                if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect();
+                e = await CSB.newTarget();
+                await csbSetupDevice(winId, e, { provider: 'github', repo: info.full, token, branch: info.branch }, name);
+            } catch (err) {
+                Notify.error('连接失败', CSB.explain(err));
+                await csbAbortNew(e);
             } finally { busy(false); }
         }
         // 网盘登录回来之后：检查网盘、读取已有设备，然后和 GitHub 一样选择“新设备 / 接替”
         async function csbFinishDrive(o) {
             const winId = csbBackupWin();
-            const p = o.provider;
+            const p = o.provider, e = CSB.at(o.tid);
+            if (!e) return;
             const prog = csbProgress(`正在连接 ${CSB.PROVIDERS[p]}…`);
             let conn;
             try {
                 conn = { provider: p, repo: `${p}:${o.auth.user || 'account'}`, auth: o.auth };
-                await CSB.connect({ ...conn, deviceName: o.deviceName || CSB.guessDeviceName(), deviceId: '' });
-                const acct = await CSB.driveInfo(p);
+                await e.connect({ ...conn, deviceName: o.deviceName || CSB.guessDeviceName(), deviceId: '' });
+                const acct = await e.driveInfo(p);
                 if (acct && acct.email && !o.auth.user) { o.auth.user = acct.email; conn.repo = `${p}:${acct.email}`; }
                 prog.done();
-            } catch (e) {
+            } catch (err) {
                 prog.done();
-                Notify.error('连接失败', CSB.explain(e));
-                if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect();
+                Notify.error('连接失败', CSB.explain(err));
+                await csbAbortNew(e);
                 if (winId) stxRender(winId);
                 return;
             }
-            try { await csbSetupDevice(winId, conn, o.deviceName || CSB.guessDeviceName()); }
-            catch (e) { Notify.error('连接失败', CSB.explain(e)); if (CSB.S.cfg && !CSB.S.cfg.deviceId) await CSB.disconnect(); if (winId) stxRender(winId); }
+            try { await csbSetupDevice(winId, e, conn, o.deviceName || CSB.guessDeviceName()); }
+            catch (err) { Notify.error('连接失败', CSB.explain(err)); await csbAbortNew(e); if (winId) stxRender(winId); }
         }
         function csbBackupWin() {
             const ids = stxAllWins().filter(id => STX_STATE[id] && STX_STATE[id].page === 'backup');
             return ids.length ? ids[ids.length - 1] : null;
         }
-        async function csbSetupDevice(winId, conn, name) {
-            {
-                const where = conn.provider === 'github' ? '仓库' : '网盘';
-                // 先以“未指定设备”的状态连上（不会自动备份），读取已有设备
-                await CSB.connect({ ...conn, deviceName: name, deviceId: '' });
-                const devs = await CSB.listDevices(true);
-                let deviceId = '', deviceName = name, takeover = null;
-                if (devs.list.length) {
-                    const r = await SysDialog.form({ title: '这台设备是？', icon: 'csbUsers', okText: '继续',
-                        message: `${where}里已经有其他设备的备份。如果这台设备之前连接过（比如浏览器数据丢失后重新设置），请选择“接替”，备份会接着原来的文件夹继续，并可以一键恢复。`,
-                        fields: [{ type: 'radio', name: 'dev', value: '__new', options: [
-                            { value: '__new', label: `新设备：「${name}」`, desc: `在${where}里新建一个设备文件夹`, icon: 'stxFolderPlus' },
-                            ...devs.list.map(d => ({ value: d.id, label: `接替「${d.name}」`, desc: `最近备份 ${d.lastBackup ? CSB.fmtDate(d.lastBackup) : '—'} · ${d.files} 个文件 · ${formatStorageBytes(d.bytes)}`, icon: 'csbArchiveRestore' }))
-                        ] }] });
-                    if (!r) { await CSB.disconnect(); return; }
-                    if (r.dev !== '__new') { takeover = devs.list.find(d => d.id === r.dev); deviceId = takeover.id; deviceName = takeover.name; }
-                }
-                if (!deviceId) deviceId = CSB.makeDeviceId(name);
-                await CSB.connect({ ...conn, deviceName, deviceId, cloud: takeover && takeover.cloud });
-                if (takeover && takeover.cloud && takeover.cloud.shared && takeover.cloud.shared.enabled) { try { await SYSTEM.jfs.mkdirp(takeover.cloud.shared.path); } catch (_) {} }
-                if (winId) stxRender(winId); else csbRerender();
-                if (takeover && takeover.files > 0) {
-                    const local = await csbLocalCount();
-                    const restore = await SysDialog.confirm({ title: '要把备份恢复到本机吗？', icon: 'csbArchiveRestore', okText: '选择恢复方式…', cancelText: '暂不恢复',
-                        message: `「${takeover.name}」的备份里有 ${takeover.files.toLocaleString()} 个文件，本机现在有 ${local.toLocaleString()} 个。\n恢复前可以选择时间点和恢复方式；暂不恢复也没关系，防误删保护会阻止本机把备份清空。` });
-                    if (restore) { csbRestoreDialog(deviceId); return; }
-                }
-                Notify.info('云备份已开启', '正在进行首次备份，文件较多时需要几分钟');
-                CSB.run('first', { manual: true, force: true });
+        async function csbSetupDevice(winId, e, conn, name) {
+            const where = conn.provider === 'github' ? '仓库' : '网盘';
+            const first = CSB.list().length === 0;
+            // 先以“未指定设备”的状态连上（不会备份），读取已有设备
+            await e.connect({ ...conn, deviceName: name, deviceId: '' });
+            const devs = await e.listDevices(true);
+            let deviceId = '', deviceName = name, takeover = null;
+            if (devs.list.length) {
+                const r = await SysDialog.form({ title: '这台设备是？', icon: 'csbUsers', okText: '继续',
+                    message: `${where}里已经有设备的备份。如果这台设备之前连接过（比如浏览器数据丢失后重新设置），请选择“接替”，备份会接着原来的文件夹继续，并可以挑一份备份一键恢复。`,
+                    fields: [{ type: 'radio', name: 'dev', value: '__new', options: [
+                        { value: '__new', label: `新设备：「${name}」`, desc: `在${where}里新建一个设备文件夹`, icon: 'stxFolderPlus' },
+                        ...devs.list.map(d => ({ value: d.id, label: `接替「${d.name}」`, desc: `最近备份 ${d.lastBackup ? CSB.fmtDate(d.lastBackup) : '—'} · ${d.files} 个文件 · ${formatStorageBytes(d.bytes)}`, icon: 'csbArchiveRestore' }))
+                    ] }] });
+                if (!r) { await e.disconnect(); if (winId) stxRender(winId); return; }
+                if (r.dev !== '__new') { takeover = devs.list.find(d => d.id === r.dev); deviceId = takeover.id; deviceName = takeover.name; }
             }
+            if (!deviceId) deviceId = e.makeDeviceId(name);
+            await e.connect({ ...conn, deviceName, deviceId, cloud: takeover && takeover.cloud });
+            if (first && takeover && takeover.cloud && takeover.cloud.shared && takeover.cloud.shared.enabled) { try { await SYSTEM.jfs.mkdirp(takeover.cloud.shared.path); } catch (_) {} }
+            if (winId && STX_STATE[winId]) { STX_STATE[winId].csbAdd = false; STX_STATE[winId].csbProv = null; }
+            if (winId) stxRender(winId); else csbRerender();
+            if (takeover && takeover.files > 0) {
+                const local = await csbLocalCount();
+                const restore = await SysDialog.confirm({ title: '要把备份恢复到本机吗？', icon: 'csbArchiveRestore', okText: '选择时间点…', cancelText: '暂不恢复',
+                    message: `「${takeover.name}」的备份里有 ${takeover.files.toLocaleString()} 个文件，本机现在有 ${local.toLocaleString()} 个。\n可以选择恢复哪一次的备份和恢复方式；暂不恢复也没关系，防误删保护会阻止本机把备份清空。` });
+                if (restore) { csbRestoreDialog(e.tid, deviceId); return; }
+            }
+            Notify.info(`已连接 ${e.provName()}`, '正在进行首次备份，文件较多时需要几分钟');
+            await e.run('first', { manual: true, force: true, quiet: true });
+            if (e.S.phase === 'ok') Notify.success(`已备份到 ${e.provName()}`, csbStatusOf(e).sub);
+            else await csbAfterRun([e]);
         }
         async function csbLocalCount() {
             let n = 0;
@@ -21227,17 +21666,22 @@
         }
 
         // ---------- 整机恢复 ----------
-        async function csbRestoreDialog(deviceId, commit, commitLabel) {
-            const S = CSB.S;
-            if (!S.cfg) return;
-            let devs;
-            try { devs = await CSB.listDevices(); } catch (e) { Notify.error('无法读取备份', CSB.explain(e)); return; }
+        async function csbRestoreDialog(tid, deviceId, commit, commitLabel) {
+            const E = CSB.at(tid);
+            if (!E || !E.S.cfg) return;
+            const S = E.S;
+            let devs, hist = [];
+            try { devs = await E.listDevices(); } catch (e) { Notify.error('无法读取备份', CSB.explain(e)); return; }
+            // 没有指定时间点：列出最近的备份让你挑（和篡改猴选择备份文件一样）
+            if (!commit) { try { hist = await E.history(`devices/${deviceId}`, 1); } catch (_) { hist = []; } }
             const dev = devs.list.find(d => d.id === deviceId) || { id: deviceId, name: deviceId, files: 0, bytes: 0 };
             const me = deviceId === S.cfg.deviceId;
             const r = await SysDialog.form({
                 title: `恢复「${dev.name}」的备份`, icon: 'csbArchiveRestore', okText: '开始恢复',
-                message: `时间点：${commitLabel || '最新备份'}${commit ? '' : (dev.lastBackup ? `（${CSB.fmtDate(dev.lastBackup)}）` : '')}\n要选择更早的时间点，请在「浏览与恢复」里先选时间点再点“整机恢复”。`,
+                message: commit ? `时间点：${commitLabel || '所选时间点'} · 来自 ${E.provName()}` : `来自 ${E.provName()}${dev.files ? ` · ${dev.files.toLocaleString()} 个文件` : ''}`,
                 fields: [
+                    ...(commit ? [] : [{ type: 'select', name: 'at', label: '恢复哪一次的备份', value: '', options: [{ value: '', label: `最新备份${dev.lastBackup ? '（' + CSB.fmtDate(dev.lastBackup, true) + '）' : ''}` },
+                        ...hist.slice(1, 40).map(c => ({ value: c.sha, label: `${CSB.fmtDate(c.date, true)} · ${csbMsg(c.message).slice(0, 28)}` }))] }]),
                     { type: 'radio', name: 'mode', label: '恢复到哪里', value: me ? 'orig' : 'folder', options: [
                         { value: 'orig', label: '原来的位置', desc: '桌面、文档、OPFS 恢复成备份里的样子；同名文件会被替换为备份版本', icon: 'csbArchiveRestore' },
                         { value: 'folder', label: '桌面上的新文件夹', desc: '全部放进「恢复-设备名-日期」文件夹，不改动现有的任何文件', icon: 'stxFolderPlus' }] },
@@ -21250,6 +21694,7 @@
                 ]
             });
             if (!r) return;
+            if (!commit && r.at) commit = r.at;
             if (r.mode === 'orig' && r.extra === 'mirror') {
                 const ok = await SysDialog.confirm({ title: '删除本机多出来的文件？', icon: 'stxTriangleAlert', danger: true, okText: '确认恢复',
                     message: '备份里没有的本机文件会被删除。恢复前会先把本机现在的状态备份一次，之后仍可从历史找回。' });
@@ -21258,17 +21703,17 @@
             const prog = csbProgress(`正在恢复「${dev.name}」`);
             try {
                 // “最新备份”指点击时的最新：先记下这个提交，接下来的安全备份不会影响恢复内容
-                if (!commit) { try { commit = (await CSB.getHead(false)).commit; } catch (_) {} }
+                if (!commit) { try { commit = (await E.getHead(false)).commit; } catch (_) {} }
                 if (r.mode === 'orig' && S.cfg.deviceId) {
                     prog.set('恢复前先备份本机当前状态…', 0);
-                    try { await CSB.run('restore-safety', { manual: true, force: true, throwErrors: true, noDeletes: true, skipShared: true }); }
+                    try { await E.run('restore-safety', { manual: true, force: true, quiet: true, throwErrors: true, noDeletes: true, skipShared: true }); }
                     catch (e) {
                         prog.done();
                         const go = await SysDialog.confirm({ title: '恢复前的备份失败了', icon: 'stxTriangleAlert', okText: '仍然恢复', message: CSB.explain(e) + '\n仍然继续恢复吗？' });
                         if (!go) return;
                     }
                 }
-                const res = await CSB.restoreSnapshot({ deviceId, commit, mode: r.mode, mirror: r.extra === 'mirror', includeSettings: r.settings === 'yes',
+                const res = await E.restoreSnapshot({ deviceId, commit, mode: r.mode, mirror: r.extra === 'mirror', includeSettings: r.settings === 'yes',
                     onProgress: (n, t, b, tb) => prog.set(`${n}/${t} 个文件 · ${formatStorageBytes(b)} / ${formatStorageBytes(tb)}`, t ? n / t : 1) });
                 prog.done();
                 if (typeof refreshDesktop === 'function') refreshDesktop();
@@ -21276,7 +21721,7 @@
                 if (res.settingsApplied) {
                     const reload = await SysDialog.confirm({ title: '恢复完成', icon: 'stxCircleCheck', okText: '立即刷新', cancelText: '稍后',
                         message: msg + '。\n系统设置、壁纸和浏览器偏好需要刷新页面后生效。' });
-                    if (reload) { await CSB.saveState(); location.reload(); }
+                    if (reload) { await Promise.all(CSB.list().map(x => x.saveState())); location.reload(); }
                 } else {
                     Notify.success('恢复完成', msg);
                     if (res.folder) openFileExplorer(res.folder);
@@ -21289,18 +21734,22 @@
 
         // ---------- 备份浏览器 ----------
         const CBW = Object.create(null);
+        function cbwE(winId) { const st = CBW[winId]; return (st && CSB.at(st.tid)) || CSB.primary(); }
         function openCloudBrowser(o = {}) {
-            if (!CSB.S.cfg || !CSB.S.cfg.deviceId) { openSettings('backup'); return; }
+            const L = CSB.list();
+            if (!L.length) { openSettings('backup'); return; }
+            const E = (o.tid && CSB.at(o.tid)) || L[0];
             const existing = Object.keys(CBW).map(Number).find(id => document.getElementById('win-' + id));
             if (existing) {
                 focusWin(existing);
-                if (o.device || o.shared) cbwSelect(existing, o.shared ? { kind: 'shared' } : { kind: 'device', id: o.device });
+                if (o.tid && CBW[existing].tid !== E.tid) cbwSwitch(existing, E.tid, o.shared ? { kind: 'shared' } : o.device ? { kind: 'device', id: o.device } : null);
+                else if (o.device || o.shared) cbwSelect(existing, o.shared ? { kind: 'shared' } : { kind: 'device', id: o.device });
                 return existing;
             }
             return createWindow({
                 title: '云备份 · 浏览与恢复', iconHtml: icon('csbCloud', 'sm'), width: 980, height: 660,
                 content: `<div class="content-area dark csb-bw"><div class="csb-shell">
-                    <aside class="csb-side"><div class="csb-side-h">设备</div><div class="csb-side-list"></div></aside>
+                    <aside class="csb-side"><div class="csb-side-tgt"></div><div class="csb-side-h">设备</div><div class="csb-side-list"></div></aside>
                     <section class="csb-main">
                         <div class="csb-bar"></div>
                         <div class="fx-addr csb-addr">
@@ -21313,7 +21762,7 @@
                     </section>
                 </div></div>`,
                 onInit(w, winId) {
-                    CBW[winId] = { src: o.shared ? { kind: 'shared' } : { kind: 'device', id: o.device || CSB.S.cfg.deviceId }, commit: null, commits: null, page: 1, more: false, path: '', sel: new Set(), snap: null, err: '', loading: true };
+                    CBW[winId] = { tid: E.tid, src: o.shared ? { kind: 'shared' } : { kind: 'device', id: o.device || E.S.cfg.deviceId }, commit: null, commits: null, page: 1, more: false, path: '', sel: new Set(), snap: null, err: '', loading: true };
                     w.cleanup = () => { delete CBW[winId]; };
                     w.querySelector('.csb-up').onclick = () => cbwUp(winId);
                     w.querySelector('.csb-refresh').onclick = () => cbwRefresh(winId);
@@ -21327,14 +21776,31 @@
         async function cbwLoadSide(winId, force) {
             const root = cbwRoot(winId); if (!root) return;
             try {
-                const d = await CSB.listDevices(force);
+                const d = await cbwE(winId).listDevices(force);
                 const st = CBW[winId]; if (!st) return;
                 st.devs = d.list;
                 cbwRenderSide(winId);
             } catch (e) { root.querySelector('.csb-side-list').innerHTML = `<div class="csb-empty sm">${stxEsc(CSB.explain(e))}</div>`; }
         }
+        // 连接了多个备份位置时，左上角可以切换要浏览哪一个
+        function cbwRenderTargets(winId) {
+            const st = CBW[winId], root = cbwRoot(winId); if (!st || !root) return;
+            const L = CSB.list(), host = root.querySelector('.csb-side-tgt');
+            if (!host) return;
+            if (L.length < 2) { host.innerHTML = ''; host.hidden = true; return; }
+            host.hidden = false;
+            host.innerHTML = `<div class="csb-side-h">备份位置</div><div class="csb-tgt-tabs" role="tablist">${L.map(e => `<button type="button" role="tab" aria-selected="${e.tid === st.tid}" class="csb-tgt-tab${e.tid === st.tid ? ' on' : ''}" title="${stxAttr(e.provName() + ' · ' + csbAcct(e))}" onclick="cbwSwitch(${winId}, ${stxAttr(JSON.stringify(e.tid))})"><span class="csb-logo sm ${e.S.cfg.provider}">${CSB_LOGO[e.S.cfg.provider]}</span><span>${stxEsc(csbShort(e))}</span></button>`).join('')}</div>`;
+        }
+        async function cbwSwitch(winId, tid, src) {
+            const st = CBW[winId], e = CSB.at(tid); if (!st || !e || !e.S.cfg) return;
+            st.tid = tid; st.devs = null;
+            cbwRenderTargets(winId);
+            await cbwLoadSide(winId);
+            await cbwSelect(winId, src || { kind: 'device', id: e.S.cfg.deviceId });
+        }
         function cbwRenderSide(winId) {
             const st = CBW[winId], root = cbwRoot(winId); if (!st || !root) return;
+            cbwRenderTargets(winId);
             const item = (key, ic, name, sub, on) => `<button type="button" class="csb-src ${on ? 'on' : ''}" onclick='cbwSelect(${winId}, ${stxAttr(JSON.stringify(key))})'>${icon(ic)}<span><b>${stxEsc(name)}</b><small>${stxEsc(sub)}</small></span></button>`;
             root.querySelector('.csb-side-list').innerHTML = (st.devs || []).map(d => item({ kind: 'device', id: d.id },
                 /安卓|iPhone|手机/i.test(d.name) ? 'edxPhone' : /iPad|平板/i.test(d.name) ? 'edxTablet' : 'edxMonitor',
@@ -21353,17 +21819,17 @@
             st.loading = true; st.err = ''; cbwRender(winId);
             try {
                 let snap;
-                if (st.commit) snap = await CSB.treeOfCommit(st.commit);
-                else { const head = await CSB.getHead(false); snap = { tree: await CSB.getTree(head.tree), date: 0 }; }
+                if (st.commit) snap = await cbwE(winId).treeOfCommit(st.commit);
+                else { const head = await cbwE(winId).getHead(false); snap = { tree: await cbwE(winId).getTree(head.tree), date: 0 }; }
                 // 修改日期：设备看 manifest，共享看 shared.json
                 let mtimes = {};
                 if (st.src.kind === 'device') {
                     const m = snap.tree.get(`devices/${st.src.id}/manifest.json`);
-                    const man = m ? await CSB.getJson(m.sha) : null;
+                    const man = m ? await cbwE(winId).getJson(m.sha) : null;
                     if (man) { mtimes = man.mtimes || {}; st.skipped = man.skipped || []; st.dirs = man.dirs || []; } else { st.skipped = []; st.dirs = []; }
                 } else {
                     const m = snap.tree.get('.jisheng/shared.json');
-                    const meta = m ? await CSB.getJson(m.sha) : null;
+                    const meta = m ? await cbwE(winId).getJson(m.sha) : null;
                     if (meta && meta.files) Object.entries(meta.files).forEach(([k, v]) => { mtimes[k] = v.m; });
                     st.skipped = []; st.dirs = [];
                 }
@@ -21377,7 +21843,7 @@
             const st = CBW[winId]; if (!st) return;
             try {
                 const page = more ? st.page + 1 : 1;
-                const list = await CSB.history(cbwHistPath(st), page);
+                const list = await cbwE(winId).history(cbwHistPath(st), page);
                 if (!CBW[winId]) return;
                 st.commits = more ? [...(st.commits || []), ...list] : list;
                 st.page = page; st.more = list.length >= 40;
@@ -21401,11 +21867,11 @@
             st.commit = v || null; st.sel.clear();
             cbwLoadSnap(winId);
         }
-        function cbwRefresh(winId) { const st = CBW[winId]; if (!st) return; CSB.S.devices = null; cbwLoadSide(winId, true); cbwLoadSnap(winId); cbwLoadCommits(winId); }
+        function cbwRefresh(winId) { const st = CBW[winId]; if (!st) return; cbwE(winId).S.devices = null; cbwLoadSide(winId, true); cbwLoadSnap(winId); cbwLoadCommits(winId); }
         function cbwRestoreAll(winId) {
             const st = CBW[winId]; if (!st) return;
             const c = st.commit && (st.commits || []).find(x => x.sha === st.commit);
-            csbRestoreDialog(st.src.id, st.commit, c ? CSB.fmtDate(c.date, true) : '');
+            csbRestoreDialog(st.tid, st.src.id, st.commit, c ? CSB.fmtDate(c.date, true) : '');
         }
         // 当前目录的子项
         function cbwChildren(st) {
@@ -21505,7 +21971,7 @@
             const st = CBW[winId]; if (!st || !st.snap) return;
             const files = cbwSelected(st);
             if (!files.length) { Notify.info('没有可导入的文件', '选中的文件夹是空的'); return; }
-            const isShared = st.src.kind === 'shared', cfg = CSB.S.cfg;
+            const isShared = st.src.kind === 'shared', cfg = cbwE(winId).S.cfg;
             const name = cbwSrcName(st).replace(/[\/\\:*?"<>|]/g, '-');
             const c = st.commit && (st.commits || []).find(x => x.sha === st.commit);
             const folder = `/desktop/来自「${name}」-${CSB.stamp(c ? c.date : Date.now())}`;
@@ -21520,7 +21986,7 @@
                 : isShared ? CSB.normPath(cfg.shared.path) + '/' + f.rel : CSB.mapToLocal(f.rel) }));
             const prog = csbProgress(`正在导入 ${files.length} 个文件`);
             try {
-                const res = await CSB.importFiles(list, (n, t, b, tb) => prog.set(`${n}/${t} · ${formatStorageBytes(b)} / ${formatStorageBytes(tb)}`, n / t));
+                const res = await cbwE(winId).importFiles(list, (n, t, b, tb) => prog.set(`${n}/${t} · ${formatStorageBytes(b)} / ${formatStorageBytes(tb)}`, n / t));
                 prog.done();
                 if (typeof refreshDesktop === 'function') refreshDesktop();
                 Notify[res.failed ? 'warning' : 'success']('导入完成', `${res.done} 个文件` + (res.failed ? `，${res.failed} 个失败` : ''));
@@ -21532,7 +21998,7 @@
             const st = CBW[winId]; if (!st) return;
             const [f] = cbwSelected(st); if (!f) return;
             try {
-                const bytes = await CSB.getBlob(f.sha);
+                const bytes = await cbwE(winId).getBlob(f.sha);
                 const url = URL.createObjectURL(new Blob([bytes]));
                 const a = document.createElement('a'); a.href = url; a.download = f.rel.split('/').pop(); document.body.appendChild(a); a.click(); a.remove();
                 setTimeout(() => URL.revokeObjectURL(url), 30000);
@@ -21543,7 +22009,7 @@
             const [f] = cbwSelected(st); if (!f) return;
             const repoPath = cbwBase(st) + f.rel;
             let list;
-            try { list = await CSB.history(repoPath); } catch (e) { Notify.error('无法读取历史', CSB.explain(e)); return; }
+            try { list = await cbwE(winId).history(repoPath); } catch (e) { Notify.error('无法读取历史', CSB.explain(e)); return; }
             if (!list.length) { Notify.info('没有历史版本'); return; }
             const name = f.rel.split('/').pop();
             const r = await SysDialog.form({ title: `「${name}」的历史版本`, icon: 'csbHistory', okText: '恢复所选版本',
@@ -21556,16 +22022,16 @@
                 ] });
             if (!r) return;
             try {
-                const snap = await CSB.treeOfCommit(r.sha);
+                const snap = await cbwE(winId).treeOfCommit(r.sha);
                 let v = snap.tree.get(repoPath);
                 if (!v) {
                     // 这次提交删除了它：取父提交里的版本
                     Notify.warning('这个版本是删除记录', '请选择更早的版本'); return;
                 }
-                const orig = st.src.kind === 'shared' ? CSB.normPath(CSB.S.cfg.shared.path) + '/' + f.rel : CSB.mapToLocal(f.rel);
+                const orig = st.src.kind === 'shared' ? CSB.normPath(cbwE(winId).S.cfg.shared.path) + '/' + f.rel : CSB.mapToLocal(f.rel);
                 const dot = orig.lastIndexOf('.'), slash = orig.lastIndexOf('/');
                 const target = r.to === 'orig' ? orig : (dot > slash + 1 ? orig.slice(0, dot) + ` (版本 ${CSB.stamp(snap.date)})` + orig.slice(dot) : orig + ` (版本 ${CSB.stamp(snap.date)})`);
-                const res = await CSB.importFiles([{ rel: f.rel, sha: v.sha, size: v.size, mtime: 0, target }]);
+                const res = await cbwE(winId).importFiles([{ rel: f.rel, sha: v.sha, size: v.size, mtime: 0, target }]);
                 if (res.failed) throw new Error('写入失败');
                 if (typeof refreshDesktop === 'function') refreshDesktop();
                 Notify.success('已恢复', target);
@@ -21589,13 +22055,16 @@
             // 相对时间（“3 分钟前”）定时刷新
             setInterval(() => { if (document.querySelector('[data-csb-live]')) csbLive(); else csbTray(); }, 30000);
             CSB.init().then(() => {
-                const o = CSB.S.oauth;
+                csbLive();
+                if (CSB.H.migrated) Notify.info('云备份已更新', '现在默认手动备份：想备份时打开 设置 → 云备份 点“备份”。也可以在“同步方式”里改回自动备份，或者添加更多备份位置。');
+                const o = CSB.takeOauth();
                 if (!o) return;
-                CSB.S.oauth = null;
                 const open = () => { try { openSettings('backup'); } catch (_) {} };
                 if (o.error) {
+                    const e = o.tid && CSB.at(o.tid);
+                    if (e && !CSB.list().includes(e)) CSB.discard(o.tid);
                     open();
-                    setTimeout(() => { const w = csbBackupWin(); if (w && STX_STATE[w] && !CSB.S.cfg) { STX_STATE[w].csbProv = o.provider; stxRender(w); } }, 300);
+                    setTimeout(() => { const w = csbBackupWin(); if (w && STX_STATE[w]) { STX_STATE[w].csbProv = o.provider; if (CSB.list().length) STX_STATE[w].csbAdd = true; stxRender(w); } }, 300);
                     Notify.error(`${CSB.PROVIDERS[o.provider] || ''} 登录没有完成`, o.error);
                 } else if (o.done) {
                     Notify.success('已重新登录', '正在继续备份');
@@ -22673,5 +23142,5 @@
 
     window.sevenZipEngine = new SevenZipEngine();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a544fdd2bcc5cba7',t:'MTc5MzY0MTkzMA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a544fdd2bcc5cba7',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
