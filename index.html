@@ -19285,7 +19285,7 @@
             }
 
             // ---------- 本地状态：每个备份位置一组独立的键（t1:config、t1:state…）；SHA 缓存共用 ----------
-            const ns = k => (k === 'apps' || k === 'hashes') ? k : tid + ':' + k;
+            const ns = k => k === 'hashes' ? k : tid + ':' + k;
             const kvGet = k => csbKvGet(ns(k)), kvSet = (k, v) => csbKvSet(ns(k), v), kvDel = k => csbKvDel(ns(k));
             const hashes = () => csbHashes(), saveHashes = () => csbSaveHashes();
             async function saveConfig() { await kvSet('config', S.cfg); }
@@ -20073,7 +20073,6 @@
                     const cfg = await kvGet('config');
                     S.cfg = cfg ? { ...DEFAULTS, ...cfg, shared: { ...DEFAULTS.shared, ...(cfg.shared || {}) } } : null;
                     if (S.cfg && hub.settings()) Object.assign(S.cfg, hub.settings(), { shared: { ...S.cfg.shared, ...(hub.settings().shared || {}) } });   // 备份内容、同步方式等所有位置共用
-                    if (S.cfg && !S.cfg.provider) S.cfg.provider = 'github';
                     const st = await kvGet('state');
                     if (st) Object.assign(S, { lastOk: st.lastOk || 0, lastPush: st.lastPush || 0, lastCommit: st.lastCommit || '', skipped: st.skipped || [], big: st.big || null, stats: st.stats || null, log: st.log || [], guard: st.guard || null, lastError: st.lastError || '', sharedStat: st.sharedStat || null, lsHash: st.lsHash || '', manCore: st.manCore || '', noop: Math.min(st.noop || 0, 3), dirty: !!st.dirty });
                 } catch (e) { console.warn('云备份：读取配置失败', e); }
@@ -20327,29 +20326,10 @@
                 const e = H.map.get(tid); if (!e) return;
                 H.map.delete(tid); e.destroy(); hub.emit();
             }
-            // 旧版（只有一个备份位置）的数据搬到 t1:*
-            async function migrate() {
-                let order = await csbKvGet('targets').catch(() => null);
-                if (Array.isArray(order)) return order;
-                order = [];
-                const old = await csbKvGet('config').catch(() => null);
-                if (old) {
-                    for (const k of ['config', 'state', 'sharedBase']) {
-                        const v = await csbKvGet(k).catch(() => undefined);
-                        if (v !== undefined) { await csbKvSet('t1:' + k, v); await csbKvDel(k); }
-                    }
-                    // 以前的版本都是自动备份；按新的默认改为手动，并在界面上提示一次（可以在“同步方式”里改回自动）
-                    const cfg = { ...old, mode: old.mode || 'manual' };
-                    if (!old.mode && old.deviceId) H.migrated = true;
-                    await csbKvSet('t1:config', cfg);
-                    if (old.deviceId) { order = ['t1']; await saveSettings(pick({ ...U.DEFAULTS, ...cfg })); }
-                }
-                await csbKvSet('targets', order);
-                return order;
-            }
             async function init() {
                 try {
-                    H.order = await migrate();
+                    const order = await csbKvGet('targets').catch(() => null);
+                    H.order = Array.isArray(order) ? order : [];
                     H.settings = (await csbKvGet('settings').catch(() => null)) || null;
                 } catch (e) { console.warn('云备份：读取配置失败', e); }
                 for (const tid of H.order) {
@@ -20357,16 +20337,9 @@
                     H.map.set(tid, e);
                 }
                 await Promise.all(H.order.map(t => H.map.get(t).init()));
-                // v6 去掉了 Google 云端硬盘：记下来在界面上说明一次（云端硬盘里已有的备份文件不受影响）
-                H.removedDrive = H.order.some(t => { const c = H.map.get(t).S.cfg; return !!(c && c.provider === 'gdrive' && c.deviceId); });
                 // 配置损坏/未完成的位置不算
-                const broken = H.order.filter(t => { const e = H.map.get(t); return !(e.S.cfg && e.S.cfg.deviceId && e.PROVIDERS[e.S.cfg.provider || 'github']); });   // 包括已不再支持的服务（旧版的 OneDrive、Google 云端硬盘）
-                if (broken.length) { for (const t of broken) { const e = H.map.get(t); H.map.delete(t); e.destroy(); for (const k of ['config', 'state', 'sharedBase', 'token', 'oauth']) await csbKvDel(t + ':' + k).catch(() => {}); } /* 清干净：以后新加的位置可能复用这个编号 */ H.order = H.order.filter(t => !broken.includes(t)); await csbKvSet('targets', H.order).catch(() => {}); }
-                // 网盘时代留下的数据：应用凭据、登录中途的临时数据、云端硬盘的大小上限
-                if (await csbKvGet('apps').catch(() => null)) await csbKvDel('apps').catch(() => {});
-                try { localStorage.removeItem('JSOS_CLOUD_OAUTH'); } catch (_) {}
-                if (H.settings && 'maxMBDrive' in H.settings) { const s = { ...H.settings }; delete s.maxMBDrive; await saveSettings(s); }
-                if (!H.settings && list().length) await saveSettings(pick(list()[0].S.cfg));
+                const broken = H.order.filter(t => { const c = H.map.get(t).S.cfg; return !(c && c.deviceId); });
+                if (broken.length) { for (const t of broken) { const e = H.map.get(t); H.map.delete(t); e.destroy(); for (const k of ['config', 'state', 'sharedBase']) await csbKvDel(t + ':' + k).catch(() => {}); } /* 清干净：以后新加的位置可能复用这个编号 */ H.order = H.order.filter(t => !broken.includes(t)); await csbKvSet('targets', H.order).catch(() => {}); }
                 H.loaded = true;
                 hub.emit();
             }
@@ -20412,12 +20385,12 @@
                 isAuto: () => (H.settings || {}).mode === 'auto',
                 on: fn => { H.listeners.add(fn); return () => H.listeners.delete(fn); },
                 explain: e => (e && e.tid && H.map.get(e.tid) ? H.map.get(e.tid) : U).explain(e),
-                // 兼容旧接口：只有一个备份位置时就是它
+                // 简写：当前的备份位置
                 get S() { return primary().S; }
             };
             ['fmtAgo', 'fmtDate', 'stamp', 'normPath', 'mapToLocal', 'guessDeviceName', 'parseRepo', 'testConnection']
                 .forEach(k => { api[k] = (...a) => U[k](...a); });
-            // 兼容旧接口：直接 CSB.connect(...) 时，没有备份位置就新建一个
+            // 简写：CSB.connect(...) 时没有备份位置就新建一个
             api.connect = async o => { const e = list()[0] || [...H.map.values()].find(x => x.tid !== '_util') || await newTarget(); return e.connect(o); };
             api.PROVIDERS = U.PROVIDERS;
             return api;
@@ -20758,7 +20731,7 @@
             const e = CSB.list()[0]; if (!e) return null;
             const p = e.S.preview;
             if (p && p.big && !csbPendStale(e)) return p.big;
-            return e.S.big || (p && p.big) || null;   // null = 还不知道（升级后还没备份过一次）
+            return e.S.big || (p && p.big) || null;   // null = 还不知道（还没备份过）
         }
         // 改上限之前先看到影响：每个选项下有几个文件不会上传
         function csbLimitHint() {
@@ -21288,9 +21261,6 @@
             CSB.init().then(() => {
                 cfsInit();
                 csbLive();
-                if (CSB.H.removedDrive) Notify.info('已移除 Google 云端硬盘', CSB.list().length ? '云备份现在只支持 GitHub，GitHub 备份照常进行。云端硬盘里已有的备份文件没有动，需要时可以在网盘网页上下载。'
-                    : '云备份现在只支持 GitHub。云端硬盘里已有的备份文件没有动；要继续备份，请在 设置 → 云备份 里连接 GitHub 私有仓库。');
-                else if (CSB.H.migrated) Notify.info('云备份已更新', '现在默认手动备份：想备份时打开 设置 → 云备份 点“备份”。也可以在“同步方式”里改回自动备份。');
             });
         }
 
